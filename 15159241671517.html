@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>
+    
+  3.1.6 第6章 服务器硬件优化 - 安红雷 - AnHonglei ‘s Blog
+  
+
+  </title>
+  <meta name="author" content="">
+  <meta name="description" content="1111">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="asset/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="atom.xml" rel="alternate" title="AnHonglei ‘s Blog" type="application/atom+xml">
+  <script src="asset/js/modernizr-2.0.js"></script>
+  <script src="asset/js/jquery.min.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/solarized_light.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <style type="text/css">
+  .cat-children-p{ padding: 6px 0px;}
+  .hljs{background: none;}
+  </style>
+  <script type="text/javascript">
+  var isAddSildbar = true;
+  </script>
+  <script src="asset/js/octopress.js" type="text/javascript"></script>
+</head>
+<script type="text/javascript">
+//链接新开窗口
+function addBlankTargetForLinks () {
+  $('a[href^="http"]').each(function(){
+      $(this).attr('target', '_blank');
+  });
+}
+$(document).ready(function(event) {
+  addBlankTargetForLinks();
+});
+</script>
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="index.html">AnHonglei ‘s Blog</a></h1>
+  
+    <h2>1111</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.anhaoker.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+
+  <li id=""><a target="self" href="index.html">Home</a></li>
+
+  <li id=""><a target="_self" href="archives.html">Archives</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content"> 
+<div>
+	<article class="hentry" role="article">
+	<header>
+			  	<h1 class="entry-title">3.1.6 第6章 服务器硬件优化 - 安红雷</h1>
+				<p class="meta"><time datetime="2018-01-14T18:02:47+08:00" pubdate data-updated="true">2018/1/14</time></p>
+			 </header>
+		  	<div class="entry-content">
+			  	<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+课程要点：<br/>
+硬件优化的成本较高，但是效果却不是最有效的一种方式 </p>
+
+<h3 id="toc_0">CPU的选择</h3>
+
+<p>根据MYSQL的特性来选择cpu，参考的因素有：<br/>
+1、mysql的一些工作只能使用到单核CPU(要求单核速度更快的CPU)<br/>
+一个sql的执行只能用到一个CPU<br/>
+复制进程也只能用到一个CPU</p>
+
+<p>2、mysql不同的版本对cpu核数的支持并不是越多越快有一定的限制。<br/>
+5.5建议不要超过32核的CPU，过多会导致性能下降</p>
+
+<p>总结，建议选择单核处理速度更快的CPU，不要迷信过多的核数</p>
+
+<h3 id="toc_1">硬盘的选择</h3>
+
+<p>1、raid选择：<br/>
+根据不同raid的特性针对性的选择不同场景的类型<br/>
+以写为主，raid0<br/>
+以读为主，raid1,raid5<br/>
+安全为主，raid1,raid5<br/>
+ raid0+1或1+0<br/>
+ 2、磁盘阵列的选择<br/>
+ SNA或NAT是否适合数据库？<br/>
+ 1、常用于高可用解决方案<br/>
+ 2、顺序读写效率很高，但是随机读写不如人意<br/>
+ 3、数据库随机读写比率很高。</p>
+
+<h3 id="toc_2">3. 对于本章9个节点的学习，做好总结的学习笔记。</h3>
+
+<p>安红雷、刘宏伟、王恩志可以给予运维环境方面的支持。<br/>
+作业：<br/>
+查看视频，针对以上9个学习点，形成笔记，转换PDF上传至Seafile。<br/>
+注意事项：<br/>
+完成学习后，修改计划完成日期为真实完成日期。</p>
+
+			</div>
+
+		
+	  
+		<footer>
+		 <p class="meta">
+
+			<strong>Categories:</strong>&nbsp; 
+			<span class="categories">
+			
+			    <a class='category' href='%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.html'>性能优化</a>&nbsp;
+			 
+			</span>
+		    </p>
+		    <p class="meta">
+		      
+		 </p>
+	    
+		<div class="sharing">
+		  22222
+          
+
+          
+
+		</div>
+
+	    <p class="meta">
+	    
+	        <a class="basic-alignment left" href="15168707048085.html" 
+	        title="Previous Post: DBA学习考试题">&laquo; DBA学习考试题</a>
+	    
+	    
+	        <a class="basic-alignment right" href="15159241218009.html" 
+	        title="Next Post: 3.1.5 第5章 系统配置优化 - 安红雷">3.1.5 第5章 系统配置优化 - 安红雷 &raquo;</a>
+	    
+	    </p>
+	  </footer>
+	</article>
+</div>
+ <aside class="sidebar"> 
+
+	<section>
+	  <h1>Categories</h1>
+	  <ul id="recent_posts">
+	  
+	      <li class="post">
+	        <a href="mysql.html"><strong>mysql&nbsp;(8)</strong></a>
+	         <p class="cat-children-p"> 
+	        
+	        	<a href="DBA%E5%AD%A6%E4%B9%A0.html">DBA学习&nbsp;(7)</a>&nbsp;&nbsp;
+	        
+	         </p> 
+	      </li>
+	   
+	  </ul>
+	</section>
+	<section>
+	  <h1>Recent Posts</h1>
+	  <ul id="recent_posts">
+	  
+	      
+		      <li class="post">
+		        <a href="15168067802180.html">将基于日志的复制变为基于事务的日志</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="15168027270568.html">主从复制</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="15168707048085.html">DBA学习考试题</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="15159241671517.html">3.1.6 第6章 服务器硬件优化 - 安红雷</a>
+		      </li>
+	     
+	  
+	      
+		      <li class="post">
+		        <a href="15159241218009.html">3.1.5 第5章 系统配置优化 - 安红雷</a>
+		      </li>
+	     
+	  
+	      
+	  
+	      
+	  
+	      
+	   
+	  </ul>
+	</section>
+	
+</aside> </div></div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 -  -
+  <span class="credit">Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; Theme by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+
+  
+    
+
+<script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+3333
+</body>
+</html>
