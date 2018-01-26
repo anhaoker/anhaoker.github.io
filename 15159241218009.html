@@ -1,0 +1,416 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  3.1.5 第5章 系统配置优化 - 安红雷 - 安红雷
+  
+  </title>
+ <meta name="description" content="">
+ <link href="atom.xml" rel="alternate" title="安红雷" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">安红雷</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 安红雷</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>mysql</label></li>
+
+          
+            <li><a title="DBA学习考试题" href="15168707048085.html">DBA学习考试题</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Hadoop</label></li>
+
+          
+            <li><a title="sqoop 部署安装文档" href="15106597066489.html">sqoop 部署安装文档</a></li>
+          
+            <li><a title="hadoop 2+6 高可用集群部署流程" href="15055436765027.html">hadoop 2+6 高可用集群部署流程</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>mysql</span></li>
+                        
+                          <li><a title="DBA学习考试题" href="15168707048085.html">DBA学习考试题</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Hadoop</span></li>
+                        
+                          <li><a title="sqoop 部署安装文档" href="15106597066489.html">sqoop 部署安装文档</a></li>
+                        
+                          <li><a title="hadoop 2+6 高可用集群部署流程" href="15055436765027.html">hadoop 2+6 高可用集群部署流程</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>3.1.5 第5章 系统配置优化 - 安红雷</h1>
+
+<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+课程要点：</p>
+
+<h3 id="toc_0">操作系统配置优化</h3>
+
+<p>数据库是基于操作系统的，目前大多数mysql都是安装在linux系统之上的，对于操作系统的一些参数配置也会影响到mysql的性能，</p>
+
+<h4 id="toc_1">内核文件配置——/etc/sysctl.conf</h4>
+
+<p><strong>网络方面</strong></p>
+
+<pre><code>增加tcp支持的队列数
+net.ipv4.tcp_max_syn_backlog = 65535
+
+#减少断开连接时，资源回收(如：netstat -antlp 中的time wait 和time out 的连接数)
+net.ipv4.tcp_max_tw_buckets = 8000
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_tw_recycle = 1
+net.ipv4.tcp_fin_timeout = 10
+
+
+</code></pre>
+
+<h4 id="toc_2">打开文件连接数</h4>
+
+<p><strong>查看或修改打开文件数量的限制</strong></p>
+
+<pre><code>root@test-mysql-ha-master:~ # ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 31205
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) unlimited
+open files                      (-n) 65536
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 31205
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+
+root@test-mysql-ha-master:~ # tail -5 /etc/security/limits.conf    
+
+# End of file
+
+* soft nofile 65536
+* hard nofile 65536
+
+</code></pre>
+
+<h4 id="toc_3">系统其他</h4>
+
+<p>1、防火墙——对网络会有损耗，特别是对连接数据高的服务器，影响更大<br/>
+2、selinux——对系统性能有影响</p>
+
+<h3 id="toc_4">mysql配置文件优化</h3>
+
+<p>mysql可以通过启动时指定配置参数和使用配置文件两种方法进行配置。</p>
+
+<pre><code>查找配置文件的方法：
+root@anhonglei-test-bjqw:~ # mysqld --verbose --help | grep -A 1 &#39;Default option&#39;
+Default options are read from the following files in the given order:
+/etc/my.cnf /etc/mysql/my.cnf /usr/local/mysql-5.7.20/etc/my.cnf ~/.my.cnf 
+
+注：如果多个位置存在配置文件，则后面的会覆盖前面的！！！
+
+</code></pre>
+
+<p><strong>常用参数说明：</strong></p>
+
+<p>innodb_buffer_pool_size<br/>
+```</p>
+
+<h1 id="toc_5">非常重要的一个参数，用于配置innodb的缓冲池：<strong>如果单独的数据库中只有innodb表，推荐配置量为总内存的75%或尽可能大于所有引擎表和索引大小之和</strong></h1>
+
+<p>innodb_buffer_pool_size &gt;= total MB</p>
+
+<h1 id="toc_6">如何使用mysql 命令行 查看mysql表大小、数据大小、索引大小</h1>
+
+<p>select * from information_schema.TABLES <br/>
+where information_schema.TABLES.TABLE_SCHEMA=&#39;databasename&#39; <br/>
+and information_schema.TABLES.TABLE_NAME=&#39;tablename&#39;\G</p>
+
+<p>返回结果:</p>
+
+<p>*************************** 1. row ***************************<br/>
+  TABLE_CATALOG: def<br/>
+   TABLE_SCHEMA: databasename<br/>
+     TABLE_NAME: tablename<br/>
+     TABLE_TYPE: BASE TABLE<br/>
+         ENGINE: MyISAM<br/>
+        VERSION: 10<br/>
+     ROW_FORMAT: Dynamic<br/>
+     TABLE_ROWS: 6422930<br/>
+ AVG_ROW_LENGTH: 213<br/>
+    DATA_LENGTH: 1370884700<br/>
+MAX_DATA_LENGTH: 281474976710655<br/>
+   INDEX_LENGTH: 412930048<br/>
+      DATA_FREE: 0<br/>
+ AUTO_INCREMENT: 6422931<br/>
+    CREATE_TIME: 2012-05-11 05:00:02<br/>
+    UPDATE_TIME: 2012-05-22 15:12:06<br/>
+     CHECK_TIME: 2012-05-11 09:58:52<br/>
+TABLE_COLLATION: utf8_general_ci<br/>
+       CHECKSUM: NULL<br/>
+ CREATE_OPTIONS: <br/>
+  TABLE_COMMENT: &#39;table comment&#39;<br/>
+1 row in set (0.00 sec)</p>
+
+<p>其中：<br/>
+information_schema.TABLES.TABLE_SCHEMA = ‘databasename’ and information_schema.TABLES.TABLE_NAME = ‘tablename’</p>
+
+<p>信息存储在information_schema.TABLES这个表中，TABLE_SCHEMA 对应数据库名，TABLE_NAME 对应表名。</p>
+
+<h1 id="toc_7">TABLE_ROWS 代表拥有的数据行数。</h1>
+
+<h1 id="toc_8">总大小 = DATA_LENGTH(数据大小) + INDEX_LENGTH(索引大小)</h1>
+
+<p>结果以字节为单位，除1024为K，除1048576(=1024*1024)为M。</p>
+
+<p>--本篇文章转自：<a href="http://digdeeply.org/archives/05222029.html">http://digdeeply.org/archives/05222029.html</a></p>
+
+<pre><code>innodb_buffer_pool_instances
+可以控制缓冲池的个数，默认情况下只有一个缓冲池——5.5之后新加参数（主要作用是把缓冲池分成多少份，因为有些资源是独占资源的，这样就可以增加并发性，例：4份或8份）
+
+innodb_log_buffer_size
+innodb log 缓冲的大小，由于日志最长每秒钟就会刷新所以一般不用太大（能够存储1秒的事务日志的大小就可以了）。
+
+innodb_flush_log_at_trx_commit
+关键参数，对innodb的IO效率影响很大（决定多长时间将数据库的变更操作刷新到磁盘）。默认值为1，可以取0（每1秒钟刷新日志到磁盘中），1（每一次提交变更都刷新到磁盘——最安全但也最耗IO），2（每一次提交将日志刷新到缓冲区，每1秒钟将缓冲区的日志刷新到磁盘——最多丢失1秒的数据）三个值，一般建议设为2，但如果数据安全性要求比较高则使用默认值1
+
+innodb_read_io_threads
+innodb_write_io_threads
+这两个参数决定了innodb读写的IO进程数，默认为4；
+根据CPU的核数和读写的负载情况去调整，到底是读负载大还是写负载大，灵活调整
+
+innodb_file_per_table
+关键参数，控制innodb每一个表使用独立的表空间，默认为OFF，也就是所有表都会建立在共享表空间中，
+坏处：
+1、这样就会导致共享表空间的IO成为一个瓶颈，写入共享表空间是按顺序去写入的，因为只有一个文件，所以并发写入时就会占用大量的IO，效率就会降低。
+2、innodb共享表空间是无法收缩的，如果要收缩共享表空间，就需要将期中的所有数据导出来，然后再导进去进行收缩空间。
+建议开启：这就针对每一个表都会有一个临时表空间，当对一个表进行删除或truce操作时就会马上回收这部分的表空间。也由于生成了多个文件所以在并发读写时效率会提高
+
+
+innodb_stats_on_metadata
+决定了mysql在什么情况下会刷新innodb表的统计信息
+对于数据库优化器如何使用表中的索引，是需要借助于表中的统计信息的。通常情况下要对表的统计信息进行刷新。以保持优化器能正确的使用到正确的索引，
+如果统计信息的刷新频率较高的话，也会影响数据库的性能，默认情况下mysql在查询一些系统表，比如说：information下的一些表结构时，或使用show create table 时，这时都会对这些表的统计信息进行刷新（这时侯是没必须刷新的）所以建议关闭这种刷新，参数设置为OFF，而是改成定时的手动刷新
+
+###使用第三方配置工具优化MYSQL配置
+percon configuration wizard  
+第三方配置工具网址：https//tools.percona.com/wizard
+回答几个问题：
+![](media/15159241218009/15165005927856.jpg)
+1、定义服务器的角色：生产还是测试
+2、服务器是否是专用的服务器，有没有复用的情况，建议独立使用
+3、服务器负载的类型是什么（应用场景：oltp/olap——是分析型的数据库、统计型数据库还是以读为主写为辅的数据库、）
+4、服务器的集群角色，是master还是slave
+
+第二页
+![](media/15159241218009/15165009499312.jpg)
+1、服务器的类型，是硬件还是云
+2、是否使用虚拟化技术
+3、存储硬盘的类型
+4、CPU的数量，以超线程为单位：如两个8核，2X8X2(超线程)
+5、内存的数量
+6、操作系统的类型
+7、表的数量
+
+第三页：
+![](media/15159241218009/15165012067717.jpg)
+1、数据库的版本
+2、数据库存放的位置 
+3、引擎的选择
+4、mysql选择的版本，社区版还是企业版
+
+第四页：——此时会给出一个建议（默认即可）
+![](media/15159241218009/15165013104789.jpg)
+1、innodb buffer的大小
+2、log大小
+3、设置innodb的存储默认值
+4、io类型
+5、等
+
+
+第五页——此时会给出建议值
+![](media/15159241218009/15165015457610.jpg)
+系统变量的设置
+对于config the table cache  可以设置成 1024（根据表的数据量来里德配置），其他的默认即可
+
+第六页——安全相关的配置
+![](media/15159241218009/15165016619741.jpg)
+为了保证数据的一致性全选即可，
+
+第七页：
+![](media/15159241218009/15165017377912.jpg)
+输入服务器的机器名并同意
+
+设置收配置的信息
+![](media/15159241218009/15165017845238.jpg)
+
+
+这些只是一个建议而已
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###3. 对于本章9个节点的学习，做好总结的学习笔记。
+
+
+
+
+
+
+安红雷、刘宏伟、王恩志可以给予运维环境方面的支持。
+作业：
+查看视频，针对以上9个学习点，形成笔记，转换PDF上传至Seafile。
+注意事项：
+完成学习后，修改计划完成日期为真实完成日期。
+
+
+
+</code></pre>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15159241671517.html"  title="Previous Post: 3.1.6 第6章 服务器硬件优化 - 安红雷">&laquo; 3.1.6 第6章 服务器硬件优化 - 安红雷</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15159240750033.html" 
+	        title="Next Post: 3.1.4 第4章 数据库结构优化 - 安红雷">3.1.4 第4章 数据库结构优化 - 安红雷 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15159241218009.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>

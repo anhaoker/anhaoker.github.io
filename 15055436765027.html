@@ -1,0 +1,783 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  hadoop 2+6 高可用集群部署流程 - 安红雷
+  
+  </title>
+ <meta name="description" content="">
+ <link href="atom.xml" rel="alternate" title="安红雷" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">安红雷</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 安红雷</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>mysql</label></li>
+
+          
+            <li><a title="DBA学习考试题" href="15168707048085.html">DBA学习考试题</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Hadoop</label></li>
+
+          
+            <li><a title="sqoop 部署安装文档" href="15106597066489.html">sqoop 部署安装文档</a></li>
+          
+            <li><a title="hadoop 2+6 高可用集群部署流程" href="15055436765027.html">hadoop 2+6 高可用集群部署流程</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>mysql</span></li>
+                        
+                          <li><a title="DBA学习考试题" href="15168707048085.html">DBA学习考试题</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Hadoop</span></li>
+                        
+                          <li><a title="sqoop 部署安装文档" href="15106597066489.html">sqoop 部署安装文档</a></li>
+                        
+                          <li><a title="hadoop 2+6 高可用集群部署流程" href="15055436765027.html">hadoop 2+6 高可用集群部署流程</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>hadoop 2+6 高可用集群部署流程</h1>
+
+<p>拷贝数据目录如下：<br/>
+hadoop hive spark scala azkaban zookeeper</p>
+
+<p>2、新环境准备：<br/>
+安装java<br/>
+cd /usr/local/src/; wget <a href="http://bjqw-dl.bjtuling.com:8180/java/init_jdk_1.8.sh">http://bjqw-dl.bjtuling.com:8180/java/init_jdk_1.8.sh</a> ;sh init_jdk_1.8.sh</p>
+
+<p>配置环境变量：<br/>
+vim /etc/profile.d/server_config.sh<br/><br/>
+PATH=\(PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin<br/>
+PATH=\)PATH:/usr/local/zookeeper/bin:/usr/local/zookeeper/sbin<br/>
+PATH=\(PATH:/usr/local/kafka/bin:/usr/local/kafka/sbin<br/>
+PATH=\)PATH:/usr/local/hive/bin:/usr/local/hive/sbin<br/>
+PATH=\(PATH:/usr/local/scala/bin:/usr/local/scala/sbin<br/>
+PATH=\)PATH:/usr/local/spark/bin:/usr/local/spark/sbin<br/>
+export HADOOP_HOME=/usr/local/hadoop<br/>
+export ZOOKEEPER_HOME=/usr/local/zookeeper<br/>
+export KAFKA_HOME=/usr/local/kafka<br/>
+export HIVE_HOME=/usr/local/hive<br/>
+export SCALA_HOME=/usr/local/scala<br/>
+export SPARK_HOME=/usr/local/spark<br/>
+~</p>
+
+<p>修改HOSTS主机名（生产的）：hostnamectl --static set-hostname <br/>
+vim /etc/hosts<br/>
+172.18.100.211   hdp01.bd-yg.com<br/>
+172.18.100.212   hdp02.bd-yg.com<br/>
+172.18.100.213   hdp03.bd-yg.com<br/>
+172.18.100.214   hdp04.bd-yg.com<br/>
+172.18.100.215   hdp05.bd-yg.com<br/>
+172.18.100.216   hdp06.bd-yg.com<br/>
+172.18.100.217   hdp07.bd-yg.com<br/>
+172.18.100.218   hdp08.bd-yg.com</p>
+
+<p>免密SSH登陆<br/>
+su - hadoop<br/>
+mkdir .ssh<br/>
+chmod 700 ~/.ssh/</p>
+
+<h2 id="toc_0">ssh-keygen -t rsa -b 3072</h2>
+
+<h2 id="toc_1">7d:3a:d4:c1:21:83:f6:e9:9c:cb:3e:c2:c8:df:c6:b4 hadoop@hadoop01</h2>
+
+<p>cat id_rsa.pub &gt; authorized_keys<br/>
+拷贝两台namenode的id_rsa.pub  ——集群所有机器hadoop用户下的.ssh/authorized_keys<br/>
+注：MASTER需添加自己的公钥（主主互登，datanode全部）</p>
+
+<p>chmod 700 ~/.ssh<br/>
+chmod 600 ~/.ssh/*</p>
+
+<p>ssh hadoop02<br/>
+注：非默认端口修改客户端配置：/etc/ssh/ssh_config（/etc/ssh/sshd_config为服务器配置）<br/>
+vim /etc/ssh/ssh_config<br/>
+Port 59120</p>
+
+<p>关闭防火墙：(调整完后，组内互访不限或开通相应端口)<br/>
+/etc/init.d/iptables stop</p>
+
+<p>3、配置HADOOP(资源使用情况，数据存放目录，高可用配置。。。./yarn-site.xml/./core-site.xml//hdfs-site.xml//mapred-site.xml:主机名)<br/>
+cd /usr/local/</p>
+
+<p>ln -s hadoop-2.7.3 hadoop<br/>
+ln -s hive-1.2.1 hive<br/>
+ln -s scala-2.11.8 scala<br/>
+ln -s spark-2.1.1-bin-hadoop2.7 spark <br/>
+ln -s zookeeper-3.4.9 zookeeper</p>
+
+<h2 id="toc_2">vim /usr/local/hadoop/etc/hadoop/yarn-site.xml</h2>
+
+<p>&lt;!-- 高可用项 ，开启rm的ha--&gt;<br/>
+<configuration><br/><br/>
+        &lt;!-- 开启RM高可靠 --&gt;<br/><br/>
+        <property><br/><br/>
+                <name>yarn.resourcemanager.ha.enabled</name><br/><br/>
+                <value>true</value><br/><br/>
+        </property><br/><br/>
+        &lt;!-- 指定RM的cluster id --&gt;<br/><br/>
+        <property><br/><br/>
+                <name>yarn.resourcemanager.cluster-id</name><br/><br/>
+                <value>RM_HA_ID</value><br/><br/>
+        </property><br/><br/>
+        &lt;!-- 指定RM的名字 --&gt;<br/><br/>
+        <property><br/><br/>
+                <name>yarn.resourcemanager.ha.rm-ids</name><br/><br/>
+                <value>rm1,rm2</value><br/><br/>
+        </property><br/><br/>
+        &lt;!-- 分别指定RM的地址 --&gt;<br/><br/>
+        <property><br/><br/>
+                <name>yarn.resourcemanager.hostname.rm1</name><br/><br/>
+                <value>hadoop01.bd-yg.com</value><br/><br/>
+        </property><br/><br/>
+        <property><br/><br/>
+                <name>yarn.resourcemanager.hostname.rm2</name><br/><br/>
+                <value>hadoop02.bd-yg.com</value><br/><br/>
+        </property><br/><br/>
+        <property><br/><br/>
+                <name>yarn.resourcemanager.recovery.enabled</name><br/><br/>
+                <value>true</value><br/><br/>
+        </property>  </p>
+
+<pre><code>    &lt;property&gt;
+            &lt;name&gt;yarn.resourcemanager.store.class&lt;/name&gt;  
+            &lt;value&gt;org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore&lt;/value&gt;  
+    &lt;/property&gt;
+    &lt;!-- 指定zk集群地址 --&gt;
+    &lt;property&gt;  
+            &lt;name&gt;yarn.resourcemanager.zk-address&lt;/name&gt;
+            &lt;value&gt;hadoop03.bd-yg.com:2181,hadoop04.bd-yg.com:2181,hadoop05.bd-yg.com:2181&lt;/value&gt;  
+    &lt;/property&gt;
+    &lt;property&gt;
+            &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+            &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+    &lt;/property&gt;
+</code></pre>
+
+<p></configuration>  </p>
+
+<!-- 以下为资源配置项 -->
+
+<p><property><br/>
+        <name>yarn.nodemanager.resource.memory-mb</name><br/>
+        &lt;!-- 表示该节点上YARN可使用的物理内存总量，默认是8192（MB） --&gt;<br/>
+        <value>61440</value><br/>
+    </property></p>
+
+<pre><code>&lt;property&gt;
+    &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;
+    &lt;!-- MapReduce作业时，每个task最多可申请内存 --&gt;
+    &lt;value&gt;61440&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.resource.cpu-vcores&lt;/name&gt;
+    &lt;!-- 该节点上YARN可使用的虚拟CPU个数，默认是8 --&gt;
+    &lt;value&gt;4&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;yarn.scheduler.maximum-allocation-vcores&lt;/name&gt;
+    &lt;!-- 单个任务可申请的最多虚拟CPU个数，默认是32 --&gt;
+    &lt;value&gt;72&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<!-- 目录位置项 -->
+
+<pre><code>&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;
+    &lt;!-- 中间结果存放位置。注意，这个参数通常会配置多个目录，已分摊磁盘IO负载。 --&gt;
+    &lt;value&gt;/data/hadoop/data/localdir&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.nodemanager.log-dirs&lt;/name&gt;
+    &lt;!-- 日志存放位置。注意，这个参数通常会配置多个目录，已分摊磁盘IO负载。 --&gt;
+    &lt;value&gt;/data/logs/hadoop&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<!-- 主机名称项 -->
+
+<pre><code>&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:8032&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:8030&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:8031&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:8033&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:8088&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+     &lt;name&gt;yarn.log.server.url&lt;/name&gt;
+     &lt;value&gt;http://hdp01-data-bjlt.bjtuling.com:19888/jobhistory/logs&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<hr/>
+
+<h2 id="toc_3">vim /usr/local/hadoop/etc/hadoop/core-site.xml</h2>
+
+<!-- 添加zk -->
+
+<pre><code>&lt;property&gt;
+    &lt;name&gt;fs.defaultFS&lt;/name&gt;
+    &lt;value&gt;hdfs://masters&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+   &lt;name&gt;ha.zookeeper.quorum&lt;/name&gt;       
+   &lt;value&gt;hadoop03.bd-yg.com:2181,hadoop04.bd-yg.com:2181,hadoop05.bd-yg.com:2181&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+    &lt;value&gt;/data/hadoop/tmp&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<hr/>
+
+<h2 id="toc_4">vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml</h2>
+
+<!--高可用配置 -->  
+
+<!--指定hdfs的nameservice为masters，需要和core-site.xml中的保持一致 -->  
+
+<pre><code>    &lt;property&gt;  
+           &lt;name&gt;dfs.nameservices&lt;/name&gt;  
+           &lt;value&gt;masters&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- masters下面有两个NameNode，分别是hadoop01.bd-yg.com,hadoop02.bd-yg.com--&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.ha.namenodes.masters&lt;/name&gt;  
+           &lt;value&gt;hadoop01.bd-yg.com,hadoop02.bd-yg.com&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- Master的RPC通信地址 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.namenode.rpc-address.masters.hadoop01.bd-yg.com&lt;/name&gt;  
+           &lt;value&gt;hadoop01.bd-yg.com:8020&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- Master的http通信地址 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.namenode.http-address.masters.hadoop01.bd-yg.com&lt;/name&gt;  
+           &lt;value&gt;hadoop01.bd-yg.com:50070&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- hadoop02.bd-yg.com的RPC通信地址 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.namenode.rpc-address.masters.hadoop02.bd-yg.com&lt;/name&gt;  
+           &lt;value&gt;hadoop02.bd-yg.com:8020&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- hadoop02.bd-yg.com的http通信地址 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.namenode.http-address.masters.hadoop02.bd-yg.com&lt;/name&gt;  
+           &lt;value&gt;hadoop02.bd-yg.com:50070&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- 指定NameNode的元数据在JournalNode上的存放位置 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.namenode.shared.edits.dir&lt;/name&gt;  
+           &lt;value&gt;qjournal://hadoop03.bd-yg.com:8485;hadoop04.bd-yg.com:8485;hadoop05.bd-yg.com:8485/masters&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- 指定JournalNode在本地磁盘存放数据的位置--&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.journalnode.edits.dir&lt;/name&gt;  
+           &lt;value&gt;/data/hadoop/journal&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- 开启NameNode失败自动切换 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.ha.automatic-failover.enabled&lt;/name&gt;  
+            &lt;value&gt;true&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- 配置失败自动切换实现方式 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.client.failover.proxy.provider.masters&lt;/name&gt;  
+           &lt;value&gt;org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- 配置隔离机制方法，多个机制用换行分割，即每个机制暂用一行--&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.ha.fencing.methods&lt;/name&gt;  
+            &lt;value&gt;  
+                    sshfence  
+                    shell(/bin/true)  
+            &lt;/value&gt;  
+    &lt;/property&gt;  
+     &lt;!-- 使用sshfence隔离机制时需要ssh免登陆 --&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.ha.fencing.ssh.private-key-files&lt;/name&gt;  
+           &lt;value&gt;/root/.ssh/id_rsa&lt;/value&gt;  
+    &lt;/property&gt;  
+    &lt;!-- 配置sshfence隔离机制超时时间--&gt;  
+    &lt;property&gt;  
+           &lt;name&gt;dfs.ha.fencing.ssh.connect-timeout&lt;/name&gt;  
+           &lt;value&gt;30000&lt;/value&gt;  
+    &lt;/property&gt;  
+</code></pre>
+
+<!-- 以下2个 property 的配置，是非HA模式下的，即一个集群只有一个 namenode，在这里不可使用 -->
+
+<pre><code>&lt;!-- 
+     配置Secondary NameNode在另外一个节点上，该节点也将作为主节点之一  
+    &lt;property&gt;
+    &lt;name&gt;dfs.namenode.rpc-address&lt;/name&gt;
+    &lt;value&gt;hadoop01.bd-yg.com:8020&lt;/value&gt;
+&lt;/property&gt;
+&lt;property&gt;
+    &lt;name&gt;dfs.http.address&lt;/name&gt;
+    &lt;value&gt;hadoop01.bd-yg.com:50070&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<p>--&gt;</p>
+
+<pre><code>&lt;property&gt;
+    &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+    &lt;value&gt;/data/hadoop/namenode&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+    &lt;value&gt;/data/hadoop/datanode&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<hr/>
+
+<h2 id="toc_5">vim /usr/local/hadoop/etc/hadoop/mapred-site.xml</h2>
+
+<!-- 主机名称项 -->
+
+<pre><code>&lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:10020&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+    &lt;value&gt;hdp01-data-bjlt.bjtuling.com:19888&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;mapred.local.dir&lt;/name&gt;
+    &lt;value&gt;/data/hadoop/tmp/&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+
+<hr/>
+
+<h2 id="toc_6">vim /usr/local/hadoop/etc/hadoop/capacity-scheduler.xml</h2>
+
+<p>&lt;!-- 以下为资源配置项 --&gt;<br/>
+ <property><br/>
+    <name>yarn.scheduler.capacity.root.default.maximum-allocation-vcores</name><br/>
+    <value>4</value><br/>
+    <description> 每个用户可使用的资源限制</description><br/>
+  </property></p>
+
+<p><property><br/>
+    <name>yarn.scheduler.capacity.root.default.maximum-allocation-mb</name><br/>
+    <value>6144</value><br/>
+    <description>    </description></p>
+
+<h2 id="toc_7">  </property></h2>
+
+<p>vim /usr/local/hadoop/etc/hadoop/slaves</p>
+
+<p>172.18.100.213   hdp03.bd-yg.com<br/>
+172.18.100.214   hdp04.bd-yg.com<br/>
+172.18.100.215   hdp05.bd-yg.com<br/>
+172.18.100.216   hdp06.bd-yg.com<br/>
+172.18.100.217   hdp07.bd-yg.com<br/>
+172.18.100.218   hdp08.bd-yg.com<br/>
+~</p>
+
+<p>HIVE配置---<br/>
+vi /usr/local/hive/conf/hive-site.xml<br/>
+  <property><br/>
+    <name>javax.jdo.option.ConnectionURL</name><br/>
+    <value>jdbc:mysql://172.18.100.212:3306/jgxt_hive?createDatabaseIfNotExist=true</value><br/>
+    <description>JDBC connect string for a JDBC metastore</description><br/>
+  </property></p>
+
+<p>创建数据库：<br/>
+mysql -uroot -p -S /tmp/mysql3306.sock<br/>
+create database hive_dev;<br/>
+GRANT ALL PRIVILEGES on <code>hive_dev</code>.* to hive@&#39;172.18.100.211&#39; Identified by &#39;hive&#39;;<br/>
+开防火墙权限</p>
+
+<p>安装配置zooekeeper集群---<br/>
+1、修改配置<br/>
+vim /usr/local/zookeeper/conf/zoo.cfg<br/>
+修改：<br/>
+dataDir=/data/zookeeper/data<br/>
+在最后添加：<br/>
+server.1=hadoop03.bd-yg.com:2888:3888<br/>
+server.2=hadoop04.bd-yg.com:2888:3888<br/>
+server.3=hadoop05.bd-yg.com:2888:3888<br/>
+server.4=hadoop06.bd-yg.com:2888:3888<br/>
+server.5=hadoop07.bd-yg.com:2888:3888</p>
+
+<p>2、将配置好的zookeeper拷贝到其他节点(奇数节点启动)</p>
+
+<p>3、修改hadoop04.bd-yg.com、hadoop05.bd-yg.com对应/usr/local/zookeeper/data/myid内容</p>
+
+<p>mkdir -p /data/zookeeper/data <br/>
+touch /data/zookeeper/data/myid</p>
+
+<p>echo 1 &gt; /data/zookeeper/data/myid<br/>
+echo 2 &gt; /data/zookeeper/data/myid<br/>
+echo 3 &gt; /data/zookeeper/data/myid<br/>
+echo 4 &gt; /data/zookeeper/data/myid<br/>
+echo 5 &gt; /data/zookeeper/data/myid</p>
+
+<p>4、同步<br/>
+tar czf hadoop.tar.gz hadoop-2.7.3/ hive-1.2.1/ scala-2.11.8/ spark-2.1.1-bin-hadoop2.7/ zookeeper-3.4.9/</p>
+
+<p>SLAVE:<br/>
+ln -s hadoop-2.7.3 hadoop<br/>
+ln -s hive-1.2.1 hive<br/>
+ln -s scala-2.11.8 scala<br/>
+ln -s spark-2.1.1-bin-hadoop2.7 spark <br/>
+ln -s zookeeper-3.4.9 zookeeper</p>
+
+<p>启动步骤<br/>
+启动zookeeper集群（分别在Slave上启动zk）<br/>
+/usr/local/zookeeper/bin/zkServer.sh start</p>
+
+<h1 id="toc_8">查看状态：一个leader，两个follower</h1>
+
+<p>/usr/local/zookeeper/bin/zkServer.sh status<br/>
+启动journalnode(分别在zk Slave执行)<br/>
+        hadoop-daemon.sh start journalnode<br/>
+格式化hdfs<br/><br/>
+        hdfs namenode –format<br/>
+active:<br/>
+hadoop-daemon.sh start namenode<br/>
+stanbly:<br/>
+hdfs namenode -bootstrapStandby<br/>
+hadoop-daemon.sh start namenode<br/>
+或将格式化的元数据拷贝到hadoop02.bd-yg.com对应目录<br/>
+        scp -r /data/hadoop/tmp hadoop02.bd-yg.com:/data/hadoop/</p>
+
+<p>格式化zk<br/>
+          hdfs zkfc -formatZK<br/>
+ 启动datanode<br/>
+          hadoop-daemons.sh start datanode<br/>
+namenode:<br/>
+hadoop-daemon.sh start zkfc</p>
+
+<p>启动yarn (生产上可考虑负载：hadoop02.bd-yg.com)<br/>
+            start-yarn.sh<br/>
+            查看resourcemanager是否启动，<br/>
+            yarn-daemon.sh start resourcemanager</p>
+
+<p>以后可以直接使用：start-all.sh</p>
+
+<p>到此，hadoop-2.6.0配置完毕，可以统计浏览器访问:<br/>
+<a href="http://namenodeIP:50070">http://namenodeIP:50070</a>         (active)<br/>
+<a href="http://namenodeIP:50070">http://namenodeIP:50070</a>         (standby)</p>
+
+<p>验证HDFS HA<br/>
+首先向hdfs上传一个文件<br/>
+hadoop fs -put /etc/profile /profile<br/>
+hadoop fs -ls /</p>
+
+<p>然后再kill掉active的NameNode<br/>
+kill -9 <pid of NN></p>
+
+<p>通过浏览器访问：<a href="http://namenodeIP:50070">http://namenodeIP:50070</a>         (active)<br/>
+这个时候Slave1上的NameNode变成了active<br/>
+hadoop fs -ls /<br/>
+刚才上传的文件查看是否存在</p>
+
+<p>手动启动那个挂掉的NameNode<br/>
+hadoop-daemon.sh start namenode</p>
+
+<p>通过浏览器访问：<a href="http://namenodeIP:50070">http://namenodeIP:50070</a>         (standby)</p>
+
+<p>验证YARN：<br/>
+运行一下hadoop提供的demo中的WordCount程序：<br/>
+hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.1.jar wordcount /profile /out<br/>
+hadoop HA集群搭建完成！！！</p>
+
+<p>注：HA模式手动切换namenode状态<br/>
+查看状态：hdfs haadmin -getServiceState nn1</p>
+
+<p>有时候通过网页访问两个namenode的http-address，看到默认的主namenode状态变成了standy，这时可以通过下面命令来实现主namenode的状态切换成active。<br/>
+hdfs haadmin -failover -forcefence -forceactive  nn2  nn1<br/>
+或者：hdfs haadmin -transitionToActive nn1　<br/>
+注意：此处“nn2  nn1”的顺序表示active状态由nn2转换到nn1上、</p>
+
+<p>注意，如果你配置了自动切换，配置文件中是：<br/>
+dfs.ha.automatic-failover.enabled<br/>
+就不能手动切换了，否则会报如下异常：<br/>
+forcefence and forceactive flags not supported with auto-failover enabled.  </p>
+
+<p>HA 自动切换高可用集群的启动和停止。当需要停止和再次启动是什么样的顺序呢？<br/>
+启动集群<br/>
+1、终止zkfc：   在node1、node2上执行 <br/>
+hadoop-daemon.sh stop zkfc</p>
+
+<p>2 、终止datanode：   在node1上执行 <br/>
+hadoop-daemons.sh stop datanode</p>
+
+<p>3 、终止namenode：   在node1、node2上执行 <br/>
+hadoop-daemon.sh stop namenode</p>
+
+<p>4 、终止journalNode：   在node1、node2上执行 <br/>
+hadoop-daemon.sh stop journalnode</p>
+
+<p>5 、终止zk集群<br/>
+ zkServer.sh stop</p>
+
+<p>停止集群<br/>
+1 、启动zkServer集群<br/>
+  在zookeeper Slave上，分别执行:启动后会有QuorumPeerMain的进程<br/>
+zkServer.sh start </p>
+
+<p>2 、启动JournalNode集群<br/>
+  在zookeeper Slave上分别执行：  启动后会有JournalNode进程<br/>
+hadoop-daemon.sh start journalnode</p>
+
+<p>3、 启动NameNode<br/>
+  在namenode主备 上分别执行：启动后会有NameNode进程<br/>
+hadoop-daemon.sh start namenode</p>
+
+<p>4、启动DataNode<br/>
+  在namenode1或namenode2上执行:启动后node1  node2  node3 上会有DataNode进程<br/>
+hadoop-daemons.sh start datanode</p>
+
+<p>5 、启动zkfc<br/>
+  在node1 node2上执行:启动后会有DFSZKFailoverController进程<br/>
+hadoop-daemon.sh start zkfc </p>
+
+<p>上面的这些启动和停止的操作看起来就让人头晕，其实我们可以借助shell脚本来方便的处理。</p>
+
+<p>hadoop namenode -format</p>
+
+<p>/usr/local/hadoop/sbin/start-all.sh</p>
+
+<p>jps</p>
+
+<p>也可以使用命令查看集群是否正常</p>
+
+<pre><code>hadoop dfsadmin -report
+</code></pre>
+
+<h3 id="toc_9">测试hadoop</h3>
+
+<p>在master上执行</p>
+
+<pre><code>echo &#39;hello world&#39; &gt; test1.txt
+echo &#39;hello hadoop&#39; &gt; test2.txt
+hadoop fs -mkdir /input
+hadoop fs -put test* /input/
+hadoop fs -ls /input/
+</code></pre>
+
+<h1 id="toc_10">启动hadoop</h1>
+
+<p>/usr/local/hadoop/sbin/start-all.sh<br/>
+/usr/local/hadoop/sbin/stop-all.sh</p>
+
+<h1 id="toc_11">启动hive</h1>
+
+<p>hive --service metastore &amp;<br/>
+kill <code>ps -ef |grep hive |grep metastore |grep -v grep   |awk &#39;{print $2}&#39;</code></p>
+
+<p>4、启动zookeeper集群（分别启动zk）<br/>
+/usr/local/zookeeper/bin/zkServer.sh start</p>
+
+<h1 id="toc_12">查看状态：一个leader，两个follower</h1>
+
+<p>/usr/local/zookeeper/bin/zkServer.sh status</p>
+
+<p>HOST<br/>
+172.18.100.213   hdp03.bd-yg.com<br/>
+172.18.100.214   hdp04.bd-yg.com<br/>
+172.18.100.215   hdp05.bd-yg.com<br/>
+172.18.100.216   hdp06.bd-yg.com<br/>
+172.18.100.217   hdp07.bd-yg.com</p>
+
+<p>RPC（TCP）服务地址</p>
+
+<p>hdfs: hdp01-data-bjlt.bjtuling.com:8020<br/>
+hive：hdp01-data-bjlt.bjtuling.com:9030</p>
+
+<p>HTTP服务地址</p>
+
+<p>YARN资源管理：<a href="http://hdp01-data-bjlt.bjtuling.com:8088/">http://hdp01-data-bjlt.bjtuling.com:8088/</a><br/>
+YARN节点资源管理：<br/>
+<a href="http://hdp01-data-bjlt.bjtuling.com:8042">http://hdp01-data-bjlt.bjtuling.com:8042</a><br/>
+<a href="http://hdp02-data-bjlt.bjtuling.com:8042/">http://hdp02-data-bjlt.bjtuling.com:8042/</a><br/>
+<a href="http://hdp03-data-bjlt.bjtuling.com:8042/">http://hdp03-data-bjlt.bjtuling.com:8042/</a><br/>
+<a href="http://hdp04-data-bjlt.bjtuling.com:8042/">http://hdp04-data-bjlt.bjtuling.com:8042/</a></p>
+
+<p>Namenode UI：<br/>
+<a href="http://hdp01-data-bjlt.bjtuling.com:50070/">http://hdp01-data-bjlt.bjtuling.com:50070/</a></p>
+
+<p>SecondaryNamenode UI：<br/>
+<a href="http://hdp01-data-bjlt.bjtuling.com:50090/">http://hdp01-data-bjlt.bjtuling.com:50090/</a><br/>
+jobhistory：<a href="http://hdp01-data-bjlt.bjtuling.com:19888/jobhistory">http://hdp01-data-bjlt.bjtuling.com:19888/jobhistory</a></p>
+
+<p>已启动的服务：<br/>
+1、hadoop<br/>
+2、hive</p>
+
+<h1 id="toc_13">启动hadoop</h1>
+
+<p>/usr/local/hadoop/sbin/start-all.sh<br/>
+/usr/local/hadoop/sbin/stop-all.sh</p>
+
+<h1 id="toc_14">启动hive</h1>
+
+<p>hive --service metastore &amp;<br/>
+kill <code>ps -ef |grep hive |grep metastore |grep -v grep   |awk &#39;{print $2}&#39;</code></p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15106597066489.html"  title="Previous Post: sqoop 部署安装文档">&laquo; sqoop 部署安装文档</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15055436765027.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>
