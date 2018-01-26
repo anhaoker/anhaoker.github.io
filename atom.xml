@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-
   <title><![CDATA[An Honglei ’s Blog]]></title>
   <link href="www.anhaoker.com/atom.xml" rel="self"/>
   <link href="www.anhaoker.com/"/>
-  <updated>2018-01-26T22:41:20+08:00</updated>
+  <updated>2018-01-26T22:44:45+08:00</updated>
   <id>www.anhaoker.com/</id>
   <author>
     <name><![CDATA[]]></name>
-    
   </author>
   <generator uri="http://www.coderforart.com/">CoderForArt</generator>
-
   
   <entry>
     <title type="html"><![CDATA[将基于日志的复制变为基于事务的日志]]></title>
     <link href="www.anhaoker.com/15168067802180.html"/>
     <updated>2018-01-24T23:13:00+08:00</updated>
     <id>www.anhaoker.com/15168067802180.html</id>
-    <content type="html"><![CDATA[
-<p><img src="media/15168067802180/15168068352656.jpg" alt=""/></p>
+    <content type="html">
+<![CDATA[<p><img src="media/15168067802180/15168068352656.jpg" alt=""/></p>
 
 <p>5.7之后变更操作将不用重启服务器</p>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -31,8 +28,8 @@
     <link href="www.anhaoker.com/15168027270568.html"/>
     <updated>2018-01-24T22:05:27+08:00</updated>
     <id>www.anhaoker.com/15168027270568.html</id>
-    <content type="html"><![CDATA[
-<p>5.6和5.7半同步复制的不同<br/>
+    <content type="html">
+<![CDATA[<p>5.6和5.7半同步复制的不同<br/>
 <img src="media/15168027270568/15168027711673.jpg" alt=""/></p>
 
 <p>如何实现基于日志点的复制</p>
@@ -281,8 +278,8 @@ root@localhost:performance_schema 11:16:12 &gt;show tables like &#39;replication
 
 
 </code></pre>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -290,8 +287,8 @@ root@localhost:performance_schema 11:16:12 &gt;show tables like &#39;replication
     <link href="www.anhaoker.com/15168707048085.html"/>
     <updated>2018-01-25T16:58:24+08:00</updated>
     <id>www.anhaoker.com/15168707048085.html</id>
-    <content type="html"><![CDATA[
-<p>北斗云谷DBA学习考试题<br/>
+    <content type="html">
+<![CDATA[<p>北斗云谷DBA学习考试题<br/>
 MySQL优化试卷</p>
 
 <p>姓名：        _ 日期：________  成绩：    ____   共6页</p>
@@ -421,8 +418,8 @@ MyISAM：支持 FULLTEXT类型的全文索引 InnoDB：不支持FULLTEXT类型
 <p>3、MySQL在程序和架构方面，可以做哪些优化？</p>
 
 <p>4、SQL类军规要掌握哪些？</p>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -430,8 +427,8 @@ MyISAM：支持 FULLTEXT类型的全文索引 InnoDB：不支持FULLTEXT类型
     <link href="www.anhaoker.com/15159241671517.html"/>
     <updated>2018-01-14T18:02:47+08:00</updated>
     <id>www.anhaoker.com/15159241671517.html</id>
-    <content type="html"><![CDATA[
-<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+    <content type="html">
+<![CDATA[<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
 课程要点：<br/>
 硬件优化的成本较高，但是效果却不是最有效的一种方式 </p>
 
@@ -468,8 +465,8 @@ MyISAM：支持 FULLTEXT类型的全文索引 InnoDB：不支持FULLTEXT类型
 查看视频，针对以上9个学习点，形成笔记，转换PDF上传至Seafile。<br/>
 注意事项：<br/>
 完成学习后，修改计划完成日期为真实完成日期。</p>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -477,8 +474,8 @@ MyISAM：支持 FULLTEXT类型的全文索引 InnoDB：不支持FULLTEXT类型
     <link href="www.anhaoker.com/15159241218009.html"/>
     <updated>2018-01-14T18:02:01+08:00</updated>
     <id>www.anhaoker.com/15159241218009.html</id>
-    <content type="html"><![CDATA[
-<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+    <content type="html">
+<![CDATA[<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
 课程要点：</p>
 
 <h3 id="toc_0">操作系统配置优化</h3>
@@ -717,8 +714,8 @@ percon configuration wizard
 
 
 </code></pre>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -726,8 +723,8 @@ percon configuration wizard
     <link href="www.anhaoker.com/15159240750033.html"/>
     <updated>2018-01-14T18:01:15+08:00</updated>
     <id>www.anhaoker.com/15159240750033.html</id>
-    <content type="html"><![CDATA[
-<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+    <content type="html">
+<![CDATA[<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
 课程要点：</p>
 
 <h3 id="toc_0">选择合适的数据类型</h3>
@@ -841,8 +838,8 @@ root@localhost:sakila 09:18:35 &gt;select inet_ntoa(ipaddress) from sessions;
 查看视频，针对以上9个学习点，形成笔记，转换PDF上传至Seafile。<br/>
 注意事项：<br/>
 完成学习后，修改计划完成日期为真实完成日期。</p>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -850,8 +847,8 @@ root@localhost:sakila 09:18:35 &gt;select inet_ntoa(ipaddress) from sessions;
     <link href="www.anhaoker.com/15159239107244.html"/>
     <updated>2018-01-14T17:58:30+08:00</updated>
     <id>www.anhaoker.com/15159239107244.html</id>
-    <content type="html"><![CDATA[
-<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+    <content type="html">
+<![CDATA[<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
 课程要点：</p>
 
 <h3 id="toc_0">索引的优化</h3>
@@ -1000,8 +997,8 @@ root@anhonglei-test-bjqw:~ #
 查看视频，针对以上9个学习点，形成笔记，转换PDF上传至Seafile。<br/>
 注意事项：<br/>
 完成学习后，修改计划完成日期为真实完成日期。</p>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -1009,8 +1006,8 @@ root@anhonglei-test-bjqw:~ #
     <link href="www.anhaoker.com/15158400343807.html"/>
     <updated>2018-01-13T18:40:34+08:00</updated>
     <id>www.anhaoker.com/15158400343807.html</id>
-    <content type="html"><![CDATA[
-<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
+    <content type="html">
+<![CDATA[<p>慕课网视频地址：<a href="https://www.imooc.com/learn/194">https://www.imooc.com/learn/194</a><br/>
 课程要点：</p>
 
 <h2 id="toc_0">1. 演示数据库我会调配资源提供给大家使用；</h2>
@@ -1862,8 +1859,8 @@ root@localhost:sakila 05:23:07 &gt;explain select film_id,description from sakil
 查看视频，针对以上9个学习点，形成笔记，转换PDF上传至Seafile。<br/>
 注意事项：<br/>
 完成学习后，修改计划完成日期为真实完成日期。</p>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
 </feed>
