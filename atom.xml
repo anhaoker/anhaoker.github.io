@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-
   <title><![CDATA[An Honglei ’s Blog]]></title>
   <link href="www.anhaoker.com/atom.xml" rel="self"/>
   <link href="www.anhaoker.com/"/>
-  <updated>2018-01-26T22:48:15+08:00</updated>
+  <updated>2018-01-26T22:51:31+08:00</updated>
   <id>www.anhaoker.com/</id>
   <author>
     <name><![CDATA[]]></name>
-    
   </author>
-  <generator uri="http://www.mweb.im/">MWeb</generator>
+  <generator uri="http://www.coderforart.com/">CoderForArt</generator>
   
   <entry>
     <title type="html"><![CDATA[欢迎使用 MWeb]]></title>
     <link href="www.anhaoker.com/15018408897884.html"/>
     <updated>2017-08-04T18:01:29+08:00</updated>
     <id>www.anhaoker.com/15018408897884.html</id>
-    <content type="html"><![CDATA[
-<p>首先介绍一下 MWeb 是什么，MWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件。MWeb 使用的是 Github Flavored Markdown 语法，在使用 MWeb 前，建议你一定要去 <a href="http://zh.mweb.im/">MWeb 官网首页</a> 看一下介绍视频，MWeb 官网也做了比较详细的帮助，建议你也看一下大概内容，帮助的网址为：<a href="http://zh.mweb.im/help.html">http://zh.mweb.im/help.html</a>。</p>
+    <content type="html">
+<![CDATA[<p>首先介绍一下 MWeb 是什么，MWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件。MWeb 使用的是 Github Flavored Markdown 语法，在使用 MWeb 前，建议你一定要去 <a href="http://zh.mweb.im/">MWeb 官网首页</a> 看一下介绍视频，MWeb 官网也做了比较详细的帮助，建议你也看一下大概内容，帮助的网址为：<a href="http://zh.mweb.im/help.html">http://zh.mweb.im/help.html</a>。</p>
 
 <h2 id="toc_0">需要您重点注意的</h2>
 
@@ -33,8 +31,8 @@
 <li>给我们发反馈和建议：<a href="mailto:coderforart+233@gmail.com">coderforart+233@gmail.com</a></li>
 <li>在 Mac App Store 上评价 （如果是在 MAS 上购买的话）。</li>
 </ol>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
   <entry>
@@ -42,8 +40,8 @@
     <link href="www.anhaoker.com/15018408897883.html"/>
     <updated>2017-08-04T18:01:29+08:00</updated>
     <id>www.anhaoker.com/15018408897883.html</id>
-    <content type="html"><![CDATA[
-<h2 id="toc_0">Markdown 的设计哲学</h2>
+    <content type="html">
+<![CDATA[<h2 id="toc_0">Markdown 的设计哲学</h2>
 
 <blockquote>
 <p>Markdown 的目標是實現「易讀易寫」。<br/>
@@ -520,8 +518,8 @@ $$  x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
 </ol>
 </div>
-
-]]></content>
+]]>
+    </content>
   </entry>
   
 </feed>
