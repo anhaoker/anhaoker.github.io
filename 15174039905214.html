@@ -1,0 +1,501 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  MySQL 5.7 版本新特性 - An Honglei ’s Blog
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="An Honglei ’s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.anhaoker.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="_self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; An Honglei ’s Blog</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7.html">效率工具</a></li>
+        
+            <li><a href="Mysql.html">Mysql</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>MySQL 5.7 版本新特性</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2018/1/31</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Mysql.html'>Mysql</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>第1章 MySQL服务功能增强<br/>
+第2章 Replication相关增强 <br/>
+第3章 InnoDB引擎增强 <br/>
+第4章 安全及管理方面增强</p>
+
+<p>参考视频：<a href="https://www.imooc.com/learn/533">https://www.imooc.com/learn/533</a></p>
+
+<span id="more"></span><!-- more -->
+
+<h2 id="toc_0">第1章 MySQL服务功能增强</h2>
+
+<h3 id="toc_1">数据库初始方式的变更</h3>
+
+<p>生产临时root密码、数据目录、日志信息等</p>
+
+<pre><code>#Mysql 5.7之前的初始化
+mysql_install_db  --datadir=/data/mysql/3306/data  --user=mysql --basedir=/usr/local/mysql
+
+#Mysql 5.7之后的初始化
+mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/data/mysql/3306/data
+
+</code></pre>
+
+<h3 id="toc_2">支持为表增加计算列</h3>
+
+<p>当表中有一列的数据为其他列的之间通过计算而求得的值，此列则为计算列</p>
+
+<p>计算列分为：虚拟列（virtual——没有被存储在磁盘中）和存储列（stored——会被存储在磁盘中）</p>
+
+<p>在create table 及 alter table 语名中支持增加计算列的方式：<br/>
+col_name data_type[genrated always] as (expression) [virtual | stored ] [ unique [key]] [ comment comment] [ [not] null ] [[primary] key]</p>
+
+<pre><code>#Mysql 5.7 之前——需要通过触发器或视图实现相关的功能（缺点：会影响性能）
+
+root@localhost:test 09:26:51 &gt;create table t(id int auto_increment not null,c1 int,c2 int,c3 int,primary key (id));
+Query OK, 0 rows affected (0.03 sec)
+
+root@localhost:test 09:27:51 &gt;show create table t;
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| t     | CREATE TABLE `t` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `c1` int(11) DEFAULT NULL,
+  `c2` int(11) DEFAULT NULL,
+  `c3` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+**创建插入触发器**
+root@localhost:test 09:28:23 &gt;create trigger inst_t before insert on t for each row each row set new.c3=new.c1+new.c2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;each row set new.c3=new.c1+new.c2&#39; at line 1
+root@localhost:test 09:30:42 &gt;create trigger inst_t before insert on t for each row set new.c3=new.c1+new.c2;         
+Query OK, 0 rows affected (0.02 sec)
+
+root@localhost:test 09:35:16 &gt;show triggers;
++---------------+--------+---------+-----------------------------------------------------------------------------------------------------------------------+--------+------------------------+------------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger       | Event  | Table   | Statement                                                                                                             | Timing | Created                | sql_mode                                                                                                               | Definer        | character_set_client | collation_connection | Database Collation |
++---------------+--------+---------+-----------------------------------------------------------------------------------------------------------------------+--------+------------------------+------------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| deleteorder   | DELETE | orders  | begin insert into arhive_orders(order_num,order_date,cust_id) values(old.order_num, old.order_date, old.cust_id); end | BEFORE | 2017-12-27 22:32:46.35 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| inst_t        | INSERT | t       | set new.c3=new.c1+new.c2                                                                                              | BEFORE | 2018-01-31 21:35:16.21 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| insertevendor | INSERT | vendors | set new.vend_state = upper(new.vend_state)                                                                            | BEFORE | 2017-12-27 22:36:37.96 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| updatevendor  | UPDATE | vendors | set new.vend_state = upper(new.vend_state)                                                                            | BEFORE | 2017-12-27 22:34:53.05 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
++---------------+--------+---------+-----------------------------------------------------------------------------------------------------------------------+--------+------------------------+------------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+4 rows in set (0.00 sec)
+
+root@localhost:test 09:35:45 &gt;insert into t(c1,c2) values(1,2);
+Query OK, 1 row affected (0.02 sec)
+
+root@localhost:test 09:36:52 &gt;select * from t;
++----+------+------+------+
+| id | c1   | c2   | c3   |
++----+------+------+------+
+|  1 |    1 |    2 |    3 |
++----+------+------+------+
+1 row in set (0.00 sec)
+
+**创建更新触发器**——用于已有值的变化
+root@localhost:test 09:37:02 &gt;create trigger upd_t before update on t for each row set new.c3=new.c1+new.c2;
+Query OK, 0 rows affected (0.01 sec)
+
+root@localhost:test 09:39:35 &gt;show triggers;
++---------------+--------+---------+-----------------------------------------------------------------------------------------------------------------------+--------+------------------------+------------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger       | Event  | Table   | Statement                                                                                                             | Timing | Created                | sql_mode                                                                                                               | Definer        | character_set_client | collation_connection | Database Collation |
++---------------+--------+---------+-----------------------------------------------------------------------------------------------------------------------+--------+------------------------+------------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| deleteorder   | DELETE | orders  | begin insert into arhive_orders(order_num,order_date,cust_id) values(old.order_num, old.order_date, old.cust_id); end | BEFORE | 2017-12-27 22:32:46.35 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| inst_t        | INSERT | t       | set new.c3=new.c1+new.c2                                                                                              | BEFORE | 2018-01-31 21:35:16.21 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| upd_t         | UPDATE | t       | set new.c3=new.c1+new.c2                                                                                              | BEFORE | 2018-01-31 21:39:35.78 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| insertevendor | INSERT | vendors | set new.vend_state = upper(new.vend_state)                                                                            | BEFORE | 2017-12-27 22:36:37.96 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
+| updatevendor  | UPDATE | vendors | set new.vend_state = upper(new.vend_state)                                                                            | BEFORE | 2017-12-27 22:34:53.05 | STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION | root@localhost | utf8                 | utf8_general_ci      | utf8_general_ci    |
++---------------+--------+---------+-----------------------------------------------------------------------------------------------------------------------+--------+------------------------+------------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+5 rows in set (0.00 sec)
+
+root@localhost:test 09:39:49 &gt;update t set c1=5 where id = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+root@localhost:test 09:40:37 &gt;select * from t;
++----+------+------+------+
+| id | c1   | c2   | c3   |
++----+------+------+------+
+|  1 |    5 |    2 |    7 |
++----+------+------+------+
+1 row in set (0.00 sec)
+
+**使用视图的方式**——可以达到计算列的目的
+root@localhost:test 09:40:44 &gt;create view vw_t as select id,c1,c2,c1+c2 as c3 from t;
+Query OK, 0 rows affected (0.02 sec)
+
+root@localhost:test 09:43:16 &gt;select * from vw_t;
++----+------+------+------+
+| id | c1   | c2   | c3   |
++----+------+------+------+
+|  1 |    5 |    2 |    7 |
++----+------+------+------+
+1 row in set (0.00 sec)
+
+
+#Mysql 5.7 之后——需要通过触发器实现相关的功能
+root@localhost:test 09:43:28 &gt;create table t1 (id int auto_increment not null,c1 int,c2 int,c3 int as (c1+c2),primary key(id));
+Query OK, 0 rows affected (0.02 sec)
+
+root@localhost:test 09:53:19 &gt;show create table t1;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| t1    | CREATE TABLE `t1` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `c1` int(11) DEFAULT NULL,
+  `c2` int(11) DEFAULT NULL,
+  `c3` int(11) GENERATED ALWAYS AS ((`c1` + `c2`)) VIRTUAL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+root@localhost:test 09:53:55 &gt;insert into t1(c1,c2) values(1,2);
+Query OK, 1 row affected (0.00 sec)
+
+root@localhost:test 09:54:52 &gt;select * from t1;
++----+------+------+------+
+| id | c1   | c2   | c3   |
++----+------+------+------+
+|  1 |    1 |    2 |    3 |
++----+------+------+------+
+1 row in set (0.00 sec)
+
+root@localhost:test 09:55:01 &gt;update t1 set c1=5 where id = 1;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+root@localhost:test 09:55:39 &gt;select * from t1;
++----+------+------+------+
+| id | c1   | c2   | c3   |
++----+------+------+------+
+|  1 |    5 |    2 |    7 |
++----+------+------+------+
+1 row in set (0.00 sec)
+
+</code></pre>
+
+<h3 id="toc_3">引入json列类型及相关函数</h3>
+
+<p>在MySQL中的json分为：json数组和json对象</p>
+
+<pre><code>#MySQL 5.7 之前
+**只能在varchar或是text等字符类型中列存储json类型的字符串，并通过程序解析使用json字符串。**
+
+
+
+#MySQL 5.7 之后
+**增加了json列类型（新的数据类型及自动验证json类型格式）及以json开头的相关处理函数，如json_type(),json_object(),json_merge()等。**
+
+**json数组示例**——中括号
+root@localhost:test 09:55:58 &gt;select json_array(&#39;a&#39;,&#39;b&#39;,now());
++------------------------------------------+
+| json_array(&#39;a&#39;,&#39;b&#39;,now())                |
++------------------------------------------+
+| [&quot;a&quot;, &quot;b&quot;, &quot;2018-01-31 22:09:35.000000&quot;] |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+**json对象示例**——大括号
+root@localhost:test 10:09:35 &gt;select json_object(&#39;key1&#39;,1,&#39;key2&#39;,2);
++--------------------------------+
+| json_object(&#39;key1&#39;,1,&#39;key2&#39;,2) |
++--------------------------------+
+| {&quot;key1&quot;: 1, &quot;key2&quot;: 2}         |
++--------------------------------+
+1 row in set (0.00 sec)
+
+**创建json表**
+root@localhost:test 10:10:11 &gt;create table t2 (jdoc json);
+Query OK, 0 rows affected (0.02 sec)
+
+root@localhost:test 10:12:35 &gt;show create table t2;
++-------+-------------------------------------------------------------------------------------+
+| Table | Create Table                                                                        |
++-------+-------------------------------------------------------------------------------------+
+| t2    | CREATE TABLE `t2` (
+  `jdoc` json DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++-------+-------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+root@localhost:test 10:12:47 &gt;insert into t2(jdoc) values(json_array(&#39;a&#39;,&#39;b&#39;,now()));
+Query OK, 1 row affected (0.00 sec)
+
+root@localhost:test 10:14:38 &gt;select * from t2;
++------------------------------------------+
+| jdoc                                     |
++------------------------------------------+
+| [&quot;a&quot;, &quot;b&quot;, &quot;2018-01-31 22:14:38.000000&quot;] |
++------------------------------------------+
+1 row in set (0.00 sec)
+
+
+</code></pre>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="15174037792214.html" 
+          title="Next Post: Mysql 5.7 主从复制">Mysql 5.7 主从复制 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          总结
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>An Honglei ’s Blog</h1>
+                <div class="site-des">学习是痛并快乐着</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7.html"><strong>效率工具</strong></a>
+        
+            <a href="Mysql.html"><strong>Mysql</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15174039905214.html">MySQL 5.7 版本新特性</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15174037792214.html">Mysql 5.7 主从复制</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15173854634491.html">Mysql基础知识</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15171178933552.html">MWEB基础教程——静态博客</a>
+			      </li>
+		     
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>
