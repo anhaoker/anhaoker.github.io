@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="atom.xml" rel="alternate" title="An Honglei ’s Blog" type="application/atom+xml">
+    <title> 
+	  
+  	python 基础 - An Honglei ’s Blog
+  	
+  	</title>
+    <link href="asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="asset/css/style.css" rel="stylesheet">
+    <script src="asset/js/jquery.min.js"></script>
+    <script src="asset/js/bootstrap.min.js"></script>
+    <script src="asset/js/docs.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+	<link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<script>hljs.initHighlightingOnLoad();</script>
+    <!--[if lt IE 9]>
+      <script src="asset/js/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item" id="menu-index" href="index.html">首页</a>
+          <a class="blog-nav-item" id="menu-help" href="help.html">文档</a>
+          <a class="blog-nav-item" id="menu-blog" href="all.html">博客</a>
+          <a class="blog-nav-item" id="menu-about" href="about.html">关于</a>
+          <a class="blog-nav-item" style="float:right;" href="http://www.mweb.im">English</a>
+        </nav>
+      </div>
+    </div>
+    
+    <script type="text/javascript">
+      $(function(){
+      	$('#menu-blog').addClass('active');
+      });
+      </script>
+   <div class="container" id="content-wrap">
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+			
+					<div class="blog-post">
+			            <h2 class="blog-post-title">python 基础</h2>
+			            <p class="blog-post-meta">2018/3/19 
+				            &nbsp;posted in 
+							
+							    <a class='category' href='Python.html'>Python</a>&nbsp;
+							 
+							 
+			            </p>
+			            <div class="content-responsive">
+			            <ul>
+<li>
+<a href="#toc_0">1、使用while偱环输入 1,2,3,4,5,6, 8,9,10</a>
+</li>
+<li>
+<a href="#toc_1">2、求1-100的所有数的和</a>
+</li>
+<li>
+<a href="#toc_2">3、输出1-100内的所有奇数</a>
+</li>
+<li>
+<a href="#toc_3">4、输出1-100内的所有偶数</a>
+</li>
+<li>
+<a href="#toc_4">5、求1-2+3-4+5...-99的所有数的和</a>
+</li>
+<li>
+<a href="#toc_5">6、用户登陆（三次机 会重试）</a>
+</li>
+</ul>
+
+
+<h4 id="toc_0">1、使用while偱环输入 1,2,3,4,5,6, 8,9,10</h4>
+
+<pre><code>#!/bin/env python3
+
+num = 1
+while num &lt; 11:
+    if num == 7:
+        pass
+    else:
+        print(num)
+    num = num +1
+</code></pre>
+
+<h4 id="toc_1">2、求1-100的所有数的和</h4>
+
+<pre><code>#!/bin/env python3
+
+n1 = 1
+num = 0
+while n1 &lt; 101:
+    num = num + n1
+    n1 = n1 +1
+print(num)
+</code></pre>
+
+<h4 id="toc_2">3、输出1-100内的所有奇数</h4>
+
+<pre><code>#!/bin/env python3
+
+n1 = 1
+while n1 &lt; 101:
+    if n1 % 2 == 0:
+        pass
+    else:
+        print(n1)
+    n1 = n1 + 1
+</code></pre>
+
+<h4 id="toc_3">4、输出1-100内的所有偶数</h4>
+
+<pre><code>#!/bin/env python3
+
+n1 = 1
+while n1 &lt; 101:
+    if n1 % 2 == 0:
+        print(n1)
+    else:
+        pass
+    n1 = n1 + 1
+</code></pre>
+
+<h4 id="toc_4">5、求1-2+3-4+5...-99的所有数的和</h4>
+
+<pre><code>#!/bin/env python3
+
+n1 = 1
+num = 0
+while n1 &lt; 100:
+    temp = n1 % 2
+    if temp == 0:
+        num = num - n1
+    else:
+        num = num + n1
+    n1 = n1 + 1
+
+print(num)
+</code></pre>
+
+<h4 id="toc_5">6、用户登陆（三次机 会重试）</h4>
+
+<pre><code>#!/bin/env python3
+
+user = &#39;root&#39;
+passwd = &#39;root&#39;
+print(&quot;正确的用户名为：root,密码为：root;你一共有三次机会&quot;)
+count = 1
+while count &lt; 4:
+    u1 = input(&quot;请输入用户名： &quot;)
+    if user == u1:
+        p1 = input(&quot;请输入密码： &quot;)
+        if passwd == p1:
+            print(&quot;恭喜你输入的用户名和密码正确&quot;)
+            break
+        else:
+            print(&quot;密码错误，请再次重试&quot;)
+    else:
+        print(&quot;用户名错误，请再次重试&quot;)
+    count = count + 1
+</code></pre>
+
+			            </div>
+						
+			           
+			          </div><!-- /.blog-post -->
+			<div class="share-comment">
+			
+			</div>
+
+        </div><!-- /.blog-main -->
+
+       <!-- slider start -->  		<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+
+          <div class="sidebar-module">
+            <h4>关于</h4>
+            <p><a target="_blank" href="atom.xml">RSS</a></p>
+            <p><a href="help.html">MWeb帮助文档</a></p>
+            
+
+          </div>
+          <div class="sidebar-module">
+            <h4>分类</h4>
+            
+            <ol class="list-unstyled">
+	      <li class="post">
+	        <a href="Python.html">Python&nbsp;(2)</a>
+	        
+	        
+	        
+	      </li>
+	  
+            <ol class="list-unstyled">
+	      <li class="post">
+	        <a href="%E5%9F%BA%E7%A1%80%E6%95%B4%E7%90%86.html">基础整理&nbsp;(1)</a>
+	        
+	        
+	        
+	      </li>
+	   
+            </ol>
+          </div>
+
+          <div class="sidebar-module">
+            <h4>最近文章</h4>
+            
+	  
+	      
+		      
+		        <a href="15306935051951.html">LINUX 快捷键整理</a><br />
+		      
+	     
+	  
+	      
+		      
+		        <a href="15221590998154.html">基础知识练习</a><br />
+		      
+	     
+	  
+	      
+		      
+		        <a href="15214289229123.html">python 基础</a><br />
+		      
+	     
+	   
+
+          </div>
+         
+        </div><!-- /.blog-sidebar -->
+
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+  <footer class="blog-footer">
+      <p>Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a> &nbsp;&nbsp; 
+Theme by <a target="_blank" href="http://getbootstrap.com">Bootstrap</a>、<a target="_blank" href="https://twitter.com/mdo">@mdo</a>&nbsp;&nbsp; host on <a target="_blank" href="https://coding.net/">Coding.net Pages</a>
+.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="asset/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>
