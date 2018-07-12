@@ -1,0 +1,543 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  prometheus监控调研方案 - An Honglei ’s Blog
+  
+  </title>
+ <meta name="description" content="学习是痛并快乐着！！！">
+ <link href="atom.xml" rel="alternate" title="An Honglei ’s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">An Honglei ’s Blog</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; An Honglei ’s Blog</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>监控</label></li>
+
+          
+            <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+          
+            <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+          
+            <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+          
+            <li><a title="zookeeper" href="15284264486830.html">zookeeper</a></li>
+          
+            <li><a title="docker" href="15284264396270.html">docker</a></li>
+          
+            <li><a title="redis" href="15284264338352.html">redis</a></li>
+          
+            <li><a title="mongodb" href="15284264265436.html">mongodb</a></li>
+          
+            <li><a title="mysql" href="15284264221433.html">mysql</a></li>
+          
+            <li><a title="nginx" href="15284264147825.html">nginx</a></li>
+          
+            <li><a title="JVM" href="15284264028937.html">JVM</a></li>
+          
+            <li><a title="配置报警-邮件和微信" href="15284261636485.html">配置报警-邮件和微信</a></li>
+          
+            <li><a title="自动发现设置" href="15284261175013.html">自动发现设置</a></li>
+          
+            <li><a title="Alertmanager报警模块" href="15270467833243.html">Alertmanager报警模块</a></li>
+          
+            <li><a title="运维监控工作规划" href="15264350522088.html">运维监控工作规划</a></li>
+          
+            <li><a title="# Prometheus 简介及安装" href="15258517853636.html"># Prometheus 简介及安装</a></li>
+          
+            <li><a title="部署 Prometheus 基础环境" href="15258308100903.html">部署 Prometheus 基础环境</a></li>
+          
+            <li><a title="prometheus监控调研方案" href="15257584688763.html">prometheus监控调研方案</a></li>
+          
+            <li><a title="监控迁移过程注意事项整理" href="15253278795397.html">监控迁移过程注意事项整理</a></li>
+          
+            <li><a title="zabbix3.2升级到3.4" href="15246459775922.html">zabbix3.2升级到3.4</a></li>
+          
+            <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+          
+            <li><a title="天兔" href="15243054043731.html">天兔</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Python</label></li>
+
+          
+            <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+          
+            <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>基础整理</label></li>
+
+          
+            <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>监控</span></li>
+                        
+                          <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+                        
+                          <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+                        
+                          <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+                        
+                          <li><a title="zookeeper" href="15284264486830.html">zookeeper</a></li>
+                        
+                          <li><a title="docker" href="15284264396270.html">docker</a></li>
+                        
+                          <li><a title="redis" href="15284264338352.html">redis</a></li>
+                        
+                          <li><a title="mongodb" href="15284264265436.html">mongodb</a></li>
+                        
+                          <li><a title="mysql" href="15284264221433.html">mysql</a></li>
+                        
+                          <li><a title="nginx" href="15284264147825.html">nginx</a></li>
+                        
+                          <li><a title="JVM" href="15284264028937.html">JVM</a></li>
+                        
+                          <li><a title="配置报警-邮件和微信" href="15284261636485.html">配置报警-邮件和微信</a></li>
+                        
+                          <li><a title="自动发现设置" href="15284261175013.html">自动发现设置</a></li>
+                        
+                          <li><a title="Alertmanager报警模块" href="15270467833243.html">Alertmanager报警模块</a></li>
+                        
+                          <li><a title="运维监控工作规划" href="15264350522088.html">运维监控工作规划</a></li>
+                        
+                          <li><a title="# Prometheus 简介及安装" href="15258517853636.html"># Prometheus 简介及安装</a></li>
+                        
+                          <li><a title="部署 Prometheus 基础环境" href="15258308100903.html">部署 Prometheus 基础环境</a></li>
+                        
+                          <li><a title="prometheus监控调研方案" href="15257584688763.html">prometheus监控调研方案</a></li>
+                        
+                          <li><a title="监控迁移过程注意事项整理" href="15253278795397.html">监控迁移过程注意事项整理</a></li>
+                        
+                          <li><a title="zabbix3.2升级到3.4" href="15246459775922.html">zabbix3.2升级到3.4</a></li>
+                        
+                          <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+                        
+                          <li><a title="天兔" href="15243054043731.html">天兔</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Python</span></li>
+                        
+                          <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+                        
+                          <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>基础整理</span></li>
+                        
+                          <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>prometheus监控调研方案</h1>
+
+<ul>
+<li>
+<a href="#toc_0">简介</a>
+<ul>
+<li>
+<a href="#toc_1">Prometheus 的优点</a>
+</li>
+<li>
+<a href="#toc_2">Prometheus 的特性</a>
+</li>
+<li>
+<a href="#toc_3">Prometheus 的相关组件</a>
+</li>
+<li>
+<a href="#toc_4">Prometheus vs. Zabbix对比</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_5">系统架构</a>
+</li>
+<li>
+<a href="#toc_6">数据模型</a>
+<ul>
+<li>
+<a href="#toc_7">度量指标和标签</a>
+</li>
+<li>
+<a href="#toc_8">采样值（Sample）</a>
+</li>
+<li>
+<a href="#toc_9">注解（Notation）</a>
+</li>
+<li>
+<a href="#toc_10">度量指标类型</a>
+</li>
+<li>
+<a href="#toc_11">计数器（Counter）</a>
+</li>
+<li>
+<a href="#toc_12">计量器（Gauge）</a>
+</li>
+<li>
+<a href="#toc_13">直方图（Histogram）</a>
+</li>
+<li>
+<a href="#toc_14">汇总（Summary）</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_15">监控的关键指标</a>
+<ul>
+<li>
+<a href="#toc_16">RED方法</a>
+</li>
+<li>
+<a href="#toc_17">USE vs. RED方法</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_18">在Kubernetes下的监控实践</a>
+<ul>
+<li>
+<a href="#toc_19">性能指标</a>
+</li>
+<li>
+<a href="#toc_20">服务健康状态监控</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">简介</h2>
+
+<p>prometheus 是一个开源的系统监控和告警的工具包，其采用pull方式采集时间序列，通过http协议传输。由SoundCloud公司开发的。随着发展，越来越多公司和组织接受采用Prometheus，社区也十分活跃，他们便将它独立成开源项目，并且有公司来运作。google SRE的书内也曾提到跟他们BorgMon监控系统相似的实现是Prometheus。现在最常见的Kubernetes容器管理系统中，通常会搭配Prometheus进行监控。</p>
+
+<h3 id="toc_1">Prometheus 的优点</h3>
+
+<ul>
+<li>非常少的外部依赖，安装使用超简单</li>
+<li>已经有非常多的系统集成 例如：docker HAProxy Nginx JMX等等</li>
+<li>服务自动化发现</li>
+<li>直接集成到代码</li>
+<li>设计思想是按照分布式、微服务架构来实现的</li>
+</ul>
+
+<h3 id="toc_2">Prometheus 的特性</h3>
+
+<ul>
+<li>自定义多维度的数据模型</li>
+<li>非常高效的存储 平均一个采样数据占 ~3.5 bytes左右，320万的时间序列，每30秒采样，保持60天，消耗磁盘大概228G。</li>
+<li>强大的查询语句</li>
+<li>轻松实现数据可视化</li>
+</ul>
+
+<h3 id="toc_3">Prometheus 的相关组件</h3>
+
+<ul>
+<li>Prometheus 主服务,用来抓取和存储时序数据</li>
+<li>client library 用来构造应用或 exporter 代码 (go,java,python,ruby)</li>
+<li>push 网关可用来支持短连接任务</li>
+<li>可视化的dashboard (两种选择,promdash 和 grafana.目前主流选择是 grafana.)</li>
+<li>一些特殊需求的数据出口(用于HAProxy, StatsD, Graphite等服务)</li>
+<li>实验性的报警管理端(alartmanager,单独进行报警汇总,分发,屏蔽等 )
+promethues 的各个组件基本都是用 golang 编写,对编译和部署十分友好.并且没有特殊依赖.基本都是独立工作.</li>
+</ul>
+
+<h3 id="toc_4">Prometheus vs. Zabbix对比</h3>
+
+<p>Zabbix 使用的是 C 和 PHP, Prometheus 使用 Golang, 整体而言 Prometheus 运行速度更快一点。<br/>
+Zabbix 属于传统主机监控，主要用于物理主机、交换机、网络等监控，Prometheus 不仅适用主机监控，还适用于 Cloud、SaaS、Openstack、Container 监控。<br/>
+Zabbix 在传统主机监控方面，有更丰富的插件。<br/>
+Zabbix 可以在 WebGui 中配置很多事情，Prometheus 需要手动修改文件配置。</p>
+
+<h2 id="toc_5">系统架构</h2>
+
+<p><img src="media/15257584688763/15257586696383.jpg" alt=""/></p>
+
+<pre><code>它的服务过程是这样的:
+ Prometheus daemon 负责定时去目标上抓取 metrics(指标) 数据，每个抓取目标需要暴露一个http服务的接口给它定时抓取。
+Prometheus支持通过配置文件、文本文件、zookeeper、Consul、DNS SRV lookup等方式指定抓取目标。
+Alertmanager 是独立于Prometheus的一个组件，可以支持Prometheus的查询语句，提供十分灵活的报警方式。
+Prometheus支持很多方式的图表可视化，例如十分精美的Grafana，自带的Promdash，以及自身提供的模版引擎等等，还提供HTTP API的查询方式，自定义所需要的输出。
+PushGateway这个组件是支持Client主动推送 metrics 到PushGateway，而Prometheus只是定时去Gateway上抓取数据。
+
+如果有使用过statsd的用户，则会觉得这十分相似，只是statsd是直接发送给服务器端，而Prometheus主要还是靠进程主动去抓取。
+</code></pre>
+
+<h2 id="toc_6">数据模型</h2>
+
+<p>Prometheus 从根本上存储的所有数据都是时间序列数据（Time Serie Data，简称时序数据）。时序数据是具有时间戳的数据流，该数据流属于某个度量指标（Metric）和该度量指标下的多个标签（Label）。除了提供存储功能，Prometheus 还可以利用查询表达式来执行非常灵活和复杂的查询。</p>
+
+<h3 id="toc_7">度量指标和标签</h3>
+
+<p>每个时间序列（Time Serie，简称时序）由度量指标和一组标签键值对唯一确定。</p>
+
+<p>度量指标名称描述了被监控系统的某个测量特征（比如 http_requests_total 表示 http 请求总数）。度量指标名称由 ASCII 字母、数字、下划线和冒号组成，须匹配正则表达式 [a-zA-Z_:][a-zA-Z0-9_:]*。</p>
+
+<p>标签开启了 Prometheus 的多维数据模型。对于同一个度量指标，不同标签值组合会形成特定维度的时序。Prometheus 的查询语言可以通过度量指标和标签对时序数据进行过滤和聚合。改变任何度量指标上的任何标签值，都会形成新的时序。标签名称可以包含 ASCII 字母、数字和下划线，须匹配正则表达式 [a-zA-Z_][a-zA-Z0-9_]*，带有 _ 下划线的标签名称保留为内部使用。标签值可以包含任意 Unicode 字符，包括中文。</p>
+
+<h3 id="toc_8">采样值（Sample）</h3>
+
+<p>时序数据其实就是一系列采样值。每个采样值包括：</p>
+
+<p>一个 64 位的浮点数值<br/>
+一个精确到毫秒的时间戳</p>
+
+<h3 id="toc_9">注解（Notation）</h3>
+
+<p>一个注解由一个度量指标和一组标签键值对构成。形式如下：</p>
+
+<p>[metric name]{[label name]=[label value], ...}<br/>
+例如，度量指标为 api_http_requests_total，标签为 method=&quot;POST&quot;、handler=&quot;/messages&quot; 的注解表示如下：</p>
+
+<p>api_http_requests_total{method=&quot;POST&quot;, handler=&quot;/messages&quot;}</p>
+
+<h3 id="toc_10">度量指标类型</h3>
+
+<p>Prometheus 里的度量指标有以下几种类型。</p>
+
+<h3 id="toc_11">计数器（Counter）</h3>
+
+<p>计数器是一种累计型的度量指标，它是一个只能递增的数值。计数器主要用于统计类似于服务请求数、任务完成数和错误出现次数这样的数据。</p>
+
+<h3 id="toc_12">计量器（Gauge）</h3>
+
+<p>计量器表示一个既可以增加, 又可以减少的度量指标值。计量器主要用于测量类似于温度、内存使用量这样的瞬时数据。</p>
+
+<h3 id="toc_13">直方图（Histogram）</h3>
+
+<p>直方图对观察结果（通常是请求持续时间或者响应大小这样的数据）进行采样，并在可配置的桶中对其进行统计。有以下几种方式来产生直方图（假设度量指标为 &lt;basename&gt;）：</p>
+
+<p>按桶计数，相当于 <basename>_bucket{le=&quot;<upper inclusive bound>&quot;}<br/>
+采样值总和，相当于 <basename>_sum<br/>
+采样值总数，相当于 <basename>_count ，也等同于把所有采样值放到一个桶里来计数 <basename>_bucket{le=&quot;+Inf&quot;}</p>
+
+<h3 id="toc_14">汇总（Summary）</h3>
+
+<p>类似于直方图，汇总也对观察结果进行采样。除了可以统计采样值总和和总数，它还能够按分位数统计。有以下几种方式来产生汇总（假设度量指标为 &lt;basename&gt;）：</p>
+
+<p>按分位数，也就是采样值小于该分位数的个数占总数的比例小于 φ，相当于 <basename>{quantile=&quot;&lt;φ&gt;&quot;}<br/>
+采样值总和，相当于 <basename>_sum<br/>
+采样值总数，相当于 <basename>_count<br/>
+任务（Job）和实例（Instance）<br/>
+在 Prometheus 里，可以从中抓取采样值的端点称为实例，为了性能扩展而复制出来的多个这样的实例形成了一个任务。</p>
+
+<p>例如下面的 api-server 任务有四个相同的实例：</p>
+
+<p>job: api-server<br/>
+instance 1: 1.2.3.4:5670<br/>
+instance 2: 1.2.3.4:5671<br/>
+instance 3: 5.6.7.8:5670<br/>
+instance 4: 5.6.7.8:5671<br/>
+Prometheus 抓取完采样值后，会自动给采样值添加下面的标签和值：</p>
+
+<p>job: 抓取所属任务。<br/>
+instance: 抓取来源实例<br/>
+另外每次抓取时，Prometheus 还会自动在以下时序里插入采样值：</p>
+
+<p>up{job=&quot;[job-name]&quot;, instance=&quot;instance-id&quot;}：采样值为 1 表示实例健康，否则为不健康<br/>
+scrape_duration_seconds{job=&quot;[job-name]&quot;, instance=&quot;[instance-id]&quot;}：采样值为本次抓取消耗时间<br/>
+scrape_samples_post_metric_relabeling{job=&quot;<job-name>&quot;, instance=&quot;<instance-id>&quot;}：采样值为重新打标签后的采样值个数<br/>
+scrape_samples_scraped{job=&quot;<job-name>&quot;, instance=&quot;<instance-id>&quot;}：采样值为本次抓取到的采样值个数</p>
+
+<h2 id="toc_15">监控的关键指标</h2>
+
+<p>在搭建Prometheus监控时，确定需要收集的指标类型十分重要，这些指标和应用程序相关。选择的指标可以简化故障发生时排除故障的流程，并且还可以在服务和基础设施上保持很高的稳定性。为帮助理解instrument的重要性，我们定义了一个称之为RED方法的系统。</p>
+
+<h3 id="toc_16">RED方法</h3>
+
+<p>RED方法遵循Four Golden Signals中提及的原则，聚焦于检测最终用户在使用web服务时关心的东西。</p>
+
+<p>在RED方法中，我们通过监控三项关键指标来管理架构中的每个微服务：</p>
+
+<p>（Request）Rate – 你的服务所服务的每秒的请求数<br/>
+（Request）Errors – 每秒失败的请求数<br/>
+（Request）Duration – 每个请求所花费的时间，用时间间隔表示</p>
+
+<p>RED方法希望由Rate、Errors、Duration三项指标涵盖最典型的Web服务问题。同时这些指标还能够反映出请求的错误率。通过这三项指标，我们就能监测到通常情况下会影响客户体验的问题。</p>
+
+<p>如果想要获得更细节的信息，还需要用到Saturation指标。Saturation指标用在USE（Utilization Saturation and Errors）方法中，它指的是一种带有额外作业的资源，而该资源不能够提供服务，因此必须添加到队列中以备后续处理。</p>
+
+<h3 id="toc_17">USE vs. RED方法</h3>
+
+<p>对比两种方法，USE方法更侧重于监控的性能，并以此为出发点寻找影响性能问题的根本原因以及其他系统的瓶颈。</p>
+
+<p>在理想状态下，我们可以在监控应用程序时同时使用USE和RED方法。<br/>
+为什么要对每个服务衡量相同的指标<br/>
+从监控的角度来看，如果能处理好每项服务，你的运营团队就可以在此基础上继续扩展服务。</p>
+
+<p>扩展性对运营团队意味着什么？<br/>
+我们从这个角度看待问题，一个团队可以支持多少个服务。在理想状态下，一个团队可以支持的服务数量和团队规模无关，而取决于其他因素，比如SLA协议的响应类型以及是否需要全天候覆盖等等。</p>
+
+<p>如何将可支持的服务数量与团队规模去藕化？<br/>
+办法是让每一个服务都变得一样。这既减少了团队针对特定的服务进行培训的数量，还减少了在高压事件响应场景或者所谓“认知负载”这些针对特定服务的特殊情况发生时，呼叫者需要记录的内容。</p>
+
+<p>容量规划：<br/>
+考虑QPS（每秒查询次数）和延迟</p>
+
+<p>自动化任务以及发出警报：<br/>
+RED方法的优点在于它可以帮助你考虑如何在仪表板中显示信息。通过这三个指标，你可以对仪表板的布局进行调整，让它更易于阅读，并在问题发生时发出警报。例如，一个布局可能意味着 --- 每个服务都有一个不同的Weave Cloud记事本，包含了PromQL查询的请求&amp;错误，以及每个服务的延迟。</p>
+
+<p>毫无疑问，如果把所有的服务都视为一样的，那么将会更加易于自动化执行重复任务。</p>
+
+<p>PromQL查询<br/>
+<img src="media/15257584688763/15262946692850.jpg" alt=""/></p>
+
+<p>在Weave Cloud上监控RED方法中的指标<br/>
+<img src="media/15257584688763/15262946802946.jpg" alt=""/></p>
+
+<p>局限性</p>
+
+<p>事实上，这种方法（RED）仅适用于请求驱动的服务——比如，它在处理面向批处理的服务或者流服务时会发生错误。对于请求驱动它也不是完全适用，当需要监控其他东西——比如主机CPU&amp;内存或者缓存资源时，USE方法表现的更好。</p>
+
+<h2 id="toc_18">在Kubernetes下的监控实践</h2>
+
+<h3 id="toc_19">性能指标</h3>
+
+<p>容器相关的性能指标数据(如：cpu, memory, filesystem；<br/>
+Pod相关的性能指标数据;<br/>
+主机节点相关的性能指标数据;</p>
+
+<h3 id="toc_20">服务健康状态监控</h3>
+
+<p>Deployment相关的健康状态（health or unhealth）;<br/>
+Pod的健康状态；<br/>
+主机Node节点的健康状态</p>
+
+<p>一直以来 Prometheus 被吐槽最多的就是 HA 和集群方案:采用 remote_read 实现 Prometheus 数据的读写分离的集群方案</p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15258308100903.html"  title="Previous Post: 部署 Prometheus 基础环境">&laquo; 部署 Prometheus 基础环境</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15253278795397.html" 
+	        title="Next Post: 监控迁移过程注意事项整理">监控迁移过程注意事项整理 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15257584688763.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>

@@ -1,0 +1,957 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  部署 Prometheus 基础环境 - An Honglei ’s Blog
+  
+  </title>
+ <meta name="description" content="学习是痛并快乐着！！！">
+ <link href="atom.xml" rel="alternate" title="An Honglei ’s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">An Honglei ’s Blog</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; An Honglei ’s Blog</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>监控</label></li>
+
+          
+            <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+          
+            <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+          
+            <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+          
+            <li><a title="zookeeper" href="15284264486830.html">zookeeper</a></li>
+          
+            <li><a title="docker" href="15284264396270.html">docker</a></li>
+          
+            <li><a title="redis" href="15284264338352.html">redis</a></li>
+          
+            <li><a title="mongodb" href="15284264265436.html">mongodb</a></li>
+          
+            <li><a title="mysql" href="15284264221433.html">mysql</a></li>
+          
+            <li><a title="nginx" href="15284264147825.html">nginx</a></li>
+          
+            <li><a title="JVM" href="15284264028937.html">JVM</a></li>
+          
+            <li><a title="配置报警-邮件和微信" href="15284261636485.html">配置报警-邮件和微信</a></li>
+          
+            <li><a title="自动发现设置" href="15284261175013.html">自动发现设置</a></li>
+          
+            <li><a title="Alertmanager报警模块" href="15270467833243.html">Alertmanager报警模块</a></li>
+          
+            <li><a title="运维监控工作规划" href="15264350522088.html">运维监控工作规划</a></li>
+          
+            <li><a title="# Prometheus 简介及安装" href="15258517853636.html"># Prometheus 简介及安装</a></li>
+          
+            <li><a title="部署 Prometheus 基础环境" href="15258308100903.html">部署 Prometheus 基础环境</a></li>
+          
+            <li><a title="prometheus监控调研方案" href="15257584688763.html">prometheus监控调研方案</a></li>
+          
+            <li><a title="监控迁移过程注意事项整理" href="15253278795397.html">监控迁移过程注意事项整理</a></li>
+          
+            <li><a title="zabbix3.2升级到3.4" href="15246459775922.html">zabbix3.2升级到3.4</a></li>
+          
+            <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+          
+            <li><a title="天兔" href="15243054043731.html">天兔</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Python</label></li>
+
+          
+            <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+          
+            <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>基础整理</label></li>
+
+          
+            <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>监控</span></li>
+                        
+                          <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+                        
+                          <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+                        
+                          <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+                        
+                          <li><a title="zookeeper" href="15284264486830.html">zookeeper</a></li>
+                        
+                          <li><a title="docker" href="15284264396270.html">docker</a></li>
+                        
+                          <li><a title="redis" href="15284264338352.html">redis</a></li>
+                        
+                          <li><a title="mongodb" href="15284264265436.html">mongodb</a></li>
+                        
+                          <li><a title="mysql" href="15284264221433.html">mysql</a></li>
+                        
+                          <li><a title="nginx" href="15284264147825.html">nginx</a></li>
+                        
+                          <li><a title="JVM" href="15284264028937.html">JVM</a></li>
+                        
+                          <li><a title="配置报警-邮件和微信" href="15284261636485.html">配置报警-邮件和微信</a></li>
+                        
+                          <li><a title="自动发现设置" href="15284261175013.html">自动发现设置</a></li>
+                        
+                          <li><a title="Alertmanager报警模块" href="15270467833243.html">Alertmanager报警模块</a></li>
+                        
+                          <li><a title="运维监控工作规划" href="15264350522088.html">运维监控工作规划</a></li>
+                        
+                          <li><a title="# Prometheus 简介及安装" href="15258517853636.html"># Prometheus 简介及安装</a></li>
+                        
+                          <li><a title="部署 Prometheus 基础环境" href="15258308100903.html">部署 Prometheus 基础环境</a></li>
+                        
+                          <li><a title="prometheus监控调研方案" href="15257584688763.html">prometheus监控调研方案</a></li>
+                        
+                          <li><a title="监控迁移过程注意事项整理" href="15253278795397.html">监控迁移过程注意事项整理</a></li>
+                        
+                          <li><a title="zabbix3.2升级到3.4" href="15246459775922.html">zabbix3.2升级到3.4</a></li>
+                        
+                          <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+                        
+                          <li><a title="天兔" href="15243054043731.html">天兔</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Python</span></li>
+                        
+                          <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+                        
+                          <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>基础整理</span></li>
+                        
+                          <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>部署 Prometheus 基础环境</h1>
+
+<ul>
+<li>
+<a href="#toc_0">部署和配置 Prometheu+Alertmanager+Grafana 监控系统</a>
+<ul>
+<li>
+<a href="#toc_1">部署 Prometheus</a>
+</li>
+<li>
+<a href="#toc_2">部署 Alertmanager</a>
+<ul>
+<li>
+<a href="#toc_3">安装Alertmanager</a>
+</li>
+<li>
+<a href="#toc_4">配置Alertmanager</a>
+<ul>
+<li>
+<a href="#toc_5">alert.rules</a>
+</li>
+<li>
+<a href="#toc_6">simply.yml (微信和邮件)</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_7">部署 Grafana</a>
+<ul>
+<li>
+<a href="#toc_8">安装 Grafana</a>
+</li>
+<li>
+<a href="#toc_9">添加Prometheus数据源</a>
+</li>
+<li>
+<a href="#toc_10">报警配置</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_11">配置 Prometheus 常用 exporter</a>
+<ul>
+<li>
+<a href="#toc_12">部署node_export</a>
+<ul>
+<li>
+<a href="#toc_13">源码安装</a>
+</li>
+<li>
+<a href="#toc_14">Docker方式安装</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_15">snmp_exporter 安装</a>
+</li>
+<li>
+<a href="#toc_16">BlackBox exporter 安装</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_17">通过容器部署 Prometheus+Grafana+cAdvisor</a>
+</li>
+<li>
+<a href="#toc_18">其它参考:</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">部署和配置 Prometheu+Alertmanager+Grafana 监控系统</h2>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258344265165.jpg" alt=""/></p>
+
+<h3 id="toc_1">部署 Prometheus</h3>
+
+<pre><code>从https://prometheus.io/download/ 选择合适的版本进行下载，
+
+wget  https://github.com/prometheus/prometheus/releases/download/v2.2.1/prometheus-2.2.1.linux-amd64.tar.gz
+tar xvf prometheus-2.2.1.linux-amd64.tar.gz
+mv prometheus-2.2.1.linux-amd64 prometheus
+cd prometheus
+./prometheus --version
+cp prometheus.yml prometheus.yml_bk
+
+---------------------------------------------------------- 
+# 全局配置
+global:
+  scrape_interval:     15s # 设置抓取(pull)时间间隔，默认是1m
+  evaluation_interval: 15s # 设置rules评估时间间隔，默认是1m
+  # scrape_timeout is set to the global default (10s).
+
+# 告警管理配置
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      # - alertmanager:9093
+
+# 加载rules，并根据设置的时间间隔定期评估，暂未使用，默认配置
+rule_files:
+  # - &quot;first_rules.yml&quot;
+  # - &quot;second_rules.yml&quot;
+
+# 这里就表示抓取对象的配置
+# 这里是抓去promethues自身的配置
+scrape_configs:
+  # The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.
+  - job_name: &#39;prometheus&#39;
+
+    # metrics_path defaults to &#39;/metrics&#39;
+    # scheme defaults to &#39;http&#39;.
+
+    static_configs:
+      - targets: [&#39;localhost:9090&#39;]
+
+  # 新添加的对其它node节点抓取数据
+  - job_name: &quot;linux&quot;
+    static_configs:
+      - targets: [&#39;127.0.0.1:9100&#39;]
+
+---------------------------------------------------------------
+
+#创建prometheus的用户
+主目录为/var/lib/prometheus，用作prometheus的数据目录。
+
+groupadd prometheus
+useradd -g prometheus -m -d /var/lib/prometheus -s /sbin/nologin prometheus
+chown -R prometheus.prometheus /usr/local/prometheus/
+
+#创建Systemd服务
+vim /usr/lib/systemd/system/prometheus.service
+---------------------------------------------------------------
+[Unit]
+Description=prometheus
+After=network.target
+[Service]
+Type=simple
+User=prometheus
+ExecStart=/usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/prometheus.yml --storage.tsdb.path=/var/lib/prometheus
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+---------------------------------------------------------------
+
+systemctl restart prometheus.service
+systemctl enable prometheus.service
+</code></pre>
+
+<p><strong>Prometheus自带一个比较简单的Web，可以查看表达式搜索结果、报警配置、prometheus配置,exporter状态等。自带Web默认在<a href="http://ip:9090">http://ip:9090</a></strong></p>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258466523377.jpg" alt=""/></p>
+
+<p><strong>Prometheus本身也是自带exporter的,我们通过请求 <a href="http://ip:9090/metrics">http://ip:9090/metrics</a> 可以查看从exporter中能具体抓到哪些数据。</strong></p>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258467915021.jpg" alt=""/></p>
+
+<h3 id="toc_2">部署 Alertmanager</h3>
+
+<p>Alertmanager 是一个告警系统，通过设置规则，可以实现告警通知。</p>
+
+<p>相关文档:</p>
+
+<pre><code>Prometheus Alertmanager报警组件
+http://www.jianshu.com/p/239b145e2acc https://github.com/prometheus/alertmanager
+Prometheus监控 - Alertmanager报警模块 
+https://sagittariusyx.github.io/2016/03/07/prometheus-alertmanager/ 
+https://github.com/prometheus/alertmanager
+
+Alert template:
+https://prometheus.io/blog/2016/03/03/custom-alertmanager-templates/
+
+Sending alert notifications to multiple destinations
+https://www.robustperception.io/sending-alert-notifications-to-multiple-destinations/
+
+Alert tree:
+https://prometheus.io/webtools/alerting/routing-tree-editor/
+</code></pre>
+
+<h4 id="toc_3">安装Alertmanager</h4>
+
+<pre><code>cd /usr/local/prometheus
+wget https://github.com/prometheus/alertmanager/releases/download/v0.14.0/alertmanager-0.14.0.linux-amd64.tar.gz
+tar xvf alertmanager-0.14.0.linux-amd64.tar.gz
+mv alertmanager-0.14.0.linux-amd64 alertmanager
+cd alertmanager
+
+chown -R prometheus.prometheus /usr/local/prometheus/ /var/lib/prometheus/
+
+#创建Systemd服务
+vim /usr/lib/systemd/system/alertmanager.service
+---------------------------------------------------------------
+[Unit]
+Description=alertmanager
+After=network.target
+[Service]
+Type=simple
+User=prometheus
+ExecStart=/usr/local/prometheus/alertmanager/alertmanager --config.file=/usr/local/prometheus/alertmanager/simple.yml --storage.path=/var/lib/prometheus
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+---------------------------------------------------------------
+
+systemctl restart alertmanager.service
+</code></pre>
+
+<p>**也可以通过加载配置文件方式而不重启Alertmanager服务: **<br/>
+curl -X POST <a href="http://localhost:9093/-/reload">http://localhost:9093/-/reload</a></p>
+
+<p><strong>访问Alertmanager页面</strong><br/>
+<a href="http://172.18.100.58:9093/#/alters">http://172.18.100.58:9093/#/alters</a></p>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258491774888.jpg" alt=""/></p>
+
+<h4 id="toc_4">配置Alertmanager</h4>
+
+<p>报警分两部分，报警条件规则文件默认放在Prometheus安装目录下，文件名为 alert.rules；具体通知内容设置在Alertmanager安装目录下的simply.yml文件，例如邮件地址和通知人员。</p>
+
+<p>以下是一些基础配置，阈值和时间根据自己需求进行修改。</p>
+
+<h5 id="toc_5">alert.rules</h5>
+
+<p>测试配置-当使用率大于2%时候(测试),发邮件报警</p>
+
+<pre><code>groups:
+- name: test-rule
+  rules:
+  - alert: NodeMemoryUsage
+    expr: (node_memory_MemTotal - (node_memory_MemFree+node_memory_Buffers+node_memory_Cached )) / node_memory_MemTotal * 100 &gt; 2
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: &quot;{{$labels.instance}}: High Memory usage detected&quot;
+      description: &quot;{{$labels.instance}}: Memory usage is above 80% (current value is: {{ $value }}&quot;
+
+- name: zabbix
+  rules:
+  - alert: server_status
+    expr: up{job=&quot;zabbix&quot;} == 0
+    for: 15s
+    annotations:
+      summary: &quot;机器 {{ $labels.instance }}&quot;
+</code></pre>
+
+<h5 id="toc_6">simply.yml (微信和邮件)</h5>
+
+<p>主要分三部分, Global部分设置发送邮件服务器信息，route设置规则和报警时间间隔等，receivers设置接收人。</p>
+
+<pre><code>global:
+  smtp_smarthost: &#39;smtp.ym.163.com:25&#39;
+  smtp_from: &#39;zabbix@bd-yg.com&#39;
+  smtp_auth_username: &#39;zabbix@bd-yg.com&#39;
+  smtp_auth_password: &#39;Agj7vBJQ#9Fewnbm&#39;
+
+templates:
+  - &#39;/usr/local/prometheus/alertmanager/template/*.tmpl&#39;
+
+route:
+  group_by: [&#39;alertname&#39;, &#39;cluster&#39;, &#39;service&#39;]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 10m
+  receiver: &#39;team-X-mails&#39;
+
+receivers:
+- name: &#39;team-X-mails&#39;
+  email_configs:
+  - to: &#39;anhonglei@bd-yg.com&#39;
+
+route:
+  group_by: [&#39;alertname&#39;]
+  receiver: &#39;wechat&#39;
+
+receivers:
+- name: &#39;wechat&#39;
+  wechat_configs:
+  - corp_id: &#39;ww27addfe9404356b3&#39;
+    to_party: &#39;2&#39;
+    agent_id: &#39;1000002&#39;
+    api_secret: &#39;oWuyrIgg5C0u8N-U9wESRWbb4v3IqOZNg0PhIvIOv2Q&#39;
+</code></pre>
+
+<p><strong>设置完毕后需要重新加载配置文件</strong></p>
+
+<h3 id="toc_7">部署 Grafana</h3>
+
+<p>参考文档:<br/>
+Configuration:<br/>
+<a href="http://docs.grafana.org/installation/configuration/">http://docs.grafana.org/installation/configuration/</a> <br/>
+<a href="https://prometheus.io/docs/visualization/grafana/#installing">https://prometheus.io/docs/visualization/grafana/#installing</a><br/>
+Setting up Grafana for Prometheus<br/>
+<a href="https://www.robustperception.io/setting-up-grafana-for-prometheus/">https://www.robustperception.io/setting-up-grafana-for-prometheus/</a><br/>
+Sending alert notifications to multiple destinations<br/>
+<a href="https://www.robustperception.io/sending-alert-notifications-to-multiple-destinations/">https://www.robustperception.io/sending-alert-notifications-to-multiple-destinations/</a> <br/>
+<a href="https://prometheus.io/docs/visualization/grafana/">https://prometheus.io/docs/visualization/grafana/</a></p>
+
+<h4 id="toc_8">安装 Grafana</h4>
+
+<pre><code>**1. 安装**
+wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.1.1-1.x86_64.rpm 
+sudo yum localinstall grafana-5.1.1-1.x86_64.rpm 
+
+
+**2. 配置文件**
+
+配置文件位于/etc/grafana/grafana.ini，这里暂时保持默认配置即可。
+配置
+
+1.创建数据库和用户（默认使用的是sqlite3,这里调整为mysql）
+$mysql&gt; CREATE DATABASE grafana DEFAULT CHARACTER SET utf8;
+$mysql&gt; GRANT ALL ON grafana.* TO grafana@&#39;localhost&#39; IDENTIFIED BY &#39;grafanapassword&#39; WITH GRANT OPTION;
+$mysql&gt; FLUSH PRIVILEGES;
+
+2.指定数据库及认证信息
+$cp /etc/grafana/grafana.ini{,.default}
+$vim /etc/grafana/grafana.ini
+[database]
+type = mysql
+host = 127.0.0.1:3306
+name = grafana
+user = grafana
+password = grafanapassword
+ssl_mode = true
+ca_cert_path = /opt/mariadb/mariadb-ca.pem
+client_key_path = /opt/mariadb/mariadb-client.key
+client_cert_path = /opt/mariadb/mariadb-client.pem
+server_cert_name = jlive.example.com
+[session]
+provider = redis
+provider_config = addr=127.0.0.1:6379,pool_size=100,db=grafana
+cookie_name = grafana_sess
+cookie_secure = false
+session_life_time = 86400
+
+**3. 设置开机启动**
+
+systemctl enable grafana-server
+systemctl start grafana-server
+
+</code></pre>
+
+<h4 id="toc_9">添加Prometheus数据源</h4>
+
+<pre><code>1).Go to http://localhost:3000
+2).Enter the username admin and password admin, and then click “Log In”.
+3).Click “Data Sources” on the left menu
+4).Click “Add new” on the top menu
+5).Add a default data source of type Prometheus with http://localhost:9090 as the URL 
+6).Click &quot;Add&quot;
+Add Dashboard
+</code></pre>
+
+<p>1）登录</p>
+
+<p>**访问Grafana Web界面(缺省帐号/密码为admin/admin): **<br/>
+<a href="http://172.18.100.58:3000/login">http://172.18.100.58:3000/login</a><br/>
+<img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258557406238.jpg" alt=""/></p>
+
+<p>2）添加数据源</p>
+
+<p>在登陆首页，点击&quot;Add data source&quot;按钮<br/>
+<img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258558273863.jpg" alt=""/></p>
+
+<p>跳转到添加数据源页面，配置如下：</p>
+
+<pre><code>Name: 测试
+Type: prometheus
+URL: http://localhost:9090/
+Access: Server
+</code></pre>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258609982630.jpg" alt=""/></p>
+
+<p>添加 dashboard<br/>
+<img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258610669456.jpg" alt=""/></p>
+
+<p><strong>6. 在Dashboards页面导入Prometheus Status模板</strong><br/>
+从grafana官网下载相关dashboaed到本地，如：<br/>
+<a href="https://grafana.com/dashboards/1860">https://grafana.com/dashboards/1860</a><br/>
+<a href="https://grafana.com/dashboards/405">https://grafana.com/dashboards/405</a><br/>
+<a href="https://grafana.com/dashboards/159">https://grafana.com/dashboards/159</a></p>
+
+<p>Grafana首页--&gt;左上角图标--&gt;create--&gt;import<br/>
+<img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258564542751.jpg" alt=""/></p>
+
+<p>数据源选择&quot;prometheus&quot;，即添加的数据源name，点击&quot;Import&quot;按钮，如下：</p>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258565709960.jpg" alt=""/><br/>
+<img src="http://p1ly7m2xj.bkt.clouddn.com/15245588409973.jpg" alt=""/></p>
+
+<p><strong>7. 查看dashboard</strong><br/>
+Grafana首页--&gt;左上角图标--&gt;Dashboard--&gt;Home，Home 下拉列表中可见有已添加的 dashboard  ：</p>
+
+<p><img src="http://image-bdyg.test.upcdn.net/2018/05/23/15258566779564.jpg" alt=""/></p>
+
+<h4 id="toc_10">报警配置</h4>
+
+<h2 id="toc_11">配置 Prometheus 常用 exporter</h2>
+
+<h3 id="toc_12">部署node_export</h3>
+
+<p>为监控服务器CPU、内存、磁盘、I/O等信息，首先需要安装node_exporter。node_exporter的作用是用于机器系统数据收集。除 node_exporter 外，官方还提供 consul，memcached，haproxy，mysqld 等 exporter，具体可查看官网。</p>
+
+<p>可采用直接下载安装和Docker容器方式安装两种</p>
+
+<h4 id="toc_13">源码安装</h4>
+
+<pre><code>**1. 下载&amp;部署**
+
+cd /usr/local/src/
+wget https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz
+tar xf node_exporter-0.15.2.linux-amd64.tar.gz -C /usr/local/
+cd /usr/local/
+mv node_exporter-0.15.2.linux-amd64 node_exporter
+
+
+**2. 设置用户**
+
+
+groupadd prometheus
+useradd -g prometheus -s /sbin/nologin prometheus
+chown -R prometheus:prometheus /usr/local/node_exporter/
+
+
+**3. 创建 Systemd 服务**
+
+vim /usr/lib/systemd/system/node_exporter.service
+-----------------------
+[Unit]
+Description=node_exporter
+Documentation=https://prometheus.io/
+After=network.target
+
+[Service]
+Type=simple
+User=prometheus
+ExecStart=/usr/local/node_exporter/node_exporter
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+----------------
+
+systemctl enable node_exporter.service
+systemctl start node_exporter.service
+
+
+**4. 设置 iptables 规则**
+
+# 官方node_exporter默认使用9100端口
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 9100 -j ACCEPT
+
+
+**5. 验证**
+
+访问 http://172.18.100.111:9100/metrics ，可见node1主机已经可被监控，如下：
+
+</code></pre>
+
+<h4 id="toc_14">Docker方式安装</h4>
+
+<pre><code># docker pull prom/node-exporter 运行:
+# docker run -d \ --net=host \ --restart=always \ --name node-exporter \ -p 9100:9100 \
+-v &quot;/proc:/host/proc&quot; \
+-v &quot;/sys:/host/sys&quot; \
+-v &quot;/:/rootfs&quot; \
+prom/node-exporter \
+-collector.procfs /host/proc \
+-collector.sysfs /host/sys \
+-collector.filesystem.ignored-mount-points &quot;^/(sys|proc|dev|host|etc)($|/)&quot;
+ 
+# docker ps -a
+CONTAINER
+ID IMAGE COMMAND CREATED STATUS
+PORTS 2 seconds
+NAMES
+d5e20da8e3bd hub.allyamall.com/node-exporter &quot;/bin/node_exporte...&quot; ago Up 2 seconds node-exporter
+[root@yiche-03 ~]# netstat -anp|grep 9100
+tcp6 0 0 :::9100 :::*
+tcp6 0 0 192.168.100.29:9100
+没有配置--net=host:
+# netstat -anp|grep 9100
+tcp6 0 0 :::9100 :::*
+LISTEN 6200/node_exporter 192.168.100.16:55336 TIME_WAIT -
+LISTEN 7687/docker-proxy
+# 如果用docker方式安装，但没设置—net=host，在Prometheus/Grafana里将看不到网
+卡流量，netstat内容.
+# netstat -anp|grep 9100
+tcp6 0 0 :::9100 :::* LISTEN 1470/node_exporter
+# 设置node_exporter为系统服务
+# vim /etc/systemd/system/node_export.service [Unit]
+Description=Prometheus NODE Exporter
+[Service] WorkingDirectory=/opt/projects/src/src/github.com/prometheus/node_exporter/ ExecStart=/usr/sbin/node_exporter $OPTIONS
+[Install]
+WantedBy=multi-user.target
+# systemctl enable node_export.service # systemctl restart node_export.service
+#配置prometheus.yml，对应的node_exporter 端口为9100,例如: #Node exporter
+- job_name: &#39;node&#39; static_configs:
+- targets: [&#39;127.0.0.1:9100&#39;]
+
+</code></pre>
+
+<h3 id="toc_15">snmp_exporter 安装</h3>
+
+<p>通过 SNMP 监控网络设备</p>
+
+<pre><code># snmp相关的配置文件为/snmp_exporter/snmp.yml，可以通过设置oid方式具体监控网 络设备，也可以直接用默认文件，监控网络设备流量。以下以监控h3c路由器为例。
+
+Documents:
+https://www.robustperception.io/snmp-monitoring-with-prometheus/ https://github.com/prometheus/snmp_exporter
+SNMP Monitoring with Prometheus
+https://www.robustperception.io/snmp-monitoring-with-prometheus/
+基于Prometheus的分布式在线服务监控实践 https://zhuanlan.zhihu.com/p/24811652
+# 安装: # wget
+https://github.com/prometheus/snmp_exporter/releases/download/v0.4.0/snmp_exporter -0.4.0.linux-amd64.tar.gz
+# tar xzf snmp_exporter-0.4.0.linux-amd64.tar.gz
+# cd snmp_exporter-0.4.0.linux-amd64
+#nohup ./snmp_exporter &amp;
+[1] 5201
+# netstat -anp|grep 9116
+    :::*
+# 访问http://192.168.100.22:9116/，输入被监控的SNMP主机后可查看该主机信息。
+# 在Prometheus.yml里配置snmp信息
+# vim /opt/promethens/peometheus.yml # For SNMP equipment
+- job_name: &#39;h3c&#39; static_configs:
+- targets:
+- 192.168.100.1
+metrics_path: /snmp params:
+module: [default] relabel_configs:
+- source_labels: [__address__] target_label: __param_target
+- source_labels: [__param_target] target_label: instance
+- target_label: __address__
+replacement: 127.0.0.1:9116 #SNMP exporter
+# 添加snmp_exporter为系统服务
+tcp6 0 tcp6 0 tcp6 0
+0 :::9116
+0 127.0.0.1:9116 0 127.0.0.1:9116
+LISTEN 127.0.0.1:59030 127.0.0.1:59026
+5201/./snmp_exporte TIME_WAIT - TIME_WAIT -
+
+# vim /etc/systemd/system/snmp_exporter.service
+[Unit]
+Description=Prometheus SNMP Exporter After=network.target
+[Service]
+User=root
+Group=root WorkingDirectory=/opt/snmp_exporter/ ExecStart=/opt/snmp_exporter/snmp_exporter Type=simple
+[Install] WantedBy=multi-user.target
+# systemctl enable snmp_exporter.service # systemctl restart snmp_exporter.service
+</code></pre>
+
+<h3 id="toc_16">BlackBox exporter 安装</h3>
+
+<pre><code>通过 Ping,http,dns 进行监控
+# 安装Blackbox exporter, 源码安装编译的时候可能会提示go路径的问题，所以选择直接 安装。
+# go get github.com/prometheus/blackbox_exporter
+# go build github.com/prometheus/blackbox_exporter
+#启动进程
+# cd /opt/projects/bin
+# ./blackbox_exporter - config.file=/opt/projects/src/src/github.com/prometheus/blackbox_exporter/blackbox.yml &amp;
+[1] 14756
+INFO[0000] Starting blackbox_exporter (version=, branch=,
+revision=) source=&quot;main.go:153&quot;
+INFO[0000] Build context (go=go1.7, user=, date=) source=&quot;main.go:154&quot;
+INFO[0000] Loaded config file INFO[0000] Listening on :9115
+# netstat -antp|grep 9115 tcp6 0 0 :::9115
+source=&quot;main.go:71&quot; source=&quot;main.go:226&quot;
+# 浏览器访问:http://192.168.100.22:9115/
+# 配置Prometheus.yml，通过ping监控网络设备 #Ping AP
+- job_name: &#39;ping&#39;
+:::*
+LISTEN
+14756/./blackbox_ex
+ 
+scrape_interval: 5s metrics_path: /probe params:
+module: [icmp] #ping
+static_configs:
+- targets: [&#39;192.168.100.1&#39;, &#39;192.168.100.11&#39;, &#39;192.168.100.21&#39;, &#39;192.168.100.31&#39;]
+labels: groups: &#39;H3C&#39;
+# 修改配置后需要重新加载配置文件
+</code></pre>
+
+<h2 id="toc_17">通过容器部署 Prometheus+Grafana+cAdvisor</h2>
+
+<pre><code>目的:通过容器方式部署Prometheus+Grafana+cAdvisor,通过轻量式快速部署监控环境 Documents:
+1). https://github.com/stefanprodan/dockprom
+2). Prometheus/Docker/cAdvisor/Grafana集成监控 https://github.com/stefanprodan/dockprom
+3). Grafana 高可用:(Grafana默认使用Sqlite3作为数据库，轻量级，但不支持分布 式，如果要做HA需要用Mysql) http://docs.grafana.org/tutorials/ha_setup/#how-to-setup-grafana-for-high-availability 4).Docker 集群监控平台---cAdvisor-InfluxDB-Grafana https://jevic.github.io/2017/01/23/dockercAdvisordbgra-md/ http://www.2cto.com/net/201701/583599.html
+5). 使用InfluxDB+cAdvisor+Grafana配置Docker监控 http://www.jianshu.com/p/d078d353d12f
+6).grafana使用mysql存储
+https://segmentfault.com/a/1190000008936411
+步骤:
+# 整个安装组件Prometheus,Grafana,Alertmanager, node_exporter,cAdvisor,全部为容器方 式。
+1). 从https://github.com/stefanprodan/dockprom 下载所有代码: $ git clone https://github.com/stefanprodan/dockprom
+$ cd dockprom
+$ docker-compose up -d
+# docker-compose 命令是用来一次性启动管理多个容器的命令，对应的配置文件是
+       
+docker-compose.yml.
+# 如果要单独启动某个容器，例如cAdvisor，可以执行: # sudo docker run \
+--volume=/:/rootfs:ro \ --volume=/var/run:/var/run:rw \ --volume=/sys:/sys:ro \ --volume=/var/lib/docker/:/var/lib/docker:ro \ --publish=8080:8080 \
+--detach=true \ --name=cadvisor \ google/cadvisor:latest
+# 安装完成后直接访问相应的网页和服务即可。
+如果单独安装node-exporter,方法如下: # docker pull prom/node-exporter
+docker run -d \
+--restart=always \
+--name node-exporter \
+-p 9100:9100 \
+-v &quot;/proc:/host/proc&quot; \
+-v &quot;/sys:/host/sys&quot; \
+-v &quot;/:/rootfs&quot; \
+prom/node-exporter \
+-collector.procfs /host/proc \
+-collector.sysfs /host/sys \
+-collector.filesystem.ignored-mount-points &quot;^/(sys|proc|dev|host|etc)($|/)&quot;
+#加--restart=always的目的是为了docker系统服务重启的时候容器可以自动重启。 # Prometheus
+http://192.168.100.111:9090
+# Grafana
+http://192.168.100.111:3000
+#默认用户名和密码:admin/changeme，添加默认数据库: * Name: Prometheus
+* Type: Prometheus
+* Url: http://prometheus:9090 * Access: proxy
+# 如果需要修改配置文件直接到dockprom 目录下进行修改即可，修改后重新加载配置 生效:
+# curl -X POST http://192.168.100.111:9090/-/reload
+# 监控cAdvisor报警条件:
+  
+# vim containers.rules
+ALERT cAdvisor_down
+IF absent(container_memory_usage_bytes{name=&quot;cadvisor&quot;}) FOR 1m
+LABELS { severity = &quot;critical&quot; }
+ANNOTATIONS {
+summary= &quot;cAdvisor containers down&quot;,
+description= &quot;cAdvisor container is down for more than 1 minutes.&quot; }
+ALERT cAdvisor_high_cpu
+IF sum(rate(container_cpu_usage_seconds_total{name=&quot;cadvisor&quot;}[1m])) /
+count(node_cpu{mode=&quot;system&quot;}) * 100 &gt; 10 FOR 5m
+LABELS { severity = &quot;warning&quot; } ANNOTATIONS {
+summary= &quot;cAdvisor high CPU usage&quot;,
+description= &quot;cAdvisor CPU usage is {{ humanize $value}}%.&quot; }
+ALERT cAdvisor_high_memory
+IF sum(container_memory_usage_bytes{name=&quot;cadvisor&quot;}) &gt; 1200000000 FOR 5m
+LABELS { severity = &quot;warning&quot; }
+ANNOTATIONS {
+summary = &quot;cAdvisor high memory usage&quot;,
+description = &quot;cAdvisor memory consumption is at {{ humanize $value}}.&quot;, }
+</code></pre>
+
+<h2 id="toc_18">其它参考:</h2>
+
+<pre><code>1). 容器部署完成后可以直接通过docker export导出为tar文件再导入到其它服务器。
+导出:
+$ docker ps -a
+CONTAINER ID IMAGE
+NAMES 4da6c4e8d580
+COMMAND
+CREATED STATUS PORTS
+prom/prometheus
+hours 0.0.0.0:9090-&gt;9090/tcp prometheus
+2cb99ce6b87f prom/node-exporter &quot;/bin/node_exporte...&quot; 13 hours ago hours 9100/tcp nodeexporter
+40c02b10c25d grafana/grafana &quot;/run.sh&quot; 13 hours ago Up 13
+&quot;/bin/prometheus -...&quot; 13 hours ago
+Up 13 Up 13
+
+hours 0.0.0.0:3000-&gt;3000/tcp grafana
+b2313d0b3247 prom/alertmanager &quot;/bin/alertmanager...&quot; hours 0.0.0.0:9093-&gt;9093/tcp alertmanager
+6a4da9de8ebc google/cadvisor:v0.26.1 &quot;/usr/bin/cadvisor...&quot; hours 8080/tcp cadvisor
+$ docker export 6a4da9de8ebc &gt; cadvisor.tar 如果是导出镜像可以使用docker save,导入则是docker load.
+导入:
+# cat cadvisor.tar | docker import - google/cadvisor:v0.26.1
+13 hours ago 13 hours ago
+Up 13 Up 13
+sha256:cd45ecb65fe4ac1ebdae18baab23529c6597230374eccef27f165c6859f35167
+# docker images
+REPOSITORY TAG IMAGE ID CREATED SIZE google/cadvisor v0.26.1 cd45ecb65fe4 18 seconds ago 58.1MB
+2). Grafana 数据库存放路径:默认Grafana采用Sqlite3，轻量型数据库，但不支持分布 式，如果需要HA可以使用Mysql替代。
+#cd /var/lib/grafana
+# ll
+total 1396
+-rw-r--r-- 1 grafana grafana 1422336 Aug 15 15:03 grafana.db drwxr-xr-x 6 grafana grafana 123 Jul 24 10:16 plugins drwx------ 13 grafana grafana 105 Aug 14 08:31 sessions [root@office-monitoring grafana]# du -sh *
+1.4M grafana.db 16M plugins 24K sessions
+
+</code></pre>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15258517853636.html"  title="Previous Post: # Prometheus 简介及安装">&laquo; # Prometheus 简介及安装</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15257584688763.html" 
+	        title="Next Post: prometheus监控调研方案">prometheus监控调研方案 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15258308100903.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>

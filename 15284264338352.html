@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  基础知识练习 - An Honglei ’s Blog
+  redis - An Honglei ’s Blog
   
   </title>
  <meta name="description" content="学习是痛并快乐着！！！">
@@ -192,190 +192,8 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>基础知识练习</h1>
+<h1>redis</h1>
 
-<ul>
-<li>
-<a href="#toc_0">1、执行 Python 脚本的两种方式</a>
-</li>
-<li>
-<a href="#toc_1">2、简述位、字节的关系</a>
-</li>
-<li>
-<a href="#toc_2">3、简述 ascii、unicode、utf-8、gbk 的关系</a>
-</li>
-<li>
-<a href="#toc_3">4、请写出 “李杰” 分别用 utf-8 和 gbk 编码所占的位数</a>
-</li>
-<li>
-<a href="#toc_4">5、Pyhton 单行注释和多行注释分别用什么?</a>
-</li>
-<li>
-<a href="#toc_5">6、声明变量注意事项有那些?</a>
-</li>
-<li>
-<a href="#toc_6">7、如有一下变量 n1 = 5，请使用 int 的提供的方法，得到该变量最少可以用多少个二进制位表示?</a>
-</li>
-<li>
-<a href="#toc_7">8、布尔值分别有什么?</a>
-</li>
-<li>
-<a href="#toc_8">9、阅读代码，请写出执行结果</a>
-</li>
-<li>
-<a href="#toc_9">10、写代码，有如下变量，请按照要求实现每个功能 name = &quot; aleX&quot;</a>
-</li>
-<li>
-<a href="#toc_10">21、字符串是否可迭代对象?如可以请使用 for 循环每一个元素?</a>
-</li>
-<li>
-<a href="#toc_11">22、请用代码实现:</a>
-</li>
-<li>
-<a href="#toc_12">23、Python2 中的 range 和 Python3 中的 range 的区别?</a>
-</li>
-<li>
-<a href="#toc_13">24、实现一个整数加法计算器: 如:</a>
-</li>
-<li>
-<a href="#toc_14">25、计算用户输入的内容中有几个十进制小数?几个字母? 如:</a>
-</li>
-<li>
-<a href="#toc_15">26、简述 int 和 9 等数字 以及 str 和 &quot;xxoo&quot; 等字符串的关系?</a>
-</li>
-<li>
-<a href="#toc_16">27、制作趣味模板程序 需求:等待用户输入名字、地点、爱好，根据用户的名字和爱好进行任意现实</a>
-</li>
-<li>
-<a href="#toc_17">28、制作随机验证码，不区分大小写。 流程:</a>
-</li>
-<li>
-<a href="#toc_18">29、开发敏感词语过滤程序，提示用户输入内容，如果用户输入的内容中包含特殊的字符: 如 &quot;苍老师&quot; &quot;东京热&quot;，则将内容替换为 ***</a>
-</li>
-<li>
-<a href="#toc_19">30、制作表格</a>
-</li>
-</ul>
-
-
-<h4 id="toc_0">1、执行 Python 脚本的两种方式</h4>
-
-<p>1、REPL</p>
-
-<pre><code>所谓REPL即read、eva、print、loop（读取、计算、打印、循环）
-</code></pre>
-
-<p><img src="media/15221590998154/15221602097992.jpg" alt=""/></p>
-
-<p>2、运行脚本</p>
-
-<pre><code>REPL方式的优点是简单明了，但是它在面对很多大型项目时存在很多的不足。我们可以通过运行脚本的方式来解决这一问题
-</code></pre>
-
-<p><img src="media/15221590998154/15221603038347.jpg" alt=""/></p>
-
-<p><img src="media/15221590998154/15221605001379.jpg" alt=""/></p>
-
-<h4 id="toc_1">2、简述位、字节的关系</h4>
-
-<pre><code>位（bit）：“比特”，表示二进制位。位是计算机内部数据储存的最小单位
-字节（byte） ：“拜特”，习惯上用大写的“B”表示。字节是计算机中数据处理的基本单位。
-1个字节等于8个比特：1Byte=8bit
-</code></pre>
-
-<h4 id="toc_2">3、简述 ascii、unicode、utf-8、gbk 的关系</h4>
-
-<pre><code>ascii 是最早美国用的标准信息交换码，把所有的字母的大小写，各种符号用 二进制来表示，共有256中，加入些拉丁文等字符，1bytes代表一个字符，
-
-Unicode是为了统一世界各国语言的不用，统一用2个bytes代表一个字符，可以表达2**16=65556个，称为万国语言，特点：速度快，但浪费空间，可以用在内存处理中，兼容了utf-8，gbk，ASCII，
-
-utf-8 为了改变Unicode的这种缺点，规定1个英文字符用1个字节表示，1个中文字符用3个字节表示，特点；节省空间，速度慢，用在硬盘数据传输，网络数据传输，相比硬盘和网络速度，体现不出来的，
-
-gbk  是中文的字符编码，用2个字节代表一个字符，
-</code></pre>
-
-<h4 id="toc_3">4、请写出 “李杰” 分别用 utf-8 和 gbk 编码所占的位数</h4>
-
-<p><img src="media/15221590998154/15221615148954.jpg" alt=""/><br/>
-<img src="media/15221590998154/15221619116378.jpg" alt=""/></p>
-
-<h4 id="toc_4">5、Pyhton 单行注释和多行注释分别用什么?</h4>
-
-<pre><code>单行注释符号(#)
-井号(#)常被用作单行注释符号，在代码中使用#时，它右边的任何数据都会被忽略，当做是注释。
-
-批量、多行注释符号（&#39;&#39;&#39; &#39;&#39;&#39;, &quot;&quot;&quot; &quot;&quot;&quot;）
-在python中也会有注释有很多行的时候，这种情况下就需要批量多行注释符了。多行注释是用三引号(单，双)
-</code></pre>
-
-<h4 id="toc_5">6、声明变量注意事项有那些?</h4>
-
-<pre><code>1、变量名可以包括字母、数字、下划线，但是数字不能做为开头。例如：name1是合法变量名，而1name就不可以。
-2、关键字（保留字）不能做变量名使用，函数不允许做变量名。
-3、除了下划线之外，其它符号不能做为变量名使用
-4、Python的变量名是除分大小写的，例如：name和Name就是两个变量名，而非相同变量哦。
-</code></pre>
-
-<h4 id="toc_6">7、如有一下变量 n1 = 5，请使用 int 的提供的方法，得到该变量最少可以用多少个二进制位表示?</h4>
-
-<h4 id="toc_7">8、布尔值分别有什么?</h4>
-
-<h4 id="toc_8">9、阅读代码，请写出执行结果</h4>
-
-<p>a = &quot;alex&quot;<br/>
-b = a.capitalize() print(a)<br/>
-print(b)</p>
-
-<h4 id="toc_9">10、写代码，有如下变量，请按照要求实现每个功能 name = &quot; aleX&quot;</h4>
-
-<p>a. 移除 name 变量对应的值两边的空格，并输入移除后的内容 b. 判断 name 变量对应的值是否以 &quot;al&quot; 开头，并输出结果<br/>
-c. 判断 name 变量对应的值是否以 &quot;X&quot; 结尾，并输出结果<br/>
-d. 将 name 变量对应的值中的 “l” 替换为 “p”，并输出结果 e. 将 name 变量对应的值根据 “l” 分割，并输出结果。<br/>
-f. 请问，上一题 e 分割之后得到值是什么类型(可选)? g. 将 name 变量对应的值变大写，并输出结果<br/>
-h. 将 name 变量对应的值变小写，并输出结果<br/>
-i. 请输出 name 变量对应的值的第 2 个字符?<br/>
-j. 请输出 name 变量对应的值的前 3 个字符?<br/>
-k. 请输出 name 变量对应的值的后 2 个字符?<br/>
-l. 请输出 name 变量对应的值中 “e” 所在索引位置?<br/>
-m. 获取子序列，仅不包含最后一个字符。如: oldboy 则获取 oldbo; root 则获取 roo</p>
-
-<h4 id="toc_10">21、字符串是否可迭代对象?如可以请使用 for 循环每一个元素?</h4>
-
-<h4 id="toc_11">22、请用代码实现:</h4>
-
-<p>a. 利用下划线将列表的每一个元素拼接成字符串，li = &quot;alexericrain&quot;<br/>
-b. 利用下划线将列表的每一个元素拼接成字符串，li = <a href="%E5%8F%AF%E9%80%89">&#39;alex&#39;, &#39;eric&#39;, &#39;rain&#39;</a></p>
-
-<h4 id="toc_12">23、Python2 中的 range 和 Python3 中的 range 的区别?</h4>
-
-<h4 id="toc_13">24、实现一个整数加法计算器: 如:</h4>
-
-<p>content = input(&#39;请输入内容:&#39;) # 如: 5+9 或 5+ 9 或 5 + 9</p>
-
-<h4 id="toc_14">25、计算用户输入的内容中有几个十进制小数?几个字母? 如:</h4>
-
-<p>content = input(&#39;请输入内容:&#39;) # 如:asduiaf878123jkjsfd-213928 </p>
-
-<h4 id="toc_15">26、简述 int 和 9 等数字 以及 str 和 &quot;xxoo&quot; 等字符串的关系?</h4>
-
-<h4 id="toc_16">27、制作趣味模板程序 需求:等待用户输入名字、地点、爱好，根据用户的名字和爱好进行任意现实</h4>
-
-<p>如:敬爱可亲的 xxx，最喜欢在 xxx 地方干 xxx</p>
-
-<h4 id="toc_17">28、制作随机验证码，不区分大小写。 流程:</h4>
-
-<ul>
-<li>用户执行程序</li>
-<li>给用户显示需要输入的验证码 - 用户输入的值
-  用户输入的值和显示的值相同时现实正确信息;否则继续生成随机验证码继续等待用户输入
-生成随机验证码代码示例:</li>
-</ul>
-
-<h4 id="toc_18">29、开发敏感词语过滤程序，提示用户输入内容，如果用户输入的内容中包含特殊的字符: 如 &quot;苍老师&quot; &quot;东京热&quot;，则将内容替换为 ***</h4>
-
-<h4 id="toc_19">30、制作表格</h4>
-
-<p>循环提示用户输入:用户名、密码、邮箱 (要求用户输入的长度不超过 20 个字符，如果超过则只有前 20 个字符有效) 如果用户输入 q 或 Q 表示不再继续输入，将用户输入的内容以表格形式大隐</p>
 
 
 </div>
@@ -387,15 +205,15 @@ b. 利用下划线将列表的每一个元素拼接成字符串，li = <a href="
   <div class="large-6 columns">
 	<div class="text-left" style="padding:15px 0px;">
 		
-	        <a href="15243054043731.html"  title="Previous Post: 天兔">&laquo; 天兔</a>
+	        <a href="15284264396270.html"  title="Previous Post: docker">&laquo; docker</a>
 	    
 	</div>
   </div>
   <div class="large-6 columns">
 	<div class="text-right" style="padding:15px 0px;">
 		
-	        <a href="15214289229123.html" 
-	        title="Next Post: python 基础">python 基础 &raquo;</a>
+	        <a href="15284264265436.html" 
+	        title="Next Post: mongodb">mongodb &raquo;</a>
 	    
 	</div>
   </div>
@@ -408,7 +226,7 @@ b. 利用下划线将列表的每一个元素拼接成字符串，li = <a href="
 </div>
 <script type="text/javascript">
 	$(function(){
-		var currentURL = '15221590998154.html';
+		var currentURL = '15284264338352.html';
 		$('#side-nav a').each(function(){
 			if($(this).attr('href') == currentURL){
 				$(this).parent().addClass('active');

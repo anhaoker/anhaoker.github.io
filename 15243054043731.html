@@ -1,0 +1,792 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  天兔 - An Honglei ’s Blog
+  
+  </title>
+ <meta name="description" content="学习是痛并快乐着！！！">
+ <link href="atom.xml" rel="alternate" title="An Honglei ’s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">An Honglei ’s Blog</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; An Honglei ’s Blog</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>监控</label></li>
+
+          
+            <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+          
+            <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+          
+            <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+          
+            <li><a title="zookeeper" href="15284264486830.html">zookeeper</a></li>
+          
+            <li><a title="docker" href="15284264396270.html">docker</a></li>
+          
+            <li><a title="redis" href="15284264338352.html">redis</a></li>
+          
+            <li><a title="mongodb" href="15284264265436.html">mongodb</a></li>
+          
+            <li><a title="mysql" href="15284264221433.html">mysql</a></li>
+          
+            <li><a title="nginx" href="15284264147825.html">nginx</a></li>
+          
+            <li><a title="JVM" href="15284264028937.html">JVM</a></li>
+          
+            <li><a title="配置报警-邮件和微信" href="15284261636485.html">配置报警-邮件和微信</a></li>
+          
+            <li><a title="自动发现设置" href="15284261175013.html">自动发现设置</a></li>
+          
+            <li><a title="Alertmanager报警模块" href="15270467833243.html">Alertmanager报警模块</a></li>
+          
+            <li><a title="运维监控工作规划" href="15264350522088.html">运维监控工作规划</a></li>
+          
+            <li><a title="# Prometheus 简介及安装" href="15258517853636.html"># Prometheus 简介及安装</a></li>
+          
+            <li><a title="部署 Prometheus 基础环境" href="15258308100903.html">部署 Prometheus 基础环境</a></li>
+          
+            <li><a title="prometheus监控调研方案" href="15257584688763.html">prometheus监控调研方案</a></li>
+          
+            <li><a title="监控迁移过程注意事项整理" href="15253278795397.html">监控迁移过程注意事项整理</a></li>
+          
+            <li><a title="zabbix3.2升级到3.4" href="15246459775922.html">zabbix3.2升级到3.4</a></li>
+          
+            <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+          
+            <li><a title="天兔" href="15243054043731.html">天兔</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Python</label></li>
+
+          
+            <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+          
+            <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>基础整理</label></li>
+
+          
+            <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>监控</span></li>
+                        
+                          <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+                        
+                          <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+                        
+                          <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+                        
+                          <li><a title="zookeeper" href="15284264486830.html">zookeeper</a></li>
+                        
+                          <li><a title="docker" href="15284264396270.html">docker</a></li>
+                        
+                          <li><a title="redis" href="15284264338352.html">redis</a></li>
+                        
+                          <li><a title="mongodb" href="15284264265436.html">mongodb</a></li>
+                        
+                          <li><a title="mysql" href="15284264221433.html">mysql</a></li>
+                        
+                          <li><a title="nginx" href="15284264147825.html">nginx</a></li>
+                        
+                          <li><a title="JVM" href="15284264028937.html">JVM</a></li>
+                        
+                          <li><a title="配置报警-邮件和微信" href="15284261636485.html">配置报警-邮件和微信</a></li>
+                        
+                          <li><a title="自动发现设置" href="15284261175013.html">自动发现设置</a></li>
+                        
+                          <li><a title="Alertmanager报警模块" href="15270467833243.html">Alertmanager报警模块</a></li>
+                        
+                          <li><a title="运维监控工作规划" href="15264350522088.html">运维监控工作规划</a></li>
+                        
+                          <li><a title="# Prometheus 简介及安装" href="15258517853636.html"># Prometheus 简介及安装</a></li>
+                        
+                          <li><a title="部署 Prometheus 基础环境" href="15258308100903.html">部署 Prometheus 基础环境</a></li>
+                        
+                          <li><a title="prometheus监控调研方案" href="15257584688763.html">prometheus监控调研方案</a></li>
+                        
+                          <li><a title="监控迁移过程注意事项整理" href="15253278795397.html">监控迁移过程注意事项整理</a></li>
+                        
+                          <li><a title="zabbix3.2升级到3.4" href="15246459775922.html">zabbix3.2升级到3.4</a></li>
+                        
+                          <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+                        
+                          <li><a title="天兔" href="15243054043731.html">天兔</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Python</span></li>
+                        
+                          <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+                        
+                          <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>基础整理</span></li>
+                        
+                          <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>天兔</h1>
+
+<hr/>
+
+<p>title: 安装 Lepus(天兔)数据库监控系统</p>
+
+<h2 id="toc_0">tags: 归档</h2>
+
+<h2 id="toc_1">简介</h2>
+
+<h2 id="toc_2"></h2>
+
+<p>Lepus(天兔)数据库企业监控系统是一套由专业DBA个人(目前就职于某互联网公司),针对互联网企业开发的一款专业、强大的企业数据库监控管理系统，企业通过Lepus可以对数据库的实时健康和各种性能指标进行全方位的监控。目前已经支持MySQL、Oracle、MongoDB、Redis数据库的全面监控. Lepus可以在数据库出现故障或者潜在性能问题时,根据用户设置及时将数据库的异常进行报警通知到数据库管理员进行处理和优化,帮助企业解决数据库性能监控问题，及时发现性能和瓶颈,避免由数据库潜在问题造成的直接经济损失。Lepus能够查看各种实时性能状态指标，并且对监控、性能数据进行统计分析，从运维者到决策者多个层面的视角，查看相关报表。帮助决策者对未来数据库容量进行更好的规划，从而降低了硬件成本。</p>
+
+<p>官方网站：<a href="http://www.lepus.cc/">http://www.lepus.cc/</a><br/>
+软件下载地址：<br/>
+在线手册1：<a href="http://www.lepus.cc/manual/index">http://www.lepus.cc/manual/index</a><br/>
+在线手册2：<a href="http://www.dbarun.com/docs/lepus/guide/">http://www.dbarun.com/docs/lepus/guide/</a><br/>
+MySQLdb-python：<a href="https://pypi.python.org/pypi/MySQL-python">https://pypi.python.org/pypi/MySQL-python</a><br/>
+pypi：<a href="http://pypi.python.org/">http://pypi.python.org/</a><br/>
+<a href="http://www.dbarun.com/docs/lepus/guide/">http://www.dbarun.com/docs/lepus/guide/</a></p>
+
+<h2 id="toc_3">安装需求</h2>
+
+<pre><code>需要的核心包如下：
+
+以下软件包只需要部署在监控机即可。被监控机无需部署。
+
+1.MySQL5.1及以上（必须,用来存储监控系统采集的数据）
+
+2.Apache 2.2及以上 （必须,WEB服务器运行服务器）
+
+3.PHP 5.3以上 （必须,提供WEB界面支持,不支持PHP7）
+
+4.Python2 （必须,推荐2.6及以上版本,执行数据采集和报警任务,不支持Python3）
+
+5.Python连接和监控数据库的相关驱动模块包：
+MySQLdb for python （Python连接MySQl的接口，用于监控MySQL,此模块必须安装）
+cx_oracle for python （Python连接Oracle的接口，非必须,如果需要监控oracle此模块必须安装）
+Pymongo for python （Python连接MongoDB的接口，非必须,如果需要监控MongoDB此模块必须安装）
+redis-py for python （Python连接Redis的接口，非必须,如果需要监控Redis此模块必须安装）
+</code></pre>
+
+<h2 id="toc_4">安装LAMP基础环境或LNMP</h2>
+
+<pre><code>官方建议：
+配置LAMP基础环境的方式有很多种，最简单的方式有yum安装、RPM包安装等方式、安装集成环境包(例如lampp/xampp等)。
+您也可以手动编译安装相关软件。这里我们不推荐使用YUM进行安装，YUM安装的PHP环境可以因为缺少某些依赖包导致500错误。
+如果你有能力，可以进行编译安装，按照需要的模块编译PHP和MYSQL数据库，这种方式也是目前大型WEB推荐的方式。
+如果你无法进行编译安装，我们推荐你使用Xampp集成环境包进行安装，xampp是一个可靠的稳定的lamp套件，
+目前已被诸多公司用于生产服务器的部署，目前Lepus的开发环境，测试环境以及线上官网的WEB环境，都是运行在xampp环境下面，并且一直都是稳定的。
+Xampp下载地址：https://www.apachefriends.org/download.html
+Xampp帮助文档：https://www.apachefriends.org/faq_linux.html
+官方推荐版本：xampp-linux-x64-1.8.2-5-installer.run,该版本在下列安装部署中会提供下载地址连接，或者进入Lepus常用软件下载专贴进行下载：http://www.dba-china.com/topic/226。
+</code></pre>
+
+<h2 id="toc_5">安装python基础模块</h2>
+
+<h3 id="toc_6">1.安装Mysql-python</h3>
+
+<pre><code>yum -y install python-devel 
+ln -s /usr/local/mysql-5.7.20/lib/libmysqlclient.so.20 /usr/lib64/
+cd /usr/local/src/
+wget &#39;https://pypi.python.org/packages/a5/e9/51b544da85a36a68debe7a7091f068d802fc515a3a202652828c73453cad/MySQL-python-1.2.5.zip#md5=654f75b302db6ed8dc5a898c625e030c&#39;
+unzip MySQL-python-1.2.5.zip
+cd MySQL-python-1.2.5
+
+vim site.cfg 修改如下： 
+mysql_config = /usr/local/mysql/bin/mysql_config 
+
+python setup.py build 
+python setup.py install 
+</code></pre>
+
+<h3 id="toc_7">2.安装Redis 驱动</h3>
+
+<pre><code>cd /usr/local/src/
+wget &#39;https://pypi.python.org/packages/68/44/5efe9e98ad83ef5b742ce62a15bea609ed5a0d1caf35b79257ddb324031a/redis-2.10.5.tar.gz#md5=3b26c2b9703b4b56b30a1ad508e31083&#39;
+tar zxf redis-2.10.5.tar.gz
+cd redis-2.10.5/ 
+python setup.py install
+</code></pre>
+
+<h3 id="toc_8">3.安装Pymongo for python</h3>
+
+<pre><code>cd /usr/local/src/
+wget &#39;https://pypi.python.org/packages/8e/34/4b3cd4bfe5f3bfbd89873c8e24e091a6a6510c57fedea76161530be18a61/pymongo-2.7.2.tar.gz#md5=bbd229fe0ff43ee130eed9ffa9db7353&#39;
+tar zxf pymongo-2.7.2.tar.gz
+cd pymongo-2.7.2/
+python setup.py install 
+</code></pre>
+
+<h3 id="toc_9">测试各个驱动是否正常运行（非必须）</h3>
+
+<pre><code>在lepus的安装文件包python目录中，你可以找到如下测试文件，测试上述驱动是否安装正确。
+
+python test_driver_mysql.py 
+python test_driver_oracle.py 
+python test_driver_mongodb.py 
+python test_driver_redis.py 
+
+</code></pre>
+
+<h2 id="toc_10">安装Lepus采集器</h2>
+
+<h3 id="toc_11">1)下载软件安装包,授权，并创建软连接</h3>
+
+<pre><code>cd /usr/local/
+git clone https://github.com/ruzuojun/lepus.git
+cd lepus
+chmod +x lepus*
+ln -s /usr/local/lepus/lepus /usr/local/sbin/lepus
+ln -s /usr/local/lepus/lepus_monitor /usr/local/sbin/lepus_mointor
+</code></pre>
+
+<h3 id="toc_12">2).在监控机创建监控数据库，并授权，初始化SQL文件(表结构和数据文件)。</h3>
+
+<pre><code>mysql&gt; create database lepus default character set utf8;
+mysql&gt; grant ALL PRIVILEGES on lepus.* to &#39;lepus&#39;@&#39;127.0.0.1&#39; identified by &#39;xtFKBQdjuDih7#Abz&#39;;
+mysql&gt; grant ALL PRIVILEGES on lepus.* to &#39;lepus&#39;@&#39;localhost&#39; identified by &#39;xtFKBQdjuDih7#Abz&#39;;
+mysql&gt; flush privileges;
+
+use lepus
+source /usr/local/lepus/sql/lepus_table.sql;
+source /usr/local/lepus/sql/lepus_data.sql;
+
+ln -s /tmp/mysql3330.sock /var/lib/mysql/mysql.sock
+
+</code></pre>
+
+<h3 id="toc_13">3) 修改配置文件(迁移直接拷贝配置文件即可)</h3>
+
+<pre><code>
+
+监控机MySQL数据库连接地址
+
+[monitor_server]
+host=&quot;127.0.0.1&quot;
+port=3330
+user=&quot; lepus&quot;
+passwd=&quot;xtFKBQdjuDih7#Abz&quot;
+dbname=&quot;lepus&quot;
+</code></pre>
+
+<h3 id="toc_14">4) 启动Lepus （可选-您也可以在部署完Lepus WEB控制台后再进行启动。）</h3>
+
+<pre><code>此时，你可以执行启动命令启动lepus采集进程
+ lepus start
+ps -ef|grep lepus
+
+root     11553     1  0 14:40 pts/0    00:00:00 /bin/bash /usr/local/sbin/lepus start
+root     11555 11553  0 14:40 pts/0    00:00:00 python lepus.py
+root     11571 11555  0 14:40 pts/0    00:00:00 python lepus.py
+root     11590  1851  0 14:40 pts/0    00:00:00 grep lepus
+
+tail -f logs/lepus.log 
+</code></pre>
+
+<h2 id="toc_15">安装WEB管理台</h2>
+
+<h3 id="toc_16">配置nginx</h3>
+
+<pre><code>
+vim qwdb.mon.bd-yg.com.conf
+-----
+server {
+    listen  80;
+    server_name  qwdb.mon.bjtuling.com;
+    index index.php index.html index.htm;
+    root   /data/www/lepus;
+
+    allow 10.100.1.0/24; ## beijing vlan
+    allow 10.100.2.0/24; ## beijing vlan
+    allow 10.100.4.0/24; ## beijing vlan
+    allow 10.101.2.0/24; ## shenyang
+    deny all;
+
+
+        location /
+        {
+            if (!-e $request_filename)
+            {
+                rewrite  ^(.*)$  /index.php?s=$1  last;
+                break;
+            }
+        }
+
+    location ~ /.svn/ {
+        deny all;
+    }
+
+    location ~* ^/(attachments|images|upload)/.*\.(php|php5)$ {
+        deny all;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+        expires 7d;
+    }
+
+    location ~ .*\.(js|css)?$ {
+        expires 24h;
+    }
+
+    location ~ .*\.php?$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+        #fastcgi_param  HTTPS on;
+        include fastcgi_params;
+    }
+
+}
+
+------
+</code></pre>
+
+<h3 id="toc_17">配置WEB目录</h3>
+
+<pre><code>mkdir /data/www/lepus
+cp -r /usr/local/lepus/web/* /data/www/lepus/
+chown -R nobody.nobody /data/www/
+vim /data/www/lepus/application/config/database.php
+51行
+
+$db[&#39;default&#39;][&#39;hostname&#39;] = &#39;127.0.0.1&#39;;
+$db[&#39;default&#39;][&#39;port&#39;]     = &#39;3330&#39;;
+$db[&#39;default&#39;][&#39;username&#39;] = &#39;lepus&#39;;
+$db[&#39;default&#39;][&#39;password&#39;] = &#39;xtFKBQdjuDih7#Abz&#39;;
+$db[&#39;default&#39;][&#39;database&#39;] = &#39;lepus&#39;;
+</code></pre>
+
+<p>默认管理员账号密码admin/Lepusadmin登录后请修改管理员密码，增加普通账号。</p>
+
+<h3 id="toc_18">启动和关闭Lepus</h3>
+
+<pre><code>执行以下命令启动系统采集进程
+lepus start
+执行以下命令关闭系统采集进程
+ lepus stop
+执行以下命令监控系统是否正常运行
+lepus status
+</code></pre>
+
+<h3 id="toc_19">查看运行日志</h3>
+
+<p>tail -f /usr/local/lepus/lepus.log </p>
+
+<h2 id="toc_20">配置mysql slowlog</h2>
+
+<h3 id="toc_21">1.安装percona-toolkit</h3>
+
+<pre><code>yum -y install perl-IO-Socket-SSL perl-DBI perl-DBD-MySQL perl-Time-HiRes perl-Digest-MD5
+cd /usr/local/src/
+wget http://bjqw-dl.bjtuling.com:8180/soft/percona-toolkit-2.2.20-1.noarch.rpm
+rpm -ivh percona-toolkit-2.2.20-1.noarch.rpm
+</code></pre>
+
+<h3 id="toc_22">2.配置mysql服务器监控脚本</h3>
+
+<h2 id="toc_23">nginx配置</h2>
+
+<p>nginx配置需要添加以下内容</p>
+
+<pre><code>
+location / {
+    if (!-e $request_filename)
+    {
+        rewrite  ^(.*)$  /index.php?s=$1  last;
+        break;
+    }
+ }
+</code></pre>
+
+<h2 id="toc_24">客户端安装</h2>
+
+<p>官方文档：<a href="http://www.dbarun.com/docs/lepus/instance/mysql/">http://www.dbarun.com/docs/lepus/instance/mysql/</a></p>
+
+<h3 id="toc_25">1) 被监控端添加授权</h3>
+
+<pre><code>grant select,process,super on *.* to &#39;lepus_mon&#39;@&#39;server_IP&#39; identified by &#39;X2VjD5#DCpdxANxP&#39;;
+grant select,process,super on *.* to &#39;lepus_mon&#39;@&#39;127.0.0.1&#39; identified by &#39;X2VjD5#DCpdxANxP&#39;;
+</code></pre>
+
+<h3 id="toc_26">2) 监控端添加授权</h3>
+
+<pre><code>grant SELECT, INSERT, UPDATE, DELETE, CREATE, PROCESS, ALTER, SUPER on *.* to &#39;lepus_client&#39;@&#39;client_IP&#39; identified by &#39;cESJS8Xi7i^GQWpd&#39;;
+</code></pre>
+
+<h3 id="toc_27">3) 在天兔后台配置服务器信息</h3>
+
+<p>监控和告警配置<br/>
+<a href="http://www.dbarun.com/docs/lepus/configure/">http://www.dbarun.com/docs/lepus/configure/</a><br/>
+<a href="http://www.dbarun.com/docs/lepus/instance/mysql/">http://www.dbarun.com/docs/lepus/instance/mysql/</a></p>
+
+<h3 id="toc_28">4）添加slowlog监控-client操作</h3>
+
+<p>参考文档：<a href="http://suifu.blog.51cto.com/9167728/1770672">http://suifu.blog.51cto.com/9167728/1770672</a></p>
+
+<p>被监控端安装pt工具:</p>
+
+<pre><code>yum -y install perl-IO-Socket-SSL perl-DBI perl-DBD-MySQL perl-Time-HiRes perl-Digest-MD5
+cd /usr/local/src/
+wget https://www.percona.com/downloads/percona-toolkit/3.0.4/binary/redhat/7/x86_64/percona-toolkit-3.0.4-1.el7.x86_64.rpm
+rpm -ivh percona-toolkit-3.0.4-1.el7.x86_64.rpm
+</code></pre>
+
+<p>被监控端安装脚本：</p>
+
+<pre><code>#!/bin/bash
+#****************************************************************#
+# ScriptName: /usr/local/sbin/lepus_slowquery.sh
+# Create Date: 2014-03-25 10:01
+# Modify Date: 2014-03-25 10:01
+#***************************************************************#
+
+#config lepus database server
+lepus_db_host=&quot;server_IP&quot;   #服务端IP
+lepus_db_port=3330              #服务端收集慢日志的数据库端口
+lepus_db_user=&quot;lepus_client&quot;
+lepus_db_password=&quot;cESJS8Xi7i^GQWpd&quot;
+lepus_db_database=&quot;lepus&quot;
+
+#config mysql server
+mysql_client=&quot;/usr/local/mysql/bin/mysql&quot;
+mysql_host=&quot;127.0.0.1&quot;
+mysql_port=3306
+mysql_user=&quot;lepus_mon&quot;
+mysql_password=&quot;X2VjD5#DCpdxANxP&quot;
+
+#config slowqury
+slowquery_dir=&quot;/data/mysql/3306/logs/&quot;
+slowquery_long_time=2
+slowquery_file=`$mysql_client -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password  -e &quot;show variables like &#39;slow_query_log_file&#39;&quot;|grep log|awk &#39;{print $2}&#39;`
+pt_query_digest=&quot;/usr/bin/pt-query-digest&quot;      #如RPM安装路径或许在/bin/pt-query-digest
+
+#config server_id
+lepus_server_id=274         #单机多实例 serverID 需不一样
+
+#collect mysql slowquery log into lepus database
+$pt_query_digest --user=$lepus_db_user --password=$lepus_db_password --port=$lepus_db_port --review h=$lepus_db_host,D=$lepus_db_database,t=mysql_slow_query_review  --history h=$lepus_db_host,D=$lepus_db_database,t=mysql_slow_query_review_history  --no-report --limit=100% --filter=&quot; \$event-&gt;{add_column} = length(\$event-&gt;{arg}) and \$event-&gt;{serverid}=$lepus_server_id &quot; $slowquery_file &gt; /tmp/lepus_slowquery.log
+
+##### set a new slow query log ###########
+tmp_log=`$mysql_client -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password -e &quot;select concat(&#39;$slowquery_dir&#39;,&#39;slowquery_&#39;,date_format(now(),&#39;%Y%m%d%H&#39;),&#39;.log&#39;);&quot;|grep log|sed -n -e &#39;2p&#39;`
+
+#config mysql slowquery
+$mysql_client -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password -e &quot;set global slow_query_log=1;set global long_query_time=$slowquery_long_time;&quot;
+$mysql_client -h$mysql_host -P$mysql_port -u$mysql_user -p$mysql_password -e &quot;set global slow_query_log_file = &#39;$tmp_log&#39;; &quot;
+
+#delete log before 7 days
+cd $slowquery_dir
+/usr/bin/find ./ -name &#39;slowquery_*&#39; -mtime +7|xargs rm -rf ;
+
+####END####
+</code></pre>
+
+<p>添加cron任务</p>
+
+<pre><code>*/5 * * * * root /bin/bash /usr/local/sbin/lepus_slowquery_3306.sh 1&gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+
+<h2 id="toc_29">参考文档</h2>
+
+<p>Lepus天兔数据库监控手册：<a href="http://www.dba-china.com/manual/default/view?manual_id=1&amp;_id=10">http://www.dba-china.com/manual/default/view?manual_id=1&amp;_id=10</a></p>
+
+<pre><code>A Database Error Occurred
+Unable to connect to your database server using the provided settings.
+
+Filename: core/Loader.php
+
+Line Number: 346
+
+修改:
+$db[&#39;default&#39;][&#39;pconnect&#39;] = TRUE;
+$db[&#39;default&#39;][&#39;db_debug&#39;] = TRUE;
+为:
+$db[&#39;default&#39;][&#39;pconnect&#39;] = FALSE;
+$db[&#39;default&#39;][&#39;db_debug&#39;] = FALSE;
+in /application/config/database.php
+</code></pre>
+
+<h2 id="toc_30">故障处理</h2>
+
+<p>Lepus修改admin用户密码</p>
+
+<pre><code>select user_id,username,password from admin_user;
+select md5(&#39;Lepusadmin&#39;);
+update admin_user set password=&#39;6f493fbddf9107797f5044bb229ac6ee&#39; where user_id = 1;
+http://blog.itpub.net/23249684/viewspace-1485312/
+</code></pre>
+
+<p>连接失败解决</p>
+
+<pre><code>#调整mysql配置文件参数
+#sql_mode = &quot;STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER&quot;
+sql_mode = &quot;NO_ENGINE_SUBSTITUTION,NO_AUTO_CREATE_USER&quot;
+table_open_cache = 8192
+</code></pre>
+
+<h2 id="toc_31">MYSQL 5.7.20 慢查询报错</h2>
+
+<p>报错信息如下</p>
+
+<pre><code>A Database Error Occurred
+Error Number: 1054
+
+Unknown column &#39;b.serverid_max&#39; in &#39;field list&#39;
+
+SELECT `a`.`checksum`, `a`.`fingerprint`, `a`.`sample`, `a`.`first_seen`, `a`.`last_seen`, `b`.`serverid_max`, `b`.`db_max`, `b`.`user_max`, `b`.`ts_min`, `b`.`ts_max`, sum(b.ts_cnt) ts_cnt, sum(b.Query_time_sum)/sum(b.ts_cnt) Query_time_avg, max(b.Query_time_max) Query_time_max, min(b.Query_time_min) Query_time_min, `b`.`Query_time_sum` Query_time_sum, max(b.Lock_time_max) Lock_time_max, min(b.Lock_time_min) Lock_time_min, sum(b.Lock_time_sum) Lock_time_sum FROM (`mysql_slow_query_review` a) JOIN `mysql_slow_query_review_history` b ON `a`.`checksum`=`b`.`checksum` WHERE `last_seen` &gt;= &#39;2018-05-08 15:06&#39; AND `last_seen` &lt;= &#39;2018-05-15 15:06&#39; AND `a`.`sample` != &#39;commit&#39; AND `b`.`db_max` != &#39;information_schema&#39; GROUP BY `a`.`checksum` ORDER BY `last_seen` desc, `Query_time_sum` desc LIMIT 25
+
+Filename: /data/www/lepus/models/mysql_model.php
+
+Line Number: 173
+</code></pre>
+
+<p>解决：由于数据库升级语法不兼容导致<br/>
+  <code>ts_min</code> datetime NOT NULL DEFAULT  CURRENT_TIMESTAMP(),<br/>
+  <code>ts_max</code> datetime NOT NULL DEFAULT  CURRENT_TIMESTAMP(),</p>
+
+<pre><code>DROP TABLE IF EXISTS `mysql_slow_query_review_history`;
+CREATE TABLE `mysql_slow_query_review_history` (
+  `serverid_max` smallint(4) NOT NULL DEFAULT &#39;0&#39;,
+  `db_max` varchar(100) DEFAULT NULL,
+  `user_max` varchar(100) DEFAULT NULL,
+  `checksum` bigint(20) unsigned NOT NULL,
+  `sample` text NOT NULL,
+  `ts_min` datetime NOT NULL DEFAULT  CURRENT_TIMESTAMP(),
+  `ts_max` datetime NOT NULL DEFAULT  CURRENT_TIMESTAMP(),
+  `ts_cnt` float DEFAULT NULL,
+  `Query_time_sum` float DEFAULT NULL,
+  `Query_time_min` float DEFAULT NULL,
+  `Query_time_max` float DEFAULT NULL,
+  `Query_time_pct_95` float DEFAULT NULL,
+  `Query_time_stddev` float DEFAULT NULL,
+  `Query_time_median` float DEFAULT NULL,
+  `Lock_time_sum` float DEFAULT NULL,
+  `Lock_time_min` float DEFAULT NULL,
+  `Lock_time_max` float DEFAULT NULL,
+  `Lock_time_pct_95` float DEFAULT NULL,
+  `Lock_time_stddev` float DEFAULT NULL,
+  `Lock_time_median` float DEFAULT NULL,
+  `Rows_sent_sum` float DEFAULT NULL,
+  `Rows_sent_min` float DEFAULT NULL,
+  `Rows_sent_max` float DEFAULT NULL,
+  `Rows_sent_pct_95` float DEFAULT NULL,
+  `Rows_sent_stddev` float DEFAULT NULL,
+  `Rows_sent_median` float DEFAULT NULL,
+  `Rows_examined_sum` float DEFAULT NULL,
+  `Rows_examined_min` float DEFAULT NULL,
+  `Rows_examined_max` float DEFAULT NULL,
+  `Rows_examined_pct_95` float DEFAULT NULL,
+  `Rows_examined_stddev` float DEFAULT NULL,
+  `Rows_examined_median` float DEFAULT NULL,
+  `Rows_affected_sum` float DEFAULT NULL,
+  `Rows_affected_min` float DEFAULT NULL,
+  `Rows_affected_max` float DEFAULT NULL,
+  `Rows_affected_pct_95` float DEFAULT NULL,
+  `Rows_affected_stddev` float DEFAULT NULL,
+  `Rows_affected_median` float DEFAULT NULL,
+  `Rows_read_sum` float DEFAULT NULL,
+  `Rows_read_min` float DEFAULT NULL,
+  `Rows_read_max` float DEFAULT NULL,
+  `Rows_read_pct_95` float DEFAULT NULL,
+  `Rows_read_stddev` float DEFAULT NULL,
+  `Rows_read_median` float DEFAULT NULL,
+  `Merge_passes_sum` float DEFAULT NULL,
+  `Merge_passes_min` float DEFAULT NULL,
+  `Merge_passes_max` float DEFAULT NULL,
+  `Merge_passes_pct_95` float DEFAULT NULL,
+  `Merge_passes_stddev` float DEFAULT NULL,
+  `Merge_passes_median` float DEFAULT NULL,
+  `InnoDB_IO_r_ops_min` float DEFAULT NULL,
+  `InnoDB_IO_r_ops_max` float DEFAULT NULL,
+  `InnoDB_IO_r_ops_pct_95` float DEFAULT NULL,
+  `InnoDB_IO_r_ops_stddev` float DEFAULT NULL,
+  `InnoDB_IO_r_ops_median` float DEFAULT NULL,
+  `InnoDB_IO_r_bytes_min` float DEFAULT NULL,
+  `InnoDB_IO_r_bytes_max` float DEFAULT NULL,
+  `InnoDB_IO_r_bytes_pct_95` float DEFAULT NULL,
+  `InnoDB_IO_r_bytes_stddev` float DEFAULT NULL,
+  `InnoDB_IO_r_bytes_median` float DEFAULT NULL,
+  `InnoDB_IO_r_wait_min` float DEFAULT NULL,
+  `InnoDB_IO_r_wait_max` float DEFAULT NULL,
+  `InnoDB_IO_r_wait_pct_95` float DEFAULT NULL,
+  `InnoDB_IO_r_wait_stddev` float DEFAULT NULL,
+  `InnoDB_IO_r_wait_median` float DEFAULT NULL,
+  `InnoDB_rec_lock_wait_min` float DEFAULT NULL,
+  `InnoDB_rec_lock_wait_max` float DEFAULT NULL,
+  `InnoDB_rec_lock_wait_pct_95` float DEFAULT NULL,
+  `InnoDB_rec_lock_wait_stddev` float DEFAULT NULL,
+  `InnoDB_rec_lock_wait_median` float DEFAULT NULL,
+  `InnoDB_queue_wait_min` float DEFAULT NULL,
+  `InnoDB_queue_wait_max` float DEFAULT NULL,
+  `InnoDB_queue_wait_pct_95` float DEFAULT NULL,
+  `InnoDB_queue_wait_stddev` float DEFAULT NULL,
+  `InnoDB_queue_wait_median` float DEFAULT NULL,
+  `InnoDB_pages_distinct_min` float DEFAULT NULL,
+  `InnoDB_pages_distinct_max` float DEFAULT NULL,
+  `InnoDB_pages_distinct_pct_95` float DEFAULT NULL,
+  `InnoDB_pages_distinct_stddev` float DEFAULT NULL,
+  `InnoDB_pages_distinct_median` float DEFAULT NULL,
+  `QC_Hit_cnt` float DEFAULT NULL,
+  `QC_Hit_sum` float DEFAULT NULL,
+  `Full_scan_cnt` float DEFAULT NULL,
+  `Full_scan_sum` float DEFAULT NULL,
+  `Full_join_cnt` float DEFAULT NULL,
+  `Full_join_sum` float DEFAULT NULL,
+  `Tmp_table_cnt` float DEFAULT NULL,
+  `Tmp_table_sum` float DEFAULT NULL,
+  `Tmp_table_on_disk_cnt` float DEFAULT NULL,
+  `Tmp_table_on_disk_sum` float DEFAULT NULL,
+  `Filesort_cnt` float DEFAULT NULL,
+  `Filesort_sum` float DEFAULT NULL,
+  `Filesort_on_disk_cnt` float DEFAULT NULL,
+  `Filesort_on_disk_sum` float DEFAULT NULL,
+  PRIMARY KEY (`checksum`,`ts_min`,`ts_max`),
+  KEY `idx_serverid_max` (`serverid_max`) USING BTREE,
+  KEY `idx_checksum` (`checksum`) USING BTREE,
+  KEY `idx_query_time_max` (`Query_time_max`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre>
+
+<p>参考<br/>
+<a href="http://www.ywnds.com/?p=8189">http://www.ywnds.com/?p=8189</a></p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15246196912882.html"  title="Previous Post: zabbix3.2/3.4 部署安装">&laquo; zabbix3.2/3.4 部署安装</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15221590998154.html" 
+	        title="Next Post: 基础知识练习">基础知识练习 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15243054043731.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>
