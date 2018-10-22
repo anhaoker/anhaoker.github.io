@@ -61,6 +61,8 @@
         <li><label>Python</label></li>
 
           
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
             <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
           
             <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -104,6 +106,8 @@
                     
                       <li class="side-title"><span>Python</span></li>
                         
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+                        
                           <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
                         
                           <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -135,7 +139,7 @@
 
 <p>vim /etc/zabbix/zabbix_server.conf</p>
 
-<pre><code>#VM ware ESXI
+<pre><code class="language-text">#VM ware ESXI
 StartVMwareCollectors=4
 VMwarePerfFrequency=60
 VMwareCacheSize=200M
@@ -148,7 +152,7 @@ VMwareFrequency（10-864000）zabbix获取更新vmware集群结构的最小间�
 
 <h2 id="toc_1">ZABBIX UI配置</h2>
 
-<pre><code>建议远程登录vcenter创建一个只读用户进行数据的读取
+<pre><code class="language-text">建议远程登录vcenter创建一个只读用户进行数据的读取
 
 {$URL} - 输入vCenter SDK URL (https://vcenter ip/sdk)
 {$USERNAME} - 登录vCenter使用的用户名，一般是administrator@vsphere.local
@@ -233,7 +237,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
 
      
     </script>
-    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
   </body>

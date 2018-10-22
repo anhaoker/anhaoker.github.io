@@ -61,6 +61,8 @@
         <li><label>Python</label></li>
 
           
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
             <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
           
             <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -103,6 +105,8 @@
 
                     
                       <li class="side-title"><span>Python</span></li>
+                        
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
                         
                           <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
                         
@@ -164,20 +168,19 @@ zabbix监控模板：<a href="https://share.zabbix.com/search-by/tags?value=netk
 
 <h4 id="toc_3">2. 安装系统环境</h4>
 
-<pre><code>yum install -y unixODBC unixODBC-devel net-snmp net-snmp-devel java-devel libssh2-devel OpenIPMI ipmitool
- OpenIPMI-devel fping php-devel libevent-devel
+<pre><code class="language-text">yum install -y unixODBC unixODBC-devel net-snmp net-snmp-devel java-devel libssh2-devel OpenIPMI ipmitool OpenIPMI-devel fping php-devel libevent-devel mysql-devel
 </code></pre>
 
 <p>安装php及组件</p>
 
-<pre><code>cd /data/source/
+<pre><code class="language-text">cd /data/source/
 ./sm
 18,19
 </code></pre>
 
 <p>PHP安装bcmach</p>
 
-<pre><code>ln -s /usr/local/php-5.4.26 /usr/local/php
+<pre><code class="language-text">ln -s /usr/local/php-5.4.26 /usr/local/php
 cd /data/source/
 tar zxf php-5.4.26.tar.gz
 cd /data/source/php-5.4.26/ext/bcmath
@@ -205,7 +208,7 @@ extension=ldap.so
 
 <p>优化php.ini</p>
 
-<pre><code>cp /home/server_config/php/php.ini.5.4 /home/server_config/php/php.ini.5.4.default
+<pre><code class="language-text">cp /home/server_config/php/php.ini.5.4 /home/server_config/php/php.ini.5.4.default
 sed -i &quot;s/;date.timezone =/date.timezone = Asia\/Shanghai/g&quot; /home/server_config/php/php.ini.5.4
 sed -i &quot;s#max_execution_time = 30#max_execution_time = 300#g&quot; /home/server_config/php/php.ini.5.4
 sed -i &quot;s#post_max_size = 8M#post_max_size = 32M#g&quot; /home/server_config/php/php.ini.5.4
@@ -220,35 +223,35 @@ ln -s /home/server_config/php-fpm/php-fpm /etc/init.d/php-fpm
 
 <h4 id="toc_4">3. 安装和配置Zabbix服务器</h4>
 
-<pre><code>下载地址：
-https://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.4.8/zabbix-3.4.8.tar.gz
+<pre><code class="language-text">下载地址：
+wget https://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.4.12/zabbix-3.4.12.tar.gz
 
 groupadd -g 201 zabbix
 useradd -u 201 -g zabbix -d /var/lib/zabbix -s /sbin/nologin -c &quot;Zabbix System User&quot; zabbix
 cd /usr/local/src
-wget https://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.4.8/zabbix-3.4.8.tar.gz
-tar zxf zabbix-3.4.8.tar.gz
-cd zabbix-3.4.8
-./configure --prefix=/usr/local/zabbix-3.4.8 --sysconfdir=/etc/zabbix --enable-server --enable-proxy --enable-agent --enable-ipv6 --with-mysql=/usr/local/mysql-5.7.20/bin/mysql_config --with-net-snmp  --with-libxml2 --with-libcurl --with-openipmi --with-openssl --with-unixodbc --with-ldap --with-ssh2 --enable-java
+wget https://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.4.12/zabbix-3.4.12.tar.gz
+tar zxf zabbix-3.4.12.tar.gz
+cd zabbix-3.4.12
+./configure --prefix=/usr/local/zabbix-3.4.12 --sysconfdir=/etc/zabbix --enable-server --enable-proxy --enable-agent --enable-ipv6 --with-mysql=/usr/bin/mysql_config --with-net-snmp  --with-libxml2 --with-libcurl --with-openipmi --with-openssl --with-unixodbc --with-ldap --with-ssh2 --enable-java
 make &amp;&amp; make install
-ln -s /usr/local/zabbix-3.4.8 /usr/local/zabbix
+ln -s /usr/local/zabbix-3.4.12 /usr/local/zabbix
 mkdir /var/log/zabbix
 chown -R zabbix.zabbix /var/log/zabbix
 </code></pre>
 
 <p>创建zabbix数据库和用户</p>
 
-<pre><code>create database zabbix character set utf8;
-grant all privileges on zabbix.* to zabbix@localhost identified by &#39;Zabbix@2016&#39;;
-grant all privileges on zabbix.* to zabbix@&#39;127.0.0.1&#39; identified by &#39;Zabbix@2016&#39;;
+<pre><code class="language-text">create database zabbix character set utf8;
+grant all privileges on zabbix.* to zabbix@localhost identified by &#39;Zabbix@2018&#39;;
+grant all privileges on zabbix.* to zabbix@&#39;10.100.10.12&#39; identified by &#39;Zabbix@2018&#39;;
 </code></pre>
 
 <p>导入zabbix数据库</p>
 
-<pre><code>use zabbix;
-source /usr/local/src/zabbix-3.4.8/database/mysql/schema.sql;
-source /usr/local/src/zabbix-3.4.8/database/mysql/images.sql;
-source /usr/local/src/zabbix-3.4.8/database/mysql/data.sql;
+<pre><code class="language-text">use zabbix;
+source /usr/local/src/zabbix-3.4.12/database/mysql/schema.sql;
+source /usr/local/src/zabbix-3.4.12/database/mysql/images.sql;
+source /usr/local/src/zabbix-3.4.12/database/mysql/data.sql;
 
 将原数据库导入即可
 
@@ -256,14 +259,14 @@ source /usr/local/src/zabbix-3.4.8/database/mysql/data.sql;
 
 <p>修改配置</p>
 
-<pre><code>cp /etc/zabbix/zabbix_server.conf /etc/zabbix/zabbix_server.conf.default
+<pre><code class="language-text">cp /etc/zabbix/zabbix_server.conf /etc/zabbix/zabbix_server.conf.default
 配置server.conf
 vi /etc/zabbix/zabbix_server.conf
 LogFile=/var/log/zabbix/zabbix_server.log
 DBHost=localhost
 DBName=zabbix
 DBUser=zabbix
-DBPassword=Zabbix@2016
+DBPassword=Zabbix@2018
 DBSocket=/tmp/mysql3306.sock
 DBPort=3306
 StartPollers=160
@@ -284,10 +287,10 @@ cp /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.default
 vi /etc/zabbix/zabbix_agentd.conf
 LogFile=/var/log/zabbix/zabbix_agentd.log
 EnableRemoteCommands=0
-Server=127.0.0.1,172.18.100.232
+Server=127.0.0.1,10.100.10.12
 StartAgents=8
-ServerActive=172.18.100.232:10051
-Hostname=zabbix.yg.com
+ServerActive=10.100.10.12:10051
+Hostname=zabbix.jw.com
 Timeout=30
 Include=/etc/zabbix/zabbix_agentd.conf.d/
 UnsafeUserParameters=1
@@ -297,7 +300,7 @@ UnsafeUserParameters=1
 
 <p>增加系统&amp;开机配置</p>
 
-<pre><code>cp /usr/local/src/zabbix-3.4.8/misc/init.d/fedora/core/zabbix_* /etc/init.d/
+<pre><code class="language-text">cp /usr/local/src/zabbix-3.4.12/misc/init.d/fedora/core/zabbix_* /etc/init.d/
 chmod 755 /etc/init.d/zabbix_*
 sed -i &quot;s#BASEDIR=/usr/local#BASEDIR=/usr/local/zabbix/#g&quot; /etc/init.d/zabbix_server
 sed -i &quot;s#BASEDIR=/usr/local#BASEDIR=/usr/local/zabbix/#g&quot; /etc/init.d/zabbix_agentd
@@ -313,42 +316,43 @@ chkconfig zabbix_server on
 
 <p>配置nginx WEB访问</p>
 
-<pre><code>mkdir -p /data/www
-cd /usr/local/src/zabbix-3.4.8
+<pre><code class="language-text">mkdir -p /data/www
+cd /usr/local/src/zabbix-3.4.12
 cp -r ./frontends/php/ /data/www/zabbix
 chown -R nobody.nobody /data/www/zabbix/
 
 **配置nginx**
 cd /usr/local/nginx/conf/vhosts
-cp test.conf.example zabbix.bjtuling.com.conf
-vi zabbix.bjtuling.com.conf
+cp test.conf.example zabbix.jw.com.conf
+vi zabbix.jw.com.conf
+
 server {
-listen 80;
-server_name zabbix.bjtuling.com;
-index index.php index.html index.htm;
-root /data/www/zabbix;
-location ~ /.svn/ {
-deny all;
-}
-location ~ ^.*\.(htaccess|zip|gz|tgz)$ {
-deny all;
-}
-location ~* ^/(attachments|images|upload)/.*\.(php|php5)$ {
-deny all;
-}
-location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
-expires 7d;
-}
-location ~ .*\.(js|css)?$ {
-expires 24h;
-}
-location ~ .*\.php?$ {
-fastcgi_pass 127.0.0.1:9000;
-fastcgi_index index.php;
-fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#fastcgi_param HTTPS on;
-include fastcgi_params;
-}
+    listen 80;
+    server_name zabbix.jue-wu.com;
+    index index.php index.html index.htm;
+    root /data/www/zabbix;
+    location ~ /.svn/ {
+    deny all;
+    }
+    location ~ ^.*\.(htaccess|zip|gz|tgz)$ {
+    deny all;
+    }
+    location ~* ^/(attachments|images|upload)/.*\.(php|php5)$ {
+    deny all;
+    }
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+    expires 7d;
+    }
+    location ~ .*\.(js|css)?$ {
+    expires 24h;
+    }
+    location ~ .*\.php?$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fastcgi_param HTTPS on;
+        include fastcgi_params;
+    }
 }
 
 迁移：将vhosts目录下所有配置拷贝过来即可
@@ -357,7 +361,7 @@ include fastcgi_params;
 
 <p>开启防火墙</p>
 
-<pre><code>${IPTABLES} -A INPUT -p tcp --dport 10050 -j ACCEPT
+<pre><code class="language-text">${IPTABLES} -A INPUT -p tcp --dport 10050 -j ACCEPT
 ${IPTABLES} -A INPUT -p tcp --dport 10051 -j ACCEPT
 迁移时，拷贝原服务器/home/server_config/iptables_rules/配置
 </code></pre>
@@ -367,7 +371,7 @@ ${IPTABLES} -A INPUT -p tcp --dport 10051 -j ACCEPT
 
 <p>解决zabbix中文乱码</p>
 
-<pre><code>cd /usr/local/src
+<pre><code class="language-text">cd /usr/local/src
 wget http://bjqw-dl.bjtuling.com:8180/zabbix/simkai.ttf
 cp simkai.ttf /data/www/zabbix/fonts/
 sed -i &#39;s/DejaVuSans/simkai/g&#39; /data/www/zabbix/include/defines.inc.php
@@ -375,31 +379,44 @@ sed -i &#39;s/DejaVuSans/simkai/g&#39; /data/www/zabbix/include/defines.inc.php
 
 <p>部署Client端</p>
 
-<pre><code>1. 下载&amp;安装
+<pre><code class="language-text">1. 下载&amp;安装
+
+
+groupadd -g 201 zabbix
+useradd -u 201 -g zabbix -d /var/lib/zabbix -s /sbin/nologin -c &quot;Zabbix System User&quot; zabbix
+
 cd /usr/local/src
-wget http://netix.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.4/zabbix-3.0.4.tar.gz
-tar zxf zabbix-3.0.4.tar.gz
-cd zabbix-3.0.4
-./configure --prefix=/usr/local/zabbix-3.0.4 --sysconfdir=/etc/zabbix --enable-agent
+wget http://netix.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.4/zabbix-3.4.12.tar.gz
+tar zxf zabbix-3.4.12.tar.gz
+cd zabbix-3.4.12
+./configure --prefix=/usr/local/zabbix-3.4.12 --sysconfdir=/etc/zabbix --enable-agent
 make &amp;&amp; make install
-ln -s /usr/local/zabbix-3.0.4 /usr/local/zabbix
+ln -s /usr/local/zabbix-3.4.12 /usr/local/zabbix
 mkdir /var/log/zabbix
 chown -R zabbix.zabbix /var/log/zabbix
 cp /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.default
 cp misc/init.d/fedora/core/zabbix_agentd /etc/init.d/
 sed -i &quot;s#BASEDIR=/usr/local#BASEDIR=/usr/local/zabbix/#g&quot; /etc/init.d/zabbix_agentd
 chmod 755 /etc/init.d/zabbix_agentd
+
+
 2. 修改配置文件
 vi /etc/zabbix/zabbix_agentd.conf
+
 LogFile=/var/log/zabbix/zabbix_agentd.log
 EnableRemoteCommands=0
-Server=120.26.44.156
-StartAgents=8
-ServerActive=120.26.44.156:10051
-Hostname=zabbix.play800.cn
+#被动模式一定要记得设置Server ＝ ServerIP
+Server=10.100.10.12
+StartAgents=4
+#主动模式一定要记得设置ServerActive=ServerIP
+ServerActive=10.100.10.12:10051
+Hostname=kvm.lykonggu.com
 Timeout=30
 Include=/etc/zabbix/zabbix_agentd.conf.d/
 UnsafeUserParameters=1
+HostMetadataItem=system.uname
+
+
 3. 增加开机启动
 chkconfig --add zabbix_agentd
 chkconfig zabbix_agentd on
@@ -408,9 +425,13 @@ chkconfig zabbix_agentd on
 
 <p>自动化安装脚本</p>
 
-<pre><code>1. zabbix客户端安装脚本
+<pre><code class="language-text">1. zabbix客户端安装脚本
 cd /usr/local/src ;wget http://bjqw-dl.bjtuling.com:8180/zabbix/init_scripts/init_zabbix_agent_3.2.6.sh ; sh init_zabbix_agent_3.2.6.sh
 zabbix客户端相关脚本
+
+
+
+
 1. 监控nginx
 zabbix server 导入nginx模板
 zabbix agent 配置
@@ -481,15 +502,11 @@ cd /usr/local/src;wget http://bjqw-dl.bjtuling.com:8180/zabbix/init_scripts/init
 6. 监控io
 cd /usr/local/src;wget http://bjqw-dl.bjtuling.com:8180/zabbix/init_scripts/init_zabbix_iostat_status.sh;sh init_zabbix_iostat_status.sh
 
-
-
-
-
 </code></pre>
 
 <p>监控JVM相关</p>
 
-<pre><code>yum install -y java-devel zabbix-java-gateway
+<pre><code class="language-text">yum install -y java-devel zabbix-java-gateway
 systemctl start zabbix-java-gateway.service
 systemctl enable zabbix-java-gateway.service
 
@@ -511,7 +528,7 @@ StartJavaPollers=20
 <li>Too many processes on Zabbix server</li>
 </ol>
 
-<pre><code>配置-模板-Template_Linux
+<pre><code class="language-text">配置-模板-Template_Linux
 Configuration--&gt;Templates找到Template_Linux点该行的 Triggers选择：Too many processes on {HOSTNAME}，表达式修改为：
 {Template OS Linux:proc.num[].avg(5m)}&gt;500
 2. &quot;cannot send list of active checks to []: host [] not found&quot;
@@ -527,7 +544,7 @@ Configuration--&gt;Templates找到Template_Linux点该行的 Triggers选择：To
 <li>org.json.JSONException: No value for jmx_endpoint</li>
 </ol>
 
-<pre><code>清理zabbix其他YUM源（特别是高版本）
+<pre><code class="language-text">清理zabbix其他YUM源（特别是高版本）
 rpm -i http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm
 yum clean all
 yum install  zabbix-java-gateway
@@ -539,7 +556,7 @@ tail -fn200 /var/log/zabbix/zabbix_java_gateway.log
 <li>Error connecting to database: Connection refused</li>
 </ol>
 
-<pre><code>排查过程：
+<pre><code class="language-text">排查过程：
 1.检查zabbix_server.conf配置文件，发现数据库配置也是正确的，但就是报上面的错误
 2.最后通过网上搜索，发现
 ******/zabbix/conf/zabbix.conf.php
@@ -550,7 +567,7 @@ tail -fn200 /var/log/zabbix/zabbix_java_gateway.log
 <li>初始admin 密码</li>
 </ol>
 
-<pre><code>use zabbix; 
+<pre><code class="language-text">use zabbix; 
 select * from users;
 select userid,passwd from users;
 
@@ -568,7 +585,7 @@ flush privileges;
 <p>zabbix不会把ldap的用户同步过了，你要登录，得先在zabbix上创建和ldap内同名的用户才行<br/>
 <img src="media/15246196912882/15284255403350.jpg" alt=""/></p>
 
-<pre><code>LDAP host：访问DC的地址。格式：ldap://ip地址
+<pre><code class="language-text">LDAP host：访问DC的地址。格式：ldap://ip地址
 Port：默认389
 Base DN: dc=tencent,dc=com,也就是域名(tencent.com)
 Search attribute: uid，属性值，网上有填sAMAccountName。
@@ -582,6 +599,29 @@ User password：在DC中创建Admin用户的密码
 </code></pre>
 
 <p>参考：<a href="https://www.jianshu.com/p/2326f1ec2c2b">https://www.jianshu.com/p/2326f1ec2c2b</a></p>
+
+<p>自动注册-【动作】菜单里，输入：</p>
+
+<pre><code class="language-text">名称：Action_for_自动注册
+默认接收人：Auto registration: {HOST.HOST}
+默认信息：
+Host name: {HOST.HOST}
+Host IP: {HOST.IP}
+Agent port: {HOST.PORT}
+</code></pre>
+
+<p>在【条件】菜单里，输入：</p>
+
+<pre><code class="language-text">标签：A
+名称：主机元数据  似 Linux
+</code></pre>
+
+<p>在【操作】菜单里，输入：</p>
+
+<pre><code class="language-text">操作类型：添加主机
+添加到主机群组: Linux servers
+链接到模板: Template App Zabbix Agent, Template ICMP Ping, Template OS Linux
+</code></pre>
 
 
 </div>
@@ -652,7 +692,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
 
      
     </script>
-    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
   </body>

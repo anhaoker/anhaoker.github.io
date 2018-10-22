@@ -61,6 +61,8 @@
         <li><label>Python</label></li>
 
           
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
             <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
           
             <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -104,6 +106,8 @@
                     
                       <li class="side-title"><span>Python</span></li>
                         
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+                        
                           <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
                         
                           <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -140,19 +144,19 @@
 
 <p>cat /etc/zabbix/zabbix_server.conf |grep IPMI</p>
 
-<pre><code>StartIPMIPollers=20
+<pre><code class="language-text">StartIPMIPollers=20
 
 范围在0-1000选择，看你自己监控的ipmi主机的多少
 </code></pre>
 
 <h3 id="toc_3">导入监控模板</h3>
 
-<pre><code>模板下载地址: https://share.zabbix.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=642&amp;cf_id=39
+<pre><code class="language-text">模板下载地址: https://share.zabbix.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=642&amp;cf_id=39
 </code></pre>
 
 <p>添加监控主机，关联上本模板，并在IPMI页面</p>
 
-<pre><code>设置Authentication algorithm为Default, Privilege level为User, Username为root, Password为CNvWCYX98Yf^?Bd，保存即可
+<pre><code class="language-text">设置Authentication algorithm为Default, Privilege level为User, Username为root, Password为CNvWCYX98Yf^?Bd，保存即可
 </code></pre>
 
 <p><img src="http://p97r6m0sf.bkt.clouddn.com/15287912031450.jpg" alt=""/></p>
@@ -164,13 +168,13 @@
 
 <h3 id="toc_5">安装IPMItool软件包并开启IPMI服务</h3>
 
-<pre><code>yum install -y OpenIPMI ipmitool
+<pre><code class="language-text">yum install -y OpenIPMI ipmitool
 service ipmi start
 </code></pre>
 
 <h3 id="toc_6">配置IPMI地址:</h3>
 
-<pre><code>ipmitool lan set 1 ipaddr 10.100.4.114
+<pre><code class="language-text">ipmitool lan set 1 ipaddr 10.100.4.114
 ipmitool lan set 1 netmask 255.255.255.0
 ipmitool lan set 1 defgw ipaddr 10.100.4.1
 ipmitool lan print 1
@@ -180,14 +184,14 @@ ipmitool lan print 1
 
 <h3 id="toc_7">开启IPMI Over LAN</h3>
 
-<pre><code>ipmitool lan set 1 access on
+<pre><code class="language-text">ipmitool lan set 1 access on
 </code></pre>
 
 <h3 id="toc_8">配置用户</h3>
 
 <p>本次的需求为监控服务器传感器信息，只需要USER级别用户即可.</p>
 
-<pre><code>ipmitool user set name 2 root 
+<pre><code class="language-text">ipmitool user set name 2 root 
 ipmitool user set password 2 CNvWCYX98Yf^?Bd
 ipmitool channel setaccess 1 2 callin=on ipi=on link=on privilege=4 
 
@@ -204,7 +208,7 @@ ipmitool user list 1
 
 <p>登录Zabbix服务器，通过ipmitool远程访问Dell服务器传感器信息</p>
 
-<pre><code>#查看用户信息
+<pre><code class="language-text">#查看用户信息
 ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd user list                         
 #查看传感器信息
 pmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd sensor list
@@ -270,7 +274,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
 
      
     </script>
-    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
   </body>

@@ -1,0 +1,408 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  seafile 破解版安装 - An Honglei ’s Blog
+  
+  </title>
+ <meta name="description" content="学习是痛并快乐着！！！">
+ <link href="atom.xml" rel="alternate" title="An Honglei ’s Blog" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">An Honglei ’s Blog</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; An Honglei ’s Blog</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>监控</label></li>
+
+          
+            <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+          
+            <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+          
+            <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+          
+            <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Python</label></li>
+
+          
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
+            <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+          
+            <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>基础整理</label></li>
+
+          
+            <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>监控</span></li>
+                        
+                          <li><a title="IPMI-DELL" href="15287735246134.html">IPMI-DELL</a></li>
+                        
+                          <li><a title="VM WARE esxi" href="15286986347471.html">VM WARE esxi</a></li>
+                        
+                          <li><a title="IO监控" href="15284429017864.html">IO监控</a></li>
+                        
+                          <li><a title="zabbix3.2/3.4 部署安装" href="15246196912882.html">zabbix3.2/3.4 部署安装</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Python</span></li>
+                        
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+                        
+                          <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
+                        
+                          <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>基础整理</span></li>
+                        
+                          <li><a title="LINUX 快捷键整理" href="15306935051951.html">LINUX 快捷键整理</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>seafile 破解版安装</h1>
+
+<p>cat &gt; /etc/nginx/conf.d/seafile.conf &lt;&lt;&#39;EOF&#39;<br/>
+server {<br/>
+    listen 80;<br/>
+    server_name seafile.example.com;</p>
+
+<pre><code class="language-text">proxy_set_header X-Forwarded-For $remote_addr;
+
+location / {
+     proxy_pass         http://127.0.0.1:8000;
+     proxy_set_header   Host $host;
+     proxy_set_header   X-Real-IP $remote_addr;
+     proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+     proxy_set_header   X-Forwarded-Host $server_name;
+     proxy_set_header   X-Forwarded-Proto $scheme;
+     proxy_read_timeout  1200s;
+
+     # used for view/edit office file via Office Online Server
+     client_max_body_size 0;
+
+     access_log      /var/log/nginx/seahub.access.log;
+     error_log       /var/log/nginx/seahub.error.log;
+}
+
+location /seafhttp {
+    rewrite ^/seafhttp(.*)$ $1 break;
+    proxy_pass http://127.0.0.1:8082;
+    client_max_body_size 0;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_connect_timeout  36000s;
+    proxy_read_timeout  36000s;
+}
+location /media {
+    root /opt/seafile/seafile-server-latest/seahub;
+}
+location /seafdav {
+    fastcgi_pass    127.0.0.1:8080;
+    fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+    fastcgi_param   PATH_INFO           $fastcgi_script_name;
+    fastcgi_param   SERVER_PROTOCOL     $server_protocol;
+    fastcgi_param   QUERY_STRING        $query_string;
+    fastcgi_param   REQUEST_METHOD      $request_method;
+    fastcgi_param   CONTENT_TYPE        $content_type;
+    fastcgi_param   CONTENT_LENGTH      $content_length;
+    fastcgi_param   SERVER_ADDR         $server_addr;
+    fastcgi_param   SERVER_PORT         $server_port;
+    fastcgi_param   SERVER_NAME         $server_name;
+    fastcgi_param   REMOTE_ADDR         $remote_addr;
+
+    client_max_body_size 0;
+
+    access_log      /var/log/nginx/seafdav.access.log;
+    error_log       /var/log/nginx/seafdav.error.log;
+}
+</code></pre>
+
+<p>}<br/>
+EOF</p>
+
+<p>cat &gt; /etc/nginx/nginx.conf &lt;&lt;&#39;ENDOFFILE&#39;<br/>
+user nginx nginx;<br/>
+worker_processes 4;</p>
+
+<p>events {<br/>
+  worker_connections 8096;<br/>
+  multi_accept on;<br/>
+  use epoll;<br/>
+}</p>
+
+<p>pid /var/run/nginx.pid;<br/>
+worker_rlimit_nofile 40000;</p>
+
+<p>http {<br/>
+  server_tokens off;<br/>
+  server_names_hash_bucket_size 128;<br/>
+  client_max_body_size 50M;<br/>
+  include /etc/nginx/mime.types;<br/>
+  default_type application/octet-stream;<br/>
+  log_format main &#39;\(remote_addr - \)remote_user [\(time_local] &quot;\)request&quot; &#39;<br/>
+  &#39;\(status \)body_bytes_sent &quot;\(http_referer&quot; &#39;<br/>
+  &#39;&quot;\)http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;<br/>
+  access_log /var/log/nginx/access.log main;<br/>
+  error_log /var/log/nginx/error.log warn;<br/>
+  sendfile on;<br/>
+  tcp_nopush on;<br/>
+  tcp_nodelay on;<br/>
+  client_body_timeout 12;<br/>
+  client_header_timeout 12;<br/>
+  keepalive_timeout 15;<br/>
+  send_timeout 10;<br/>
+  # Fully disabled gzip compression to mitigate Django BREACH attack: <a href="https://www.djangoproject.com/weblog/2013/aug/06/breach-and-django/">https://www.djangoproject.com/weblog/2013/aug/06/breach-and-django/</a><br/>
+  gzip off;<br/>
+  #gzip_vary on;<br/>
+  #gzip_proxied expired no-cache no-store private auth any;<br/>
+  #gzip_comp_level 9;<br/>
+  #gzip_min_length 10240;<br/>
+  #gzip_buffers 16 8k;<br/>
+  #gzip_http_version 1.1;<br/>
+  #gzip_types text/plain text/css text/xml text/javascript application/javascript application/x-javascript application/xml font/woff2;<br/>
+  #gzip_disable &quot;MSIE [1-6].&quot;;<br/>
+  include /etc/nginx/conf.d/*.conf;<br/>
+}<br/>
+ENDOFFILE</p>
+
+<p>启动脚本；</p>
+
+<p>cat &gt; /etc/systemd/system/seafile.service &lt;&lt;&#39;EOF&#39;<br/>
+[Unit]<br/>
+Description=Seafile Server<br/>
+After=network.target mariadb.service</p>
+
+<p>[Service]<br/>
+Type=oneshot<br/>
+ExecStart=/usr/local/haiwen/seafile-server-latest/seafile.sh start<br/>
+ExecStop=/usr/local/haiwen/seafile-server-latest/seafile.sh stop<br/>
+RemainAfterExit=yes<br/>
+User=root<br/>
+Group=root</p>
+
+<p>[Install]<br/>
+WantedBy=multi-user.target<br/>
+EOF<br/>
+systemctl enable seafile</p>
+
+<p>cat &gt; /etc/systemd/system/seahub.service &lt;&lt;&#39;EOF&#39;<br/>
+[Unit]<br/>
+Description=Seafile Seahub<br/>
+After=network.target seafile.service</p>
+
+<p>[Service]<br/>
+ExecStart=/usr/local/haiwen/seafile-server-latest/seahub.sh start 8000<br/>
+ExecStop=/usr/local/haiwen/seafile-server-latest/seahub.sh stop<br/>
+User=root<br/>
+Group=root<br/>
+Type=oneshot<br/>
+RemainAfterExit=yes</p>
+
+<p>[Install]<br/>
+WantedBy=multi-user.target<br/>
+EOF<br/>
+systemctl enable seahub</p>
+
+<h1 id="toc_0">Seafile restart script</h1>
+
+<p>cat &gt; /usr/local/sbin/seafile-server-restart &lt;&lt; &#39;EOF&#39;</p>
+
+<h1 id="toc_1">!/bin/bash</h1>
+
+<p>for ACTION in stop start ; do<br/>
+    for SERVICE in seafile seahub ; do<br/>
+      systemctl \({ACTION} \){SERVICE}<br/>
+    done<br/>
+done<br/>
+EOF<br/>
+chmod 700 /usr/local/sbin/seafile-server-restart</p>
+
+<p>./setup-seafile-mysql.sh auto -u seafile -w \({SQLSEAFILEPW} -r \){SQLROOTPW}</p>
+
+<p>cat &gt;&gt; ./seahub_settings.py &lt;&lt;EOF</p>
+
+<p>CACHES = {<br/>
+    &#39;default&#39;: {<br/>
+        &#39;BACKEND&#39;: &#39;django_pylibmc.memcached.PyLibMCCache&#39;,<br/>
+        &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;,<br/>
+    },<br/>
+    &#39;locmem&#39;: {<br/>
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;,<br/>
+    },<br/>
+}<br/>
+COMPRESS_CACHE_BACKEND = &#39;locmem&#39;</p>
+
+<h1 id="toc_2">EMAIL_USE_TLS                       = False</h1>
+
+<h1 id="toc_3">EMAIL_HOST                          = &#39;localhost&#39;</h1>
+
+<h1 id="toc_4">EMAIL_HOST_USER                     = &#39;&#39;</h1>
+
+<h1 id="toc_5">EMAIL_HOST_PASSWORD                 = &#39;&#39;</h1>
+
+<h1 id="toc_6">EMAIL_PORT                          = &#39;25&#39;</h1>
+
+<h1 id="toc_7">DEFAULT_FROM_EMAIL                  = EMAIL_HOST_USER</h1>
+
+<h1 id="toc_8">SERVER_EMAIL                        = EMAIL_HOST_USER</h1>
+
+<p>TIME_ZONE                           = &#39;\({TIME_ZONE}&#39;<br/>
+SITE_BASE                           = &#39;http://\){IP_OR_DOMAIN}&#39;<br/>
+SITE_NAME                           = &#39;Seafile Server&#39;<br/>
+SITE_TITLE                          = &#39;Seafile Server&#39;<br/>
+SITE_ROOT                           = &#39;/&#39;<br/>
+ENABLE_SIGNUP                       = False<br/>
+ACTIVATE_AFTER_REGISTRATION         = False<br/>
+SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER  = True<br/>
+SEND_EMAIL_ON_RESETTING_USER_PASSWD = True<br/>
+CLOUD_MODE                          = False<br/>
+FILE_PREVIEW_MAX_SIZE               = 30 * 1024 * 1024<br/>
+SESSION_COOKIE_AGE                  = 60 * 60 * 24 * 7 * 2<br/>
+SESSION_SAVE_EVERY_REQUEST          = False<br/>
+SESSION_EXPIRE_AT_BROWSER_CLOSE     = False</p>
+
+<p>FILE_SERVER_ROOT                    = &#39;http://${IP_OR_DOMAIN}/seafhttp&#39;<br/>
+EOF</p>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15396013955359.html"  title="Previous Post: Python 环境部署">&laquo; Python 环境部署</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15306935051951.html" 
+	        title="Next Post: LINUX 快捷键整理">LINUX 快捷键整理 &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15362420848596.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+  </body>
+</html>

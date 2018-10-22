@@ -61,6 +61,8 @@
         <li><label>Python</label></li>
 
           
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
             <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
           
             <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -104,6 +106,8 @@
                     
                       <li class="side-title"><span>Python</span></li>
                         
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+                        
                           <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
                         
                           <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -144,7 +148,7 @@
 
 <p>vim /etc/zabbix/zabbix_agentd.conf.d/userparameter_iostat.conf</p>
 
-<pre><code>UserParameter=custom.vfs.dev.discovery,/etc/zabbix/zabbix_scripts/dev-discovery.sh
+<pre><code class="language-text">UserParameter=custom.vfs.dev.discovery,/etc/zabbix/zabbix_scripts/dev-discovery.sh
 UserParameter=iostat[*],/etc/zabbix/zabbix_scripts/iostat-chk.sh $1 $2
 UserParameter=disk.status[*],/bin/bash /etc/zabbix/zabbix_scripts/check_disk.sh -d $1 -o $2
 </code></pre>
@@ -153,7 +157,7 @@ UserParameter=disk.status[*],/bin/bash /etc/zabbix/zabbix_scripts/check_disk.sh 
 
 <p>cat /etc/zabbix/zabbix_scripts/dev-discovery.sh</p>
 
-<pre><code>#!/bin/bash
+<pre><code class="language-text">#!/bin/bash
 
 DEVICES=`iostat | awk &#39;{ if ($1 ~ &quot;^([shxv]|xv)d[a-z]$&quot;) { print $1 } }&#39;`
 
@@ -172,7 +176,7 @@ echo &#39;]}&#39;
 
 <p>或</p>
 
-<pre><code>#!/bin/bash
+<pre><code class="language-text">#!/bin/bash
 
 diskarray=(`cat /proc/diskstats |grep -E &quot;\bsd[abcdefg]\b|\bxvd[abcdefg]\b&quot;|grep -i &quot;\b$1\b&quot;|awk &#39;{print $3}&#39;|sort|uniq   2&gt;/dev/null`)
 length=${#diskarray[@]}
@@ -193,7 +197,7 @@ printf  &quot;\n\t]\n&quot;printf &quot;}\n&quot;
 
 <p>cat /etc/zabbix/zabbix_scripts/check_disk.sh </p>
 
-<pre><code>#!/bin/sh 
+<pre><code class="language-text">#!/bin/sh 
 # 80 sda 76880282531 8117316 937263519846 4237854729 62989000438 35668103347 777694636224 1190396494 3 2895102137 899093508 
 while getopts &quot;d:o:&quot; opt 
 do 
@@ -228,7 +232,7 @@ fi
 
 <p>cat /proc/diskstats </p>
 
-<pre><code>设备号     编号  设备      读完成次数   合并完成次数      读扇区次数       读操作花费毫秒数    写完成次数       合并写完成次数     写扇区次数       写操作花费的毫秒数       正在处理的输入/输出请求数       输入/输出操作花费的毫秒数       输入/输出操作花费的加权毫秒数。
+<pre><code class="language-text">设备号     编号  设备      读完成次数   合并完成次数      读扇区次数       读操作花费毫秒数    写完成次数       合并写完成次数     写扇区次数       写操作花费的毫秒数       正在处理的输入/输出请求数       输入/输出操作花费的毫秒数       输入/输出操作花费的加权毫秒数。
    8       0    sda       437179787      111140         88148407612     256090773           504526543       4574433         57747952507     870869581                   0                           215482123                           1126127633
 
 从diskstats采集，磁盘使用率计算方式为：
@@ -262,7 +266,7 @@ fi
 <p>自动发现脚本：<br/>
 cat /etc/zabbix/zabbix_scripts/dev-discovery.sh</p>
 
-<pre><code>#!/bin/bash
+<pre><code class="language-text">#!/bin/bash
 
 DEVICES=`iostat | awk &#39;{ if ($1 ~ &quot;^([shxv]|xv)d[a-z]$&quot;) { print $1 } }&#39;`
 
@@ -282,7 +286,7 @@ echo &#39;]}&#39;
 <p>数据采集脚本<br/>
 cat /etc/zabbix/zabbix_scripts/disk_status.sh</p>
 
-<pre><code>#/bin/sh
+<pre><code class="language-text">#/bin/sh
 device=$1
 item=$2
 
@@ -417,7 +421,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
 
      
     </script>
-    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
   </body>

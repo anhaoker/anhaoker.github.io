@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  IPMI-DELL - An Honglei ’s Blog
+  Python 环境部署 - An Honglei ’s Blog
   
   </title>
  <meta name="description" content="学习是痛并快乐着！！！">
@@ -128,102 +128,145 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>IPMI-DELL</h1>
+<h1>Python 环境部署</h1>
 
-<h2 id="toc_0">Server端：</h2>
-
-<h3 id="toc_1">编译安装</h3>
-
-<p>在安装zabbix服务器的时候需要带参数---with-openipmi</p>
-
-<h3 id="toc_2">修改配置</h3>
-
-<p>cat /etc/zabbix/zabbix_server.conf |grep IPMI</p>
-
-<pre><code class="language-text">StartIPMIPollers=20
-
-范围在0-1000选择，看你自己监控的ipmi主机的多少
+<pre><code class="language-text">yum -y install git gcc make patch zlib-devel gdbm-devel openssl-devel sqlite-devel bzip2-devel readline-devel
 </code></pre>
 
-<h3 id="toc_3">导入监控模板</h3>
+<p>普通用户下：</p>
 
-<pre><code class="language-text">模板下载地址: https://share.zabbix.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=642&amp;cf_id=39
+<pre><code class="language-text">curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+cat &gt;&gt; ~/.bash_profile &lt;&lt;EOF
+export PATH=&quot;\$HOME/.pyenv/bin:\$PATH&quot;
+eval &quot;\$(pyenv init -)&quot;
+eval &quot;\$(pyenv virtualenv-init -)&quot;
+EOF
+source ~/.bash_profile  
+exec $SHELL
+
+#pyenv update
+
+pyenv install 3.5.3 -v
+pyenv virtualenv 3.5.3 py35
+pyenv versions
+
+mkdir projects &amp;&amp; cd projects
+pyenv local py35
+pyenv version
+
+mkdir ~/.pip
+cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple/
+trusted-host=mirrors.aliyun.com
+EOF
+pip -V
+pip install --upgrade pip
+
+
+pip install ipython
+ipython
+
+pip install jupyter
+jupyter notebook help
+jupyter notebook password
+jupyter notebook --ip=0.0.0.0 --no-browser
 </code></pre>
 
-<p>添加监控主机，关联上本模板，并在IPMI页面</p>
+<p>MAC</p>
 
-<pre><code class="language-text">设置Authentication algorithm为Default, Privilege level为User, Username为root, Password为CNvWCYX98Yf^?Bd，保存即可
+<p>anaconda套件(jupyter)：</p>
+
+<pre><code class="language-text">wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-MacOSX-x86_64.pkg
 </code></pre>
 
-<p><img src="http://p97r6m0sf.bkt.clouddn.com/15287912031450.jpg" alt=""/></p>
+<p>pyenv+ipython+jupyter</p>
 
-<p>cannot connect to IPMI host: [16777411] Unknown error 16777411<br/>
-<img src="http://p97r6m0sf.bkt.clouddn.com/15287953505554.jpg" alt=""/></p>
+<pre><code class="language-text">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+brew update
+brew install pyenv
+python --version
 
-<h2 id="toc_4">Agent端</h2>
 
-<h3 id="toc_5">安装IPMItool软件包并开启IPMI服务</h3>
+export PATH=&quot;/usr/local/opt/openssl/bin:$PATH&quot;
+export LDFLAGS=&quot;-L/usr/local/opt/openssl/lib&quot;
+export CPPFLAGS=&quot;-I/usr/local/opt/openssl/include&quot;
+export PKG_CONFIG_PATH=&quot;/usr/local/opt/openssl/lib/pkgconfig&quot;
 
-<pre><code class="language-text">yum install -y OpenIPMI ipmitool
-service ipmi start
+
+brew install zlib
+ln -s /usr/local/Cellar/zlib/1.2.11/include/* /usr/local/include
+ln -s /usr/local/Cellar/zlib/1.2.11/lib/* /usr/local/lib
+
+
+
+brew install pyenv-virtualenv
+echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.zshrc
+echo &#39;eval &quot;$(pyenv virtualenv-init -)&quot;&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+
+
+pyenv install 3.5.3 -v
+pyenv virtualenv 3.5.3 py35
+pyenv versions
+
+mkdir projects &amp;&amp; cd projects
+pyenv local py35
+pyenv version
+
+mkdir ~/.pip
+cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple/
+trusted-host=mirrors.aliyun.com
+EOF
+pip -V
+pip install --upgrade pip
+
+
+pip install ipython
+ipython
+
+pip install jupyter
+jupyter notebook help
+jupyter notebook password
+jupyter notebook --ip=0.0.0.0 --no-browser
 </code></pre>
 
-<h3 id="toc_6">配置IPMI地址:</h3>
+<p>常用命令</p>
 
-<pre><code class="language-text">ipmitool lan set 1 ipaddr 10.100.4.114
-ipmitool lan set 1 netmask 255.255.255.0
-ipmitool lan set 1 defgw ipaddr 10.100.4.1
-ipmitool lan print 1
+<pre><code class="language-text">pyenv install --list # 列出可安装版本
+pyenv install &lt;version&gt; # 安装对应版本
+pyenv install -v &lt;version&gt; # 安装对应版本，若发生错误，可以显示详细的错误信息
+pyenv versions # 显示当前使用的python版本
+pyenv which python # 显示当前python安装路径
+pyenv global &lt;version&gt; # 设置默认Python版本
+pyenv local &lt;version&gt; # 当前路径创建一个.python-version, 以后进入这个目录自动切换为该版本
+pyenv shell &lt;version&gt; # 当前shell的session中启用某版本，优先级高于global 及 local
 </code></pre>
 
-<p>将本机的IPMI地址配置为10.100.4.114/24,网关为10.100.4.1</p>
+<p>使用virtualenv</p>
 
-<h3 id="toc_7">开启IPMI Over LAN</h3>
+<pre><code class="language-text">pyenv virtualenv env # 从默认版本创建虚拟环境
+pyenv virtualenv 3.6.4 env-3.6.4 # 创建3.6.4版本的虚拟环境
+pyenv activate env-3.6.4 # 激活 env-3.6.4 这个虚拟环境
+pyenv deactivate # 停用当前的虚拟环境
 
-<pre><code class="language-text">ipmitool lan set 1 access on
+自动激活
+使用pyenv local 虚拟环境名
+会把`虚拟环境名`写入当前目录的.python-version文件中
+关闭自动激活 -&gt; pyenv deactivate
+启动自动激活 -&gt; pyenv activate env-3.6.4
+pyenv local env-3.6.4
+
+pyenv uninstall env-3.6.4 # 删除 env-3.6.4 这个虚拟环境
+
 </code></pre>
 
-<h3 id="toc_8">配置用户</h3>
+<p>链接：<a href="https://www.jianshu.com/p/af1f8d7b6b31">https://www.jianshu.com/p/af1f8d7b6b31</a></p>
 
-<p>本次的需求为监控服务器传感器信息，只需要USER级别用户即可.</p>
-
-<pre><code class="language-text">ipmitool user set name 2 root 
-ipmitool user set password 2 CNvWCYX98Yf^?Bd
-ipmitool channel setaccess 1 2 callin=on ipi=on link=on privilege=4 
-
-ipmitool user set name 15 bdyg_ipmi
-ipmitool user set password 15 MrGVC8V[m8ci#Mi
-ipmitool user enable 15
-ipmitool user priv 15 2 1
-ipmitool user list 1
-</code></pre>
-
-<p>将建立id为15，用户名为bdyg_ipmi，密码为MrGVC8V[m8ci#Mi,权限为User(对应2)</p>
-
-<h3 id="toc_9">测试</h3>
-
-<p>登录Zabbix服务器，通过ipmitool远程访问Dell服务器传感器信息</p>
-
-<pre><code class="language-text">#查看用户信息
-ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd user list                         
-#查看传感器信息
-pmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd sensor list
-ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd sensor get &quot;Inlet Temp&quot; 
-
-#查看机器电源状态
-ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd chassis power status 
-
-#查看机器硬件信息
-ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd fru
-</code></pre>
-
-<p>参考：<br/>
-<a href="http://pengyao.org/zabbix-monitor-ipmi-1.html">http://pengyao.org/zabbix-monitor-ipmi-1.html</a><br/>
-<a href="https://my.oschina.net/davehe/blog/88801">https://my.oschina.net/davehe/blog/88801</a><br/>
-<a href="http://blog.51cto.com/tanght/1116586">http://blog.51cto.com/tanght/1116586</a><br/>
-<a href="http://www.cnblogs.com/zhangxinglong/p/7424810.html">http://www.cnblogs.com/zhangxinglong/p/7424810.html</a><br/>
-<a href="https://blog.csdn.net/satsuma_samurai/article/details/74940145">https://blog.csdn.net/satsuma_samurai/article/details/74940145</a><br/>
-<a href="https://zhiliao.h3c.com/theme/details/20216">https://zhiliao.h3c.com/theme/details/20216</a></p>
+<p>Mac下安装python报错，导致jupyter无法使用<br/>
+WARNING: The Python sqlite3 extension was not compiled. Missing the SQLite3 lib?</p>
 
 
 </div>
@@ -235,15 +278,13 @@ ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd fru
   <div class="large-6 columns">
 	<div class="text-left" style="padding:15px 0px;">
 		
-	        <a href="15306935051951.html"  title="Previous Post: LINUX 快捷键整理">&laquo; LINUX 快捷键整理</a>
-	    
 	</div>
   </div>
   <div class="large-6 columns">
 	<div class="text-right" style="padding:15px 0px;">
 		
-	        <a href="15286986347471.html" 
-	        title="Next Post: VM WARE esxi">VM WARE esxi &raquo;</a>
+	        <a href="15362420848596.html" 
+	        title="Next Post: seafile 破解版安装">seafile 破解版安装 &raquo;</a>
 	    
 	</div>
   </div>
@@ -256,7 +297,7 @@ ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd fru
 </div>
 <script type="text/javascript">
 	$(function(){
-		var currentURL = '15287735246134.html';
+		var currentURL = '15396013955359.html';
 		$('#side-nav a').each(function(){
 			if($(this).attr('href') == currentURL){
 				$(this).parent().addClass('active');

@@ -61,6 +61,8 @@
         <li><label>Python</label></li>
 
           
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
             <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
           
             <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -104,6 +106,8 @@
                     
                       <li class="side-title"><span>Python</span></li>
                         
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+                        
                           <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
                         
                           <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -128,340 +132,154 @@
 
 	
 		<div class="markdown-body">
-		<h1>LINUX 快捷键整理</h1>
+		<h1>Python 环境部署</h1>
 
-		<p><img src="http://pb9nlfw6h.bkt.clouddn.com/15307636793821.jpg" alt=""/></p>
+		<pre><code class="language-text">yum -y install git gcc make patch zlib-devel gdbm-devel openssl-devel sqlite-devel bzip2-devel readline-devel
+</code></pre>
 
-<ul>
-<li>
-<a href="#toc_0">快捷键</a>
-<ul>
-<li>
-<a href="#toc_1">ctrl</a>
-</li>
-<li>
-<a href="#toc_2">Alt</a>
-</li>
-<li>
-<a href="#toc_3">ESC</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_4">功能分类</a>
-<ul>
-<li>
-<a href="#toc_5">剪切板操作</a>
-</li>
-<li>
-<a href="#toc_6">光标操作</a>
-</li>
-<li>
-<a href="#toc_7">文本处理操作</a>
-</li>
-<li>
-<a href="#toc_8">任务处理操作</a>
-</li>
-<li>
-<a href="#toc_9">标签页处理操作</a>
-</li>
-<li>
-<a href="#toc_10">窗口操作</a>
-</li>
-<li>
-<a href="#toc_11">历史命令操作</a>
-</li>
-<li>
-<a href="#toc_12">其他操作</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_13">参考：</a>
-</li>
-<li>
-<a href="#toc_14">示例操作</a>
-</li>
-</ul>
+<p>普通用户下：</p>
+
+<pre><code class="language-text">curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+cat &gt;&gt; ~/.bash_profile &lt;&lt;EOF
+export PATH=&quot;\$HOME/.pyenv/bin:\$PATH&quot;
+eval &quot;\$(pyenv init -)&quot;
+eval &quot;\$(pyenv virtualenv-init -)&quot;
+EOF
+source ~/.bash_profile  
+exec $SHELL
+
+#pyenv update
+
+pyenv install 3.5.3 -v
+pyenv virtualenv 3.5.3 py35
+pyenv versions
+
+mkdir projects &amp;&amp; cd projects
+pyenv local py35
+pyenv version
+
+mkdir ~/.pip
+cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple/
+trusted-host=mirrors.aliyun.com
+EOF
+pip -V
+pip install --upgrade pip
 
 
-<h2 id="toc_0">快捷键</h2>
+pip install ipython
+ipython
 
-<p><img src="http://pb9nlfw6h.bkt.clouddn.com/15307620204271.jpg" alt=""/></p>
+pip install jupyter
+jupyter notebook help
+jupyter notebook password
+jupyter notebook --ip=0.0.0.0 --no-browser
+</code></pre>
 
-<h3 id="toc_1">ctrl</h3>
+<p>MAC</p>
 
-<p>作为快捷键的基础，在linux系统的centos下，我们经常使用如下参数。</p>
+<p>anaconda套件(jupyter)：</p>
 
-<pre><code>a——光标回到命令行首。 （a：ahead）
+<pre><code class="language-text">wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-MacOSX-x86_64.pkg
+</code></pre>
 
-b——光标向行首移动一个字符。 （b：backwards）
+<p>pyenv+ipython+jupyter</p>
 
-c——中断终端中正在执行的任务。
+<pre><code class="language-text">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+brew update
+brew install pyenv
+python --version
 
-d——删除当前一个字符或从 shell 提示中注销（并关闭）就不必键入 exit 或 logout 。
 
-e——光标回到命令行尾。 （e： end）
+export PATH=&quot;/usr/local/opt/openssl/bin:$PATH&quot;
+export LDFLAGS=&quot;-L/usr/local/opt/openssl/lib&quot;
+export CPPFLAGS=&quot;-I/usr/local/opt/openssl/include&quot;
+export PKG_CONFIG_PATH=&quot;/usr/local/opt/openssl/lib/pkgconfig&quot;
 
-f——光标向行尾移动一个字符。 （f： forwards）
 
-h——删除光标前一个字符，同backspace 键相同。
+brew install zlib
+ln -s /usr/local/Cellar/zlib/1.2.11/include/* /usr/local/include
+ln -s /usr/local/Cellar/zlib/1.2.11/lib/* /usr/local/lib
 
-i——相当于Tab键。
 
-k——删除光标处到行尾的字符。
 
-l——清屏，相当于clear。
+brew install pyenv-virtualenv
+echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.zshrc
+echo &#39;eval &quot;$(pyenv virtualenv-init -)&quot;&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
 
-o/m——相当Enter键。
 
-n——下一个使用的历史命令。（n： next ）
+pyenv install 3.5.3 -v
+pyenv virtualenv 3.5.3 py35
+pyenv versions
 
-p——上一个使用的历史命令。 （p： previous）
+mkdir projects &amp;&amp; cd projects
+pyenv local py35
+pyenv version
 
-r——快速检索历史命令。（r： retrieve）。
+mkdir ~/.pip
+cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple/
+trusted-host=mirrors.aliyun.com
+EOF
+pip -V
+pip install --upgrade pip
 
-s——使终端发呆，静止，可以使快速输出的终端屏幕停下来。
 
-q——退出Ctrl+s引起的发呆。
+pip install ipython
+ipython
 
-t——交换光标所在字符和其前的字符。
+pip install jupyter
+jupyter notebook help
+jupyter notebook password
+jupyter notebook --ip=0.0.0.0 --no-browser
+</code></pre>
 
-u——清除光标前至行首间的所有内容。
+<p>常用命令</p>
 
-w——删除光标处到行首（以空格和标点为分隔）的字符。
+<pre><code class="language-text">pyenv install --list # 列出可安装版本
+pyenv install &lt;version&gt; # 安装对应版本
+pyenv install -v &lt;version&gt; # 安装对应版本，若发生错误，可以显示详细的错误信息
+pyenv versions # 显示当前使用的python版本
+pyenv which python # 显示当前python安装路径
+pyenv global &lt;version&gt; # 设置默认Python版本
+pyenv local &lt;version&gt; # 当前路径创建一个.python-version, 以后进入这个目录自动切换为该版本
+pyenv shell &lt;version&gt; # 当前shell的session中启用某版本，优先级高于global 及 local
+</code></pre>
 
-x——同上但再按一次会从新回到原位置。
+<p>使用virtualenv</p>
 
-y——粘贴或者恢复上次的删除。
+<pre><code class="language-text">pyenv virtualenv env # 从默认版本创建虚拟环境
+pyenv virtualenv 3.6.4 env-3.6.4 # 创建3.6.4版本的虚拟环境
+pyenv activate env-3.6.4 # 激活 env-3.6.4 这个虚拟环境
+pyenv deactivate # 停用当前的虚拟环境
 
-z——使正在运行在终端的任务，运行于后台。 （可用fg恢复）
+自动激活
+使用pyenv local 虚拟环境名
+会把`虚拟环境名`写入当前目录的.python-version文件中
+关闭自动激活 -&gt; pyenv deactivate
+启动自动激活 -&gt; pyenv activate env-3.6.4
+pyenv local env-3.6.4
 
-[——相当于Esc键。
+pyenv uninstall env-3.6.4 # 删除 env-3.6.4 这个虚拟环境
 
 </code></pre>
 
-<h3 id="toc_2">Alt</h3>
+<p>链接：<a href="https://www.jianshu.com/p/af1f8d7b6b31">https://www.jianshu.com/p/af1f8d7b6b31</a></p>
 
-<p>多用于桌面环境和bash（shell环境中多数未开启）</p>
-
-<pre><code>
-b——光标往回（backward）移动到前一个单词
-
-c——将光标所在字符到词尾改为首字母大写
-
-u——将光标所在字符到词尾转化为大写
-
-l——将光标所在字符到词尾转化为小写
-
-r——撤销对从历史记录中带来的命令的修改。
-
-F2——运行
-
-F4——关闭当前窗口
-
-F9——最小化当前窗口
-
-F10——最大化当前窗口
-
-n——n为1-9数字，快速切换标签页
-
-Tab——切换窗口
-
-按住左键——移动窗口（或在最下面的任务栏滚动鼠标滑轮）
-
-
-</code></pre>
-
-<p>** Meta被标记为ALT键(在我所使用的键盘上，尽管有ALT键，但其并不是作为Meta功能使用, Macbook上也没有单独的Meta键)，此时可以选用其中的一个ATL键通过设置作为Meta键。如果没有ALT键，可以通过先按ESC键，再按相应的字母键实现Meta组合件的功能。<br/>
-但是实际上先按ESC，再按相应的组合键，前后要按两次以上，很不方便，通常都是通过修改设置，将ALT复用为Meta键。 **</p>
-
-<h3 id="toc_3">ESC</h3>
-
-<pre><code>b – 光标移动到所在单词词首。
-
-f – 移动到光标所在单词词末。
-
-t – 交换最后两个单词。
-
-u – 将当前单词光标后的字母转为大写。
-
-l – 将当前单词光标后的字母转为小写。
-
-r – 撤销对从历史记录中带来的命令的修改。
-
-. （注意末尾的点号） – 使用上一条命令的最后一个单词。
-
-</code></pre>
-
-<h2 id="toc_4">功能分类</h2>
-
-<p><img src="http://pb9nlfw6h.bkt.clouddn.com/15307621177428.jpg" alt=""/></p>
-
-<h3 id="toc_5">剪切板操作</h3>
-
-<pre><code>Ctrl+Shift+C  复制
-Ctrl+Shift+V  粘贴
-</code></pre>
-
-<h3 id="toc_6">光标操作</h3>
-
-<pre><code>Ctrl+A(ahead)      将光标移动到命令行开头相当于VIM里shift+^
-Ctrl+E(end)    将光标移动到命令行结尾处相当于VIM里shift+$
-Ctrl+LeftArrow(方向键左键)      光标移动到上一个单词的词首
-Ctrl+RightArrow(方向键右键)    光标移动到下一个单词的词尾
-Ctrl+F(forwards)    光标向后移动一个字符,相当与→;VIM里l
-Ctrl+B(backwards) 光标向前移动一个字符,相当与←;VIM里h
-Ctrl+X       在上次光标所在字符和当前光标所在字符之间跳转
-Esc+B    移动到当前单词的开头
-Esc+F    移动到当前单词的结尾
-</code></pre>
-
-<h3 id="toc_7">文本处理操作</h3>
-
-<pre><code>Ctrl+U    剪切光标至行首的内容 相当于VIM里d shift+^
-Ctrl+K    剪切光标至行尾的内容 相当于VIM里d shift+$
-Ctrl+W  剪切光标到词首的内容 相当于VIM里db
-Alt+D    剪切光标到词尾的内容
-Ctrl+D    删除光标所在字符 相当于Delete;VIM里x或者dl
-Ctrl+H    删除光标前的字符 相当于Backspace;VIM里hx或者dh
-Ctrl+Y    粘贴刚才所删除的字符(ctrl+u上次执行时删除的字符)
-Ctrl+7    恢复刚刚的内容
-Ctrl+(X U)      撤销刚才的操作（按住Ctrl的同时再先后按x和u）
-Esc+T    颠倒光标相邻单词的位置
-Ctrl+T    颠倒光标相邻字符的位置，并将光标移动到下一个字符
-Alt+C      将光标所在字符到词尾改为首字母大写
-Alt+U      将光标所在字符到词尾转化为大写
-Alt+L      将光标所在字符到词尾转化为小写
-Alt+R       撤消前一次动作
-Ctrl+V    插入特殊字符,如Ctrl+(V Tab)加入Tab字符键
-Ctrl+?      撤消前一次输入
-Ctrl+(X X)   在EOL和当前光标位置移动
-^oldstr^newstr    替换前一次命令中字符串   
-</code></pre>
-
-<h3 id="toc_8">任务处理操作</h3>
-
-<pre><code>Ctrl+C    删除整行/终止
-Ctrl+L    刷新屏幕
-Ctrl+S    挂起当前shell
-Ctrl+Q    重新启用挂起的shell
-</code></pre>
-
-<h3 id="toc_9">标签页处理操作</h3>
-
-<pre><code>Shift+Ctrl+T        新建标签页
-Shift+Ctrl+W        关闭标签页
-Ctrl+PageUp         前一标签页
-Ctrl+PageDown       后一标签页
-Shift+Ctrl+PageUp   标签页左移
-Shift+Ctrl+PageDown 标签页右移
-Alt+1,2,3...        切换到标签页1,2,3...
-</code></pre>
-
-<h3 id="toc_10">窗口操作</h3>
-
-<pre><code>Shift+Ctrl+N    新建窗口
-Shift+Ctrl+Q    关闭终端
-F11             全屏
-Ctrl+Plus       放大
-Ctrl+Minus      减小
-Ctrl+0          原始大小
-Shift+UpArrow   向上滚屏
-Shift+DownArrow 向下滚屏
-Shift+PageUp    向上翻页
-Shift+PageDown  向下翻页
-</code></pre>
-
-<h3 id="toc_11">历史命令操作</h3>
-
-<pre><code>↑(Ctrl+P(previous))      显示上一条命令
-↑(Ctrl+N(next))         显示下一条命令
-Ctrl+R(retrieve) String  搜索包含String字符串的命令/继续向上检索(Ctrl+S         向下检索)
-Ctrl+r                  然后输入若干字符，开始向上搜索包含该字符的命令，继续按Ctrl+r，搜索上一条匹配的命令
-Ctrl+s                  与Ctrl+r类似,只是正向检索
-Alt+&lt;                   历史列表第一项
-Alt+&gt;                   历史列表最后一项
-Alt+Shift+,             历史列表第一项
-Alt+Shift+.             历史列表最后一项
-!$                      以上一条命令的参数做为其参数
-!Num                    执行命令历史列表的第Num条命令
-!!                      执行上一条命令
-!?String?               执行含有String字符串的最新命令
-!-n -                   倒数第N条历史命令
-!-n:p -                 打印上一条命令（不执行）
-!-n:gs/str1/str2/ -     将倒数第N条命令的str1替换为str2，并执行（若不加g,则仅替换第一个）
-ls !$                   执行命令ls，并以上一条命令的参数为其参数
-</code></pre>
-
-<h3 id="toc_12">其他操作</h3>
-
-<pre><code>Ctrl+M(Ctrl+O)          相当于Enter
-Esc x3(Tab x2)(Ctrl+I)  显示所有支持的命令
-Ctrl+【                  相当于Esc
-Ctrl+X(Shift+2)         显示可能hostname补全
-Ctrl+S                  锁住终端
-Ctrl+Q                  解锁终端
-alt+数字键               操作的次数
-Ctrl+Alt+Backspace      杀死图形化桌面会话，把你返回到登录屏幕。
-Ctrl+Alt+Delete         关机和重新引导 
-Ctrl+Alt+[Fn]           切换屏幕。 从 [F1] 到 [F6] 是 shell 提示屏幕， [F7] 是图形化屏幕。
-Alt+Tab                 在图形化桌面环境中切换任务。在打开的任务和应用程序间切换。
-</code></pre>
-
-<h2 id="toc_13">参考：</h2>
-
-<p><a href="https://www.cnblogs.com/nucdy/p/5251659.html">https://www.cnblogs.com/nucdy/p/5251659.html</a><br/>
-<a href="https://www.cnblogs.com/webzhangnan/p/3221410.html">https://www.cnblogs.com/webzhangnan/p/3221410.html</a><br/>
-<a href="https://blog.csdn.net/guyongqiangx/article/details/80602552">https://blog.csdn.net/guyongqiangx/article/details/80602552</a><br/>
-<a href="https://www.linuxidc.com/Linux/2017-10/147757.htm">https://www.linuxidc.com/Linux/2017-10/147757.htm</a></p>
-
-<h2 id="toc_14">示例操作</h2>
-
-<pre><code>c+l  清屏先
-
-minuit@suse:~&gt;str1 str2 str3  #输入三个单词发现第一单词需要大写好按c+a跳到开头按a+c
-
-minuit@suse:~&gt; Str1 str2 str3  #好现在单词就变成了现在这个样子,又发现第二个单词要全大写(这样的命令真是玩死人:( )好吧如果你当前光标在第二个单词,那直接a+u把这个单词改变,如果不在的话那按住c+a接着c+f跳到第二个单词那再a+u就OK了结果像下面所示
-
-。
-
-minuit@suse:~&gt; Str1 STR2 str3   #我想换过来怎么办我的位置已经在最后一个单词这个好办按住a+2+b哈哈跳到了第二个单词再来一下a+l这下第二个单词全小写了,再来一个比较典型的例子
-
-[url]http://bbs.chinaunix.net/viewthread.php?tid=842595[/url]
-
-标题:如何将数据文件中的每个词的第一个字母变成大写？
-
-哈哈这个难不到我们吧因为我们已经会了a+c了
-
-minuit@suse:~&gt; welcome to chinaunix!   #不就是变个大小写吗按住c+a接着a+3+c看看效果
-
-minuit@suse:~&gt; Welcome To Chinaunix!  #GOOD很简单
-
-我们再来试试替换
-
-minuit@suse:~&gt; Welcome To Chinaunix!  #还是这三单词c+a跳到开头再接着跳到第二个单词那(因为a+t只能跟前一个单词做替换所以不能在第一个单词按a+t)按住a+t
-
-minuit@suse:~&gt; To Welcome Chinaunix!  #现在成这样子的了如果我用再按a+2+t那又变了一个样
-
-minuit@suse:~&gt; Chinaunix!  Welcome To   #好了来一点比较常用的
-
-minuit@suse:~&gt;ls /tmp/               #看看下面有些什么
-
-file1 file2 file3 ..... ..
-
-minuit@suse:~&gt;^ls^cd         #现在再又想进入目录很简单的健入替换命令就行了在命令很长时用这个替换可以省掉很多按a+b或a+f的时间
-
-cd /tmp/
-
-minuit@suse:/tmp&gt;   #进入了tmp目录了
-
-跳转的命令就不试了大家自己体会试也看不见^_^   
-
-</code></pre>
+<p>Mac下安装python报错，导致jupyter无法使用<br/>
+WARNING: The Python sqlite3 extension was not compiled. Missing the SQLite3 lib?</p>
 
 
 		</div>
+	
+
+ 
+	
+
+ 
 	
 
  
@@ -514,7 +332,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
 
      
     </script>
-    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
   </body>

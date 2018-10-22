@@ -61,6 +61,8 @@
         <li><label>Python</label></li>
 
           
+            <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
+          
             <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
           
             <li><a title="python 基础" href="15214289229123.html">python 基础</a></li>
@@ -103,6 +105,8 @@
 
                     
                       <li class="side-title"><span>Python</span></li>
+                        
+                          <li><a title="Python 环境部署" href="15396013955359.html">Python 环境部署</a></li>
                         
                           <li><a title="基础知识练习" href="15221590998154.html">基础知识练习</a></li>
                         
@@ -194,14 +198,14 @@
 
 <p>1、REPL</p>
 
-<pre><code>所谓REPL即read、eva、print、loop（读取、计算、打印、循环）
+<pre><code class="language-text">所谓REPL即read、eva、print、loop（读取、计算、打印、循环）
 </code></pre>
 
 <p><img src="media/15221590998154/15221602097992.jpg" alt=""/></p>
 
 <p>2、运行脚本</p>
 
-<pre><code>REPL方式的优点是简单明了，但是它在面对很多大型项目时存在很多的不足。我们可以通过运行脚本的方式来解决这一问题
+<pre><code class="language-text">REPL方式的优点是简单明了，但是它在面对很多大型项目时存在很多的不足。我们可以通过运行脚本的方式来解决这一问题
 </code></pre>
 
 <p><img src="media/15221590998154/15221603038347.jpg" alt=""/></p>
@@ -210,14 +214,14 @@
 
 <h4 id="toc_1">2、简述位、字节的关系</h4>
 
-<pre><code>位（bit）：“比特”，表示二进制位。位是计算机内部数据储存的最小单位
+<pre><code class="language-text">位（bit）：“比特”，表示二进制位。位是计算机内部数据储存的最小单位
 字节（byte） ：“拜特”，习惯上用大写的“B”表示。字节是计算机中数据处理的基本单位。
 1个字节等于8个比特：1Byte=8bit
 </code></pre>
 
 <h4 id="toc_2">3、简述 ascii、unicode、utf-8、gbk 的关系</h4>
 
-<pre><code>ascii 是最早美国用的标准信息交换码，把所有的字母的大小写，各种符号用 二进制来表示，共有256中，加入些拉丁文等字符，1bytes代表一个字符，
+<pre><code class="language-text">ascii 是最早美国用的标准信息交换码，把所有的字母的大小写，各种符号用 二进制来表示，共有256中，加入些拉丁文等字符，1bytes代表一个字符，
 
 Unicode是为了统一世界各国语言的不用，统一用2个bytes代表一个字符，可以表达2**16=65556个，称为万国语言，特点：速度快，但浪费空间，可以用在内存处理中，兼容了utf-8，gbk，ASCII，
 
@@ -233,7 +237,7 @@ gbk  是中文的字符编码，用2个字节代表一个字符，
 
 <h4 id="toc_4">5、Pyhton 单行注释和多行注释分别用什么?</h4>
 
-<pre><code>单行注释符号(#)
+<pre><code class="language-text">单行注释符号(#)
 井号(#)常被用作单行注释符号，在代码中使用#时，它右边的任何数据都会被忽略，当做是注释。
 
 批量、多行注释符号（&#39;&#39;&#39; &#39;&#39;&#39;, &quot;&quot;&quot; &quot;&quot;&quot;）
@@ -242,7 +246,7 @@ gbk  是中文的字符编码，用2个字节代表一个字符，
 
 <h4 id="toc_5">6、声明变量注意事项有那些?</h4>
 
-<pre><code>1、变量名可以包括字母、数字、下划线，但是数字不能做为开头。例如：name1是合法变量名，而1name就不可以。
+<pre><code class="language-text">1、变量名可以包括字母、数字、下划线，但是数字不能做为开头。例如：name1是合法变量名，而1name就不可以。
 2、关键字（保留字）不能做变量名使用，函数不允许做变量名。
 3、除了下划线之外，其它符号不能做为变量名使用
 4、Python的变量名是除分大小写的，例如：name和Name就是两个变量名，而非相同变量哦。
@@ -298,8 +302,8 @@ b. 利用下划线将列表的每一个元素拼接成字符串，li = <a href="
 
 <ul>
 <li>用户执行程序</li>
-<li>给用户显示需要输入的验证码 - 用户输入的值
-  用户输入的值和显示的值相同时现实正确信息;否则继续生成随机验证码继续等待用户输入
+<li>给用户显示需要输入的验证码 - 用户输入的值<br/>
+  用户输入的值和显示的值相同时现实正确信息;否则继续生成随机验证码继续等待用户输入<br/>
 生成随机验证码代码示例:</li>
 </ul>
 
@@ -378,7 +382,7 @@ Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
 
      
     </script>
-    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
 
   </body>

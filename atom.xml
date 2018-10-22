@@ -4,7 +4,7 @@
   <title><![CDATA[An Honglei ’s Blog]]></title>
   <link href="www.anhaoker.com/atom.xml" rel="self"/>
   <link href="www.anhaoker.com/"/>
-  <updated>2018-07-12T13:35:32+08:00</updated>
+  <updated>2018-10-22T09:28:03+08:00</updated>
   <id>www.anhaoker.com/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,364 @@
   </author>
   <generator uri="http://www.mweb.im">MWeb</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Python 环境部署]]></title>
+    <link href="www.anhaoker.com/15396013955359.html"/>
+    <updated>2018-10-15T19:03:15+08:00</updated>
+    <id>www.anhaoker.com/15396013955359.html</id>
+    <content type="html"><![CDATA[
+<pre><code class="language-text">yum -y install git gcc make patch zlib-devel gdbm-devel openssl-devel sqlite-devel bzip2-devel readline-devel
+</code></pre>
+
+<p>普通用户下：</p>
+
+<pre><code class="language-text">curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+cat &gt;&gt; ~/.bash_profile &lt;&lt;EOF
+export PATH=&quot;\$HOME/.pyenv/bin:\$PATH&quot;
+eval &quot;\$(pyenv init -)&quot;
+eval &quot;\$(pyenv virtualenv-init -)&quot;
+EOF
+source ~/.bash_profile  
+exec $SHELL
+
+#pyenv update
+
+pyenv install 3.5.3 -v
+pyenv virtualenv 3.5.3 py35
+pyenv versions
+
+mkdir projects &amp;&amp; cd projects
+pyenv local py35
+pyenv version
+
+mkdir ~/.pip
+cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple/
+trusted-host=mirrors.aliyun.com
+EOF
+pip -V
+pip install --upgrade pip
+
+
+pip install ipython
+ipython
+
+pip install jupyter
+jupyter notebook help
+jupyter notebook password
+jupyter notebook --ip=0.0.0.0 --no-browser
+</code></pre>
+
+<p>MAC</p>
+
+<p>anaconda套件(jupyter)：</p>
+
+<pre><code class="language-text">wget https://repo.anaconda.com/archive/Anaconda3-5.3.0-MacOSX-x86_64.pkg
+</code></pre>
+
+<p>pyenv+ipython+jupyter</p>
+
+<pre><code class="language-text">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+brew update
+brew install pyenv
+python --version
+
+
+export PATH=&quot;/usr/local/opt/openssl/bin:$PATH&quot;
+export LDFLAGS=&quot;-L/usr/local/opt/openssl/lib&quot;
+export CPPFLAGS=&quot;-I/usr/local/opt/openssl/include&quot;
+export PKG_CONFIG_PATH=&quot;/usr/local/opt/openssl/lib/pkgconfig&quot;
+
+
+brew install zlib
+ln -s /usr/local/Cellar/zlib/1.2.11/include/* /usr/local/include
+ln -s /usr/local/Cellar/zlib/1.2.11/lib/* /usr/local/lib
+
+
+
+brew install pyenv-virtualenv
+echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.zshrc
+echo &#39;eval &quot;$(pyenv virtualenv-init -)&quot;&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+
+
+pyenv install 3.5.3 -v
+pyenv virtualenv 3.5.3 py35
+pyenv versions
+
+mkdir projects &amp;&amp; cd projects
+pyenv local py35
+pyenv version
+
+mkdir ~/.pip
+cat &gt; ~/.pip/pip.conf &lt;&lt; EOF
+[global]
+index-url=https://mirrors.aliyun.com/pypi/simple/
+trusted-host=mirrors.aliyun.com
+EOF
+pip -V
+pip install --upgrade pip
+
+
+pip install ipython
+ipython
+
+pip install jupyter
+jupyter notebook help
+jupyter notebook password
+jupyter notebook --ip=0.0.0.0 --no-browser
+</code></pre>
+
+<p>常用命令</p>
+
+<pre><code class="language-text">pyenv install --list # 列出可安装版本
+pyenv install &lt;version&gt; # 安装对应版本
+pyenv install -v &lt;version&gt; # 安装对应版本，若发生错误，可以显示详细的错误信息
+pyenv versions # 显示当前使用的python版本
+pyenv which python # 显示当前python安装路径
+pyenv global &lt;version&gt; # 设置默认Python版本
+pyenv local &lt;version&gt; # 当前路径创建一个.python-version, 以后进入这个目录自动切换为该版本
+pyenv shell &lt;version&gt; # 当前shell的session中启用某版本，优先级高于global 及 local
+</code></pre>
+
+<p>使用virtualenv</p>
+
+<pre><code class="language-text">pyenv virtualenv env # 从默认版本创建虚拟环境
+pyenv virtualenv 3.6.4 env-3.6.4 # 创建3.6.4版本的虚拟环境
+pyenv activate env-3.6.4 # 激活 env-3.6.4 这个虚拟环境
+pyenv deactivate # 停用当前的虚拟环境
+
+自动激活
+使用pyenv local 虚拟环境名
+会把`虚拟环境名`写入当前目录的.python-version文件中
+关闭自动激活 -&gt; pyenv deactivate
+启动自动激活 -&gt; pyenv activate env-3.6.4
+pyenv local env-3.6.4
+
+pyenv uninstall env-3.6.4 # 删除 env-3.6.4 这个虚拟环境
+
+</code></pre>
+
+<p>链接：<a href="https://www.jianshu.com/p/af1f8d7b6b31">https://www.jianshu.com/p/af1f8d7b6b31</a></p>
+
+<p>Mac下安装python报错，导致jupyter无法使用<br/>
+WARNING: The Python sqlite3 extension was not compiled. Missing the SQLite3 lib?</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[seafile 破解版安装]]></title>
+    <link href="www.anhaoker.com/15362420848596.html"/>
+    <updated>2018-09-06T21:54:44+08:00</updated>
+    <id>www.anhaoker.com/15362420848596.html</id>
+    <content type="html"><![CDATA[
+<p>cat &gt; /etc/nginx/conf.d/seafile.conf &lt;&lt;&#39;EOF&#39;<br/>
+server {<br/>
+    listen 80;<br/>
+    server_name seafile.example.com;</p>
+
+<pre><code class="language-text">proxy_set_header X-Forwarded-For $remote_addr;
+
+location / {
+     proxy_pass         http://127.0.0.1:8000;
+     proxy_set_header   Host $host;
+     proxy_set_header   X-Real-IP $remote_addr;
+     proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+     proxy_set_header   X-Forwarded-Host $server_name;
+     proxy_set_header   X-Forwarded-Proto $scheme;
+     proxy_read_timeout  1200s;
+
+     # used for view/edit office file via Office Online Server
+     client_max_body_size 0;
+
+     access_log      /var/log/nginx/seahub.access.log;
+     error_log       /var/log/nginx/seahub.error.log;
+}
+
+location /seafhttp {
+    rewrite ^/seafhttp(.*)$ $1 break;
+    proxy_pass http://127.0.0.1:8082;
+    client_max_body_size 0;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_connect_timeout  36000s;
+    proxy_read_timeout  36000s;
+}
+location /media {
+    root /opt/seafile/seafile-server-latest/seahub;
+}
+location /seafdav {
+    fastcgi_pass    127.0.0.1:8080;
+    fastcgi_param   SCRIPT_FILENAME     $document_root$fastcgi_script_name;
+    fastcgi_param   PATH_INFO           $fastcgi_script_name;
+    fastcgi_param   SERVER_PROTOCOL     $server_protocol;
+    fastcgi_param   QUERY_STRING        $query_string;
+    fastcgi_param   REQUEST_METHOD      $request_method;
+    fastcgi_param   CONTENT_TYPE        $content_type;
+    fastcgi_param   CONTENT_LENGTH      $content_length;
+    fastcgi_param   SERVER_ADDR         $server_addr;
+    fastcgi_param   SERVER_PORT         $server_port;
+    fastcgi_param   SERVER_NAME         $server_name;
+    fastcgi_param   REMOTE_ADDR         $remote_addr;
+
+    client_max_body_size 0;
+
+    access_log      /var/log/nginx/seafdav.access.log;
+    error_log       /var/log/nginx/seafdav.error.log;
+}
+</code></pre>
+
+<p>}<br/>
+EOF</p>
+
+<p>cat &gt; /etc/nginx/nginx.conf &lt;&lt;&#39;ENDOFFILE&#39;<br/>
+user nginx nginx;<br/>
+worker_processes 4;</p>
+
+<p>events {<br/>
+  worker_connections 8096;<br/>
+  multi_accept on;<br/>
+  use epoll;<br/>
+}</p>
+
+<p>pid /var/run/nginx.pid;<br/>
+worker_rlimit_nofile 40000;</p>
+
+<p>http {<br/>
+  server_tokens off;<br/>
+  server_names_hash_bucket_size 128;<br/>
+  client_max_body_size 50M;<br/>
+  include /etc/nginx/mime.types;<br/>
+  default_type application/octet-stream;<br/>
+  log_format main &#39;\(remote_addr - \)remote_user [\(time_local] &quot;\)request&quot; &#39;<br/>
+  &#39;\(status \)body_bytes_sent &quot;\(http_referer&quot; &#39;<br/>
+  &#39;&quot;\)http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;<br/>
+  access_log /var/log/nginx/access.log main;<br/>
+  error_log /var/log/nginx/error.log warn;<br/>
+  sendfile on;<br/>
+  tcp_nopush on;<br/>
+  tcp_nodelay on;<br/>
+  client_body_timeout 12;<br/>
+  client_header_timeout 12;<br/>
+  keepalive_timeout 15;<br/>
+  send_timeout 10;<br/>
+  # Fully disabled gzip compression to mitigate Django BREACH attack: <a href="https://www.djangoproject.com/weblog/2013/aug/06/breach-and-django/">https://www.djangoproject.com/weblog/2013/aug/06/breach-and-django/</a><br/>
+  gzip off;<br/>
+  #gzip_vary on;<br/>
+  #gzip_proxied expired no-cache no-store private auth any;<br/>
+  #gzip_comp_level 9;<br/>
+  #gzip_min_length 10240;<br/>
+  #gzip_buffers 16 8k;<br/>
+  #gzip_http_version 1.1;<br/>
+  #gzip_types text/plain text/css text/xml text/javascript application/javascript application/x-javascript application/xml font/woff2;<br/>
+  #gzip_disable &quot;MSIE [1-6].&quot;;<br/>
+  include /etc/nginx/conf.d/*.conf;<br/>
+}<br/>
+ENDOFFILE</p>
+
+<p>启动脚本；</p>
+
+<p>cat &gt; /etc/systemd/system/seafile.service &lt;&lt;&#39;EOF&#39;<br/>
+[Unit]<br/>
+Description=Seafile Server<br/>
+After=network.target mariadb.service</p>
+
+<p>[Service]<br/>
+Type=oneshot<br/>
+ExecStart=/usr/local/haiwen/seafile-server-latest/seafile.sh start<br/>
+ExecStop=/usr/local/haiwen/seafile-server-latest/seafile.sh stop<br/>
+RemainAfterExit=yes<br/>
+User=root<br/>
+Group=root</p>
+
+<p>[Install]<br/>
+WantedBy=multi-user.target<br/>
+EOF<br/>
+systemctl enable seafile</p>
+
+<p>cat &gt; /etc/systemd/system/seahub.service &lt;&lt;&#39;EOF&#39;<br/>
+[Unit]<br/>
+Description=Seafile Seahub<br/>
+After=network.target seafile.service</p>
+
+<p>[Service]<br/>
+ExecStart=/usr/local/haiwen/seafile-server-latest/seahub.sh start 8000<br/>
+ExecStop=/usr/local/haiwen/seafile-server-latest/seahub.sh stop<br/>
+User=root<br/>
+Group=root<br/>
+Type=oneshot<br/>
+RemainAfterExit=yes</p>
+
+<p>[Install]<br/>
+WantedBy=multi-user.target<br/>
+EOF<br/>
+systemctl enable seahub</p>
+
+<h1 id="toc_0">Seafile restart script</h1>
+
+<p>cat &gt; /usr/local/sbin/seafile-server-restart &lt;&lt; &#39;EOF&#39;</p>
+
+<h1 id="toc_1">!/bin/bash</h1>
+
+<p>for ACTION in stop start ; do<br/>
+    for SERVICE in seafile seahub ; do<br/>
+      systemctl \({ACTION} \){SERVICE}<br/>
+    done<br/>
+done<br/>
+EOF<br/>
+chmod 700 /usr/local/sbin/seafile-server-restart</p>
+
+<p>./setup-seafile-mysql.sh auto -u seafile -w \({SQLSEAFILEPW} -r \){SQLROOTPW}</p>
+
+<p>cat &gt;&gt; ./seahub_settings.py &lt;&lt;EOF</p>
+
+<p>CACHES = {<br/>
+    &#39;default&#39;: {<br/>
+        &#39;BACKEND&#39;: &#39;django_pylibmc.memcached.PyLibMCCache&#39;,<br/>
+        &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;,<br/>
+    },<br/>
+    &#39;locmem&#39;: {<br/>
+        &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;,<br/>
+    },<br/>
+}<br/>
+COMPRESS_CACHE_BACKEND = &#39;locmem&#39;</p>
+
+<h1 id="toc_2">EMAIL_USE_TLS                       = False</h1>
+
+<h1 id="toc_3">EMAIL_HOST                          = &#39;localhost&#39;</h1>
+
+<h1 id="toc_4">EMAIL_HOST_USER                     = &#39;&#39;</h1>
+
+<h1 id="toc_5">EMAIL_HOST_PASSWORD                 = &#39;&#39;</h1>
+
+<h1 id="toc_6">EMAIL_PORT                          = &#39;25&#39;</h1>
+
+<h1 id="toc_7">DEFAULT_FROM_EMAIL                  = EMAIL_HOST_USER</h1>
+
+<h1 id="toc_8">SERVER_EMAIL                        = EMAIL_HOST_USER</h1>
+
+<p>TIME_ZONE                           = &#39;\({TIME_ZONE}&#39;<br/>
+SITE_BASE                           = &#39;http://\){IP_OR_DOMAIN}&#39;<br/>
+SITE_NAME                           = &#39;Seafile Server&#39;<br/>
+SITE_TITLE                          = &#39;Seafile Server&#39;<br/>
+SITE_ROOT                           = &#39;/&#39;<br/>
+ENABLE_SIGNUP                       = False<br/>
+ACTIVATE_AFTER_REGISTRATION         = False<br/>
+SEND_EMAIL_ON_ADDING_SYSTEM_MEMBER  = True<br/>
+SEND_EMAIL_ON_RESETTING_USER_PASSWD = True<br/>
+CLOUD_MODE                          = False<br/>
+FILE_PREVIEW_MAX_SIZE               = 30 * 1024 * 1024<br/>
+SESSION_COOKIE_AGE                  = 60 * 60 * 24 * 7 * 2<br/>
+SESSION_SAVE_EVERY_REQUEST          = False<br/>
+SESSION_EXPIRE_AT_BROWSER_CLOSE     = False</p>
+
+<p>FILE_SERVER_ROOT                    = &#39;http://${IP_OR_DOMAIN}/seafhttp&#39;<br/>
+EOF</p>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[LINUX 快捷键整理]]></title>
@@ -82,7 +440,7 @@
 
 <p>作为快捷键的基础，在linux系统的centos下，我们经常使用如下参数。</p>
 
-<pre><code>a——光标回到命令行首。 （a：ahead）
+<pre><code class="language-text">a——光标回到命令行首。 （a：ahead）
 
 b——光标向行首移动一个字符。 （b：backwards）
 
@@ -134,7 +492,7 @@ z——使正在运行在终端的任务，运行于后台。 （可用fg恢复�
 
 <p>多用于桌面环境和bash（shell环境中多数未开启）</p>
 
-<pre><code>
+<pre><code class="language-text">
 b——光标往回（backward）移动到前一个单词
 
 c——将光标所在字符到词尾改为首字母大写
@@ -167,7 +525,7 @@ Tab——切换窗口
 
 <h3 id="toc_3">ESC</h3>
 
-<pre><code>b – 光标移动到所在单词词首。
+<pre><code class="language-text">b – 光标移动到所在单词词首。
 
 f – 移动到光标所在单词词末。
 
@@ -189,13 +547,13 @@ r – 撤销对从历史记录中带来的命令的修改。
 
 <h3 id="toc_5">剪切板操作</h3>
 
-<pre><code>Ctrl+Shift+C  复制
+<pre><code class="language-text">Ctrl+Shift+C  复制
 Ctrl+Shift+V  粘贴
 </code></pre>
 
 <h3 id="toc_6">光标操作</h3>
 
-<pre><code>Ctrl+A(ahead)      将光标移动到命令行开头相当于VIM里shift+^
+<pre><code class="language-text">Ctrl+A(ahead)      将光标移动到命令行开头相当于VIM里shift+^
 Ctrl+E(end)    将光标移动到命令行结尾处相当于VIM里shift+$
 Ctrl+LeftArrow(方向键左键)      光标移动到上一个单词的词首
 Ctrl+RightArrow(方向键右键)    光标移动到下一个单词的词尾
@@ -208,7 +566,7 @@ Esc+F    移动到当前单词的结尾
 
 <h3 id="toc_7">文本处理操作</h3>
 
-<pre><code>Ctrl+U    剪切光标至行首的内容 相当于VIM里d shift+^
+<pre><code class="language-text">Ctrl+U    剪切光标至行首的内容 相当于VIM里d shift+^
 Ctrl+K    剪切光标至行尾的内容 相当于VIM里d shift+$
 Ctrl+W  剪切光标到词首的内容 相当于VIM里db
 Alt+D    剪切光标到词尾的内容
@@ -231,7 +589,7 @@ Ctrl+(X X)   在EOL和当前光标位置移动
 
 <h3 id="toc_8">任务处理操作</h3>
 
-<pre><code>Ctrl+C    删除整行/终止
+<pre><code class="language-text">Ctrl+C    删除整行/终止
 Ctrl+L    刷新屏幕
 Ctrl+S    挂起当前shell
 Ctrl+Q    重新启用挂起的shell
@@ -239,7 +597,7 @@ Ctrl+Q    重新启用挂起的shell
 
 <h3 id="toc_9">标签页处理操作</h3>
 
-<pre><code>Shift+Ctrl+T        新建标签页
+<pre><code class="language-text">Shift+Ctrl+T        新建标签页
 Shift+Ctrl+W        关闭标签页
 Ctrl+PageUp         前一标签页
 Ctrl+PageDown       后一标签页
@@ -250,7 +608,7 @@ Alt+1,2,3...        切换到标签页1,2,3...
 
 <h3 id="toc_10">窗口操作</h3>
 
-<pre><code>Shift+Ctrl+N    新建窗口
+<pre><code class="language-text">Shift+Ctrl+N    新建窗口
 Shift+Ctrl+Q    关闭终端
 F11             全屏
 Ctrl+Plus       放大
@@ -264,7 +622,7 @@ Shift+PageDown  向下翻页
 
 <h3 id="toc_11">历史命令操作</h3>
 
-<pre><code>↑(Ctrl+P(previous))      显示上一条命令
+<pre><code class="language-text">↑(Ctrl+P(previous))      显示上一条命令
 ↑(Ctrl+N(next))         显示下一条命令
 Ctrl+R(retrieve) String  搜索包含String字符串的命令/继续向上检索(Ctrl+S         向下检索)
 Ctrl+r                  然后输入若干字符，开始向上搜索包含该字符的命令，继续按Ctrl+r，搜索上一条匹配的命令
@@ -285,7 +643,7 @@ ls !$                   执行命令ls，并以上一条命令的参数为其参
 
 <h3 id="toc_12">其他操作</h3>
 
-<pre><code>Ctrl+M(Ctrl+O)          相当于Enter
+<pre><code class="language-text">Ctrl+M(Ctrl+O)          相当于Enter
 Esc x3(Tab x2)(Ctrl+I)  显示所有支持的命令
 Ctrl+【                  相当于Esc
 Ctrl+X(Shift+2)         显示可能hostname补全
@@ -307,7 +665,7 @@ Alt+Tab                 在图形化桌面环境中切换任务。在打开的�
 
 <h2 id="toc_14">示例操作</h2>
 
-<pre><code>c+l  清屏先
+<pre><code class="language-text">c+l  清屏先
 
 minuit@suse:~&gt;str1 str2 str3  #输入三个单词发现第一单词需要大写好按c+a跳到开头按a+c
 
@@ -368,19 +726,19 @@ minuit@suse:/tmp&gt;   #进入了tmp目录了
 
 <p>cat /etc/zabbix/zabbix_server.conf |grep IPMI</p>
 
-<pre><code>StartIPMIPollers=20
+<pre><code class="language-text">StartIPMIPollers=20
 
 范围在0-1000选择，看你自己监控的ipmi主机的多少
 </code></pre>
 
 <h3 id="toc_3">导入监控模板</h3>
 
-<pre><code>模板下载地址: https://share.zabbix.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=642&amp;cf_id=39
+<pre><code class="language-text">模板下载地址: https://share.zabbix.com/index.php?option=com_mtree&amp;task=att_download&amp;link_id=642&amp;cf_id=39
 </code></pre>
 
 <p>添加监控主机，关联上本模板，并在IPMI页面</p>
 
-<pre><code>设置Authentication algorithm为Default, Privilege level为User, Username为root, Password为CNvWCYX98Yf^?Bd，保存即可
+<pre><code class="language-text">设置Authentication algorithm为Default, Privilege level为User, Username为root, Password为CNvWCYX98Yf^?Bd，保存即可
 </code></pre>
 
 <p><img src="http://p97r6m0sf.bkt.clouddn.com/15287912031450.jpg" alt=""/></p>
@@ -392,13 +750,13 @@ minuit@suse:/tmp&gt;   #进入了tmp目录了
 
 <h3 id="toc_5">安装IPMItool软件包并开启IPMI服务</h3>
 
-<pre><code>yum install -y OpenIPMI ipmitool
+<pre><code class="language-text">yum install -y OpenIPMI ipmitool
 service ipmi start
 </code></pre>
 
 <h3 id="toc_6">配置IPMI地址:</h3>
 
-<pre><code>ipmitool lan set 1 ipaddr 10.100.4.114
+<pre><code class="language-text">ipmitool lan set 1 ipaddr 10.100.4.114
 ipmitool lan set 1 netmask 255.255.255.0
 ipmitool lan set 1 defgw ipaddr 10.100.4.1
 ipmitool lan print 1
@@ -408,14 +766,14 @@ ipmitool lan print 1
 
 <h3 id="toc_7">开启IPMI Over LAN</h3>
 
-<pre><code>ipmitool lan set 1 access on
+<pre><code class="language-text">ipmitool lan set 1 access on
 </code></pre>
 
 <h3 id="toc_8">配置用户</h3>
 
 <p>本次的需求为监控服务器传感器信息，只需要USER级别用户即可.</p>
 
-<pre><code>ipmitool user set name 2 root 
+<pre><code class="language-text">ipmitool user set name 2 root 
 ipmitool user set password 2 CNvWCYX98Yf^?Bd
 ipmitool channel setaccess 1 2 callin=on ipi=on link=on privilege=4 
 
@@ -432,7 +790,7 @@ ipmitool user list 1
 
 <p>登录Zabbix服务器，通过ipmitool远程访问Dell服务器传感器信息</p>
 
-<pre><code>#查看用户信息
+<pre><code class="language-text">#查看用户信息
 ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd user list                         
 #查看传感器信息
 pmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd sensor list
@@ -471,7 +829,7 @@ ipmitool -H 10.100.4.111 -I lanplus  -Uroot -PCNvWCYX98Yf^?Bd fru
 
 <p>vim /etc/zabbix/zabbix_server.conf</p>
 
-<pre><code>#VM ware ESXI
+<pre><code class="language-text">#VM ware ESXI
 StartVMwareCollectors=4
 VMwarePerfFrequency=60
 VMwareCacheSize=200M
@@ -484,7 +842,7 @@ VMwareFrequency（10-864000）zabbix获取更新vmware集群结构的最小间�
 
 <h2 id="toc_1">ZABBIX UI配置</h2>
 
-<pre><code>建议远程登录vcenter创建一个只读用户进行数据的读取
+<pre><code class="language-text">建议远程登录vcenter创建一个只读用户进行数据的读取
 
 {$URL} - 输入vCenter SDK URL (https://vcenter ip/sdk)
 {$USERNAME} - 登录vCenter使用的用户名，一般是administrator@vsphere.local
@@ -527,7 +885,7 @@ VMwareFrequency（10-864000）zabbix获取更新vmware集群结构的最小间�
 
 <p>vim /etc/zabbix/zabbix_agentd.conf.d/userparameter_iostat.conf</p>
 
-<pre><code>UserParameter=custom.vfs.dev.discovery,/etc/zabbix/zabbix_scripts/dev-discovery.sh
+<pre><code class="language-text">UserParameter=custom.vfs.dev.discovery,/etc/zabbix/zabbix_scripts/dev-discovery.sh
 UserParameter=iostat[*],/etc/zabbix/zabbix_scripts/iostat-chk.sh $1 $2
 UserParameter=disk.status[*],/bin/bash /etc/zabbix/zabbix_scripts/check_disk.sh -d $1 -o $2
 </code></pre>
@@ -536,7 +894,7 @@ UserParameter=disk.status[*],/bin/bash /etc/zabbix/zabbix_scripts/check_disk.sh 
 
 <p>cat /etc/zabbix/zabbix_scripts/dev-discovery.sh</p>
 
-<pre><code>#!/bin/bash
+<pre><code class="language-text">#!/bin/bash
 
 DEVICES=`iostat | awk &#39;{ if ($1 ~ &quot;^([shxv]|xv)d[a-z]$&quot;) { print $1 } }&#39;`
 
@@ -555,7 +913,7 @@ echo &#39;]}&#39;
 
 <p>或</p>
 
-<pre><code>#!/bin/bash
+<pre><code class="language-text">#!/bin/bash
 
 diskarray=(`cat /proc/diskstats |grep -E &quot;\bsd[abcdefg]\b|\bxvd[abcdefg]\b&quot;|grep -i &quot;\b$1\b&quot;|awk &#39;{print $3}&#39;|sort|uniq   2&gt;/dev/null`)
 length=${#diskarray[@]}
@@ -576,7 +934,7 @@ printf  &quot;\n\t]\n&quot;printf &quot;}\n&quot;
 
 <p>cat /etc/zabbix/zabbix_scripts/check_disk.sh </p>
 
-<pre><code>#!/bin/sh 
+<pre><code class="language-text">#!/bin/sh 
 # 80 sda 76880282531 8117316 937263519846 4237854729 62989000438 35668103347 777694636224 1190396494 3 2895102137 899093508 
 while getopts &quot;d:o:&quot; opt 
 do 
@@ -611,7 +969,7 @@ fi
 
 <p>cat /proc/diskstats </p>
 
-<pre><code>设备号     编号  设备      读完成次数   合并完成次数      读扇区次数       读操作花费毫秒数    写完成次数       合并写完成次数     写扇区次数       写操作花费的毫秒数       正在处理的输入/输出请求数       输入/输出操作花费的毫秒数       输入/输出操作花费的加权毫秒数。
+<pre><code class="language-text">设备号     编号  设备      读完成次数   合并完成次数      读扇区次数       读操作花费毫秒数    写完成次数       合并写完成次数     写扇区次数       写操作花费的毫秒数       正在处理的输入/输出请求数       输入/输出操作花费的毫秒数       输入/输出操作花费的加权毫秒数。
    8       0    sda       437179787      111140         88148407612     256090773           504526543       4574433         57747952507     870869581                   0                           215482123                           1126127633
 
 从diskstats采集，磁盘使用率计算方式为：
@@ -645,7 +1003,7 @@ fi
 <p>自动发现脚本：<br/>
 cat /etc/zabbix/zabbix_scripts/dev-discovery.sh</p>
 
-<pre><code>#!/bin/bash
+<pre><code class="language-text">#!/bin/bash
 
 DEVICES=`iostat | awk &#39;{ if ($1 ~ &quot;^([shxv]|xv)d[a-z]$&quot;) { print $1 } }&#39;`
 
@@ -665,7 +1023,7 @@ echo &#39;]}&#39;
 <p>数据采集脚本<br/>
 cat /etc/zabbix/zabbix_scripts/disk_status.sh</p>
 
-<pre><code>#/bin/sh
+<pre><code class="language-text">#/bin/sh
 device=$1
 item=$2
 
@@ -778,20 +1136,19 @@ zabbix监控模板：<a href="https://share.zabbix.com/search-by/tags?value=netk
 
 <h4 id="toc_3">2. 安装系统环境</h4>
 
-<pre><code>yum install -y unixODBC unixODBC-devel net-snmp net-snmp-devel java-devel libssh2-devel OpenIPMI ipmitool
- OpenIPMI-devel fping php-devel libevent-devel
+<pre><code class="language-text">yum install -y unixODBC unixODBC-devel net-snmp net-snmp-devel java-devel libssh2-devel OpenIPMI ipmitool OpenIPMI-devel fping php-devel libevent-devel mysql-devel
 </code></pre>
 
 <p>安装php及组件</p>
 
-<pre><code>cd /data/source/
+<pre><code class="language-text">cd /data/source/
 ./sm
 18,19
 </code></pre>
 
 <p>PHP安装bcmach</p>
 
-<pre><code>ln -s /usr/local/php-5.4.26 /usr/local/php
+<pre><code class="language-text">ln -s /usr/local/php-5.4.26 /usr/local/php
 cd /data/source/
 tar zxf php-5.4.26.tar.gz
 cd /data/source/php-5.4.26/ext/bcmath
@@ -819,7 +1176,7 @@ extension=ldap.so
 
 <p>优化php.ini</p>
 
-<pre><code>cp /home/server_config/php/php.ini.5.4 /home/server_config/php/php.ini.5.4.default
+<pre><code class="language-text">cp /home/server_config/php/php.ini.5.4 /home/server_config/php/php.ini.5.4.default
 sed -i &quot;s/;date.timezone =/date.timezone = Asia\/Shanghai/g&quot; /home/server_config/php/php.ini.5.4
 sed -i &quot;s#max_execution_time = 30#max_execution_time = 300#g&quot; /home/server_config/php/php.ini.5.4
 sed -i &quot;s#post_max_size = 8M#post_max_size = 32M#g&quot; /home/server_config/php/php.ini.5.4
@@ -834,35 +1191,35 @@ ln -s /home/server_config/php-fpm/php-fpm /etc/init.d/php-fpm
 
 <h4 id="toc_4">3. 安装和配置Zabbix服务器</h4>
 
-<pre><code>下载地址：
-https://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.4.8/zabbix-3.4.8.tar.gz
+<pre><code class="language-text">下载地址：
+wget https://jaist.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.4.12/zabbix-3.4.12.tar.gz
 
 groupadd -g 201 zabbix
 useradd -u 201 -g zabbix -d /var/lib/zabbix -s /sbin/nologin -c &quot;Zabbix System User&quot; zabbix
 cd /usr/local/src
-wget https://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.4.8/zabbix-3.4.8.tar.gz
-tar zxf zabbix-3.4.8.tar.gz
-cd zabbix-3.4.8
-./configure --prefix=/usr/local/zabbix-3.4.8 --sysconfdir=/etc/zabbix --enable-server --enable-proxy --enable-agent --enable-ipv6 --with-mysql=/usr/local/mysql-5.7.20/bin/mysql_config --with-net-snmp  --with-libxml2 --with-libcurl --with-openipmi --with-openssl --with-unixodbc --with-ldap --with-ssh2 --enable-java
+wget https://sourceforge.net/projects/zabbix/files/ZABBIX%20Latest%20Stable/3.4.12/zabbix-3.4.12.tar.gz
+tar zxf zabbix-3.4.12.tar.gz
+cd zabbix-3.4.12
+./configure --prefix=/usr/local/zabbix-3.4.12 --sysconfdir=/etc/zabbix --enable-server --enable-proxy --enable-agent --enable-ipv6 --with-mysql=/usr/bin/mysql_config --with-net-snmp  --with-libxml2 --with-libcurl --with-openipmi --with-openssl --with-unixodbc --with-ldap --with-ssh2 --enable-java
 make &amp;&amp; make install
-ln -s /usr/local/zabbix-3.4.8 /usr/local/zabbix
+ln -s /usr/local/zabbix-3.4.12 /usr/local/zabbix
 mkdir /var/log/zabbix
 chown -R zabbix.zabbix /var/log/zabbix
 </code></pre>
 
 <p>创建zabbix数据库和用户</p>
 
-<pre><code>create database zabbix character set utf8;
-grant all privileges on zabbix.* to zabbix@localhost identified by &#39;Zabbix@2016&#39;;
-grant all privileges on zabbix.* to zabbix@&#39;127.0.0.1&#39; identified by &#39;Zabbix@2016&#39;;
+<pre><code class="language-text">create database zabbix character set utf8;
+grant all privileges on zabbix.* to zabbix@localhost identified by &#39;Zabbix@2018&#39;;
+grant all privileges on zabbix.* to zabbix@&#39;10.100.10.12&#39; identified by &#39;Zabbix@2018&#39;;
 </code></pre>
 
 <p>导入zabbix数据库</p>
 
-<pre><code>use zabbix;
-source /usr/local/src/zabbix-3.4.8/database/mysql/schema.sql;
-source /usr/local/src/zabbix-3.4.8/database/mysql/images.sql;
-source /usr/local/src/zabbix-3.4.8/database/mysql/data.sql;
+<pre><code class="language-text">use zabbix;
+source /usr/local/src/zabbix-3.4.12/database/mysql/schema.sql;
+source /usr/local/src/zabbix-3.4.12/database/mysql/images.sql;
+source /usr/local/src/zabbix-3.4.12/database/mysql/data.sql;
 
 将原数据库导入即可
 
@@ -870,14 +1227,14 @@ source /usr/local/src/zabbix-3.4.8/database/mysql/data.sql;
 
 <p>修改配置</p>
 
-<pre><code>cp /etc/zabbix/zabbix_server.conf /etc/zabbix/zabbix_server.conf.default
+<pre><code class="language-text">cp /etc/zabbix/zabbix_server.conf /etc/zabbix/zabbix_server.conf.default
 配置server.conf
 vi /etc/zabbix/zabbix_server.conf
 LogFile=/var/log/zabbix/zabbix_server.log
 DBHost=localhost
 DBName=zabbix
 DBUser=zabbix
-DBPassword=Zabbix@2016
+DBPassword=Zabbix@2018
 DBSocket=/tmp/mysql3306.sock
 DBPort=3306
 StartPollers=160
@@ -898,10 +1255,10 @@ cp /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.default
 vi /etc/zabbix/zabbix_agentd.conf
 LogFile=/var/log/zabbix/zabbix_agentd.log
 EnableRemoteCommands=0
-Server=127.0.0.1,172.18.100.232
+Server=127.0.0.1,10.100.10.12
 StartAgents=8
-ServerActive=172.18.100.232:10051
-Hostname=zabbix.yg.com
+ServerActive=10.100.10.12:10051
+Hostname=zabbix.jw.com
 Timeout=30
 Include=/etc/zabbix/zabbix_agentd.conf.d/
 UnsafeUserParameters=1
@@ -911,7 +1268,7 @@ UnsafeUserParameters=1
 
 <p>增加系统&amp;开机配置</p>
 
-<pre><code>cp /usr/local/src/zabbix-3.4.8/misc/init.d/fedora/core/zabbix_* /etc/init.d/
+<pre><code class="language-text">cp /usr/local/src/zabbix-3.4.12/misc/init.d/fedora/core/zabbix_* /etc/init.d/
 chmod 755 /etc/init.d/zabbix_*
 sed -i &quot;s#BASEDIR=/usr/local#BASEDIR=/usr/local/zabbix/#g&quot; /etc/init.d/zabbix_server
 sed -i &quot;s#BASEDIR=/usr/local#BASEDIR=/usr/local/zabbix/#g&quot; /etc/init.d/zabbix_agentd
@@ -927,42 +1284,43 @@ chkconfig zabbix_server on
 
 <p>配置nginx WEB访问</p>
 
-<pre><code>mkdir -p /data/www
-cd /usr/local/src/zabbix-3.4.8
+<pre><code class="language-text">mkdir -p /data/www
+cd /usr/local/src/zabbix-3.4.12
 cp -r ./frontends/php/ /data/www/zabbix
 chown -R nobody.nobody /data/www/zabbix/
 
 **配置nginx**
 cd /usr/local/nginx/conf/vhosts
-cp test.conf.example zabbix.bjtuling.com.conf
-vi zabbix.bjtuling.com.conf
+cp test.conf.example zabbix.jw.com.conf
+vi zabbix.jw.com.conf
+
 server {
-listen 80;
-server_name zabbix.bjtuling.com;
-index index.php index.html index.htm;
-root /data/www/zabbix;
-location ~ /.svn/ {
-deny all;
-}
-location ~ ^.*\.(htaccess|zip|gz|tgz)$ {
-deny all;
-}
-location ~* ^/(attachments|images|upload)/.*\.(php|php5)$ {
-deny all;
-}
-location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
-expires 7d;
-}
-location ~ .*\.(js|css)?$ {
-expires 24h;
-}
-location ~ .*\.php?$ {
-fastcgi_pass 127.0.0.1:9000;
-fastcgi_index index.php;
-fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#fastcgi_param HTTPS on;
-include fastcgi_params;
-}
+    listen 80;
+    server_name zabbix.jue-wu.com;
+    index index.php index.html index.htm;
+    root /data/www/zabbix;
+    location ~ /.svn/ {
+    deny all;
+    }
+    location ~ ^.*\.(htaccess|zip|gz|tgz)$ {
+    deny all;
+    }
+    location ~* ^/(attachments|images|upload)/.*\.(php|php5)$ {
+    deny all;
+    }
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+    expires 7d;
+    }
+    location ~ .*\.(js|css)?$ {
+    expires 24h;
+    }
+    location ~ .*\.php?$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fastcgi_param HTTPS on;
+        include fastcgi_params;
+    }
 }
 
 迁移：将vhosts目录下所有配置拷贝过来即可
@@ -971,7 +1329,7 @@ include fastcgi_params;
 
 <p>开启防火墙</p>
 
-<pre><code>${IPTABLES} -A INPUT -p tcp --dport 10050 -j ACCEPT
+<pre><code class="language-text">${IPTABLES} -A INPUT -p tcp --dport 10050 -j ACCEPT
 ${IPTABLES} -A INPUT -p tcp --dport 10051 -j ACCEPT
 迁移时，拷贝原服务器/home/server_config/iptables_rules/配置
 </code></pre>
@@ -981,7 +1339,7 @@ ${IPTABLES} -A INPUT -p tcp --dport 10051 -j ACCEPT
 
 <p>解决zabbix中文乱码</p>
 
-<pre><code>cd /usr/local/src
+<pre><code class="language-text">cd /usr/local/src
 wget http://bjqw-dl.bjtuling.com:8180/zabbix/simkai.ttf
 cp simkai.ttf /data/www/zabbix/fonts/
 sed -i &#39;s/DejaVuSans/simkai/g&#39; /data/www/zabbix/include/defines.inc.php
@@ -989,31 +1347,44 @@ sed -i &#39;s/DejaVuSans/simkai/g&#39; /data/www/zabbix/include/defines.inc.php
 
 <p>部署Client端</p>
 
-<pre><code>1. 下载&amp;安装
+<pre><code class="language-text">1. 下载&amp;安装
+
+
+groupadd -g 201 zabbix
+useradd -u 201 -g zabbix -d /var/lib/zabbix -s /sbin/nologin -c &quot;Zabbix System User&quot; zabbix
+
 cd /usr/local/src
-wget http://netix.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.4/zabbix-3.0.4.tar.gz
-tar zxf zabbix-3.0.4.tar.gz
-cd zabbix-3.0.4
-./configure --prefix=/usr/local/zabbix-3.0.4 --sysconfdir=/etc/zabbix --enable-agent
+wget http://netix.dl.sourceforge.net/project/zabbix/ZABBIX%20Latest%20Stable/3.0.4/zabbix-3.4.12.tar.gz
+tar zxf zabbix-3.4.12.tar.gz
+cd zabbix-3.4.12
+./configure --prefix=/usr/local/zabbix-3.4.12 --sysconfdir=/etc/zabbix --enable-agent
 make &amp;&amp; make install
-ln -s /usr/local/zabbix-3.0.4 /usr/local/zabbix
+ln -s /usr/local/zabbix-3.4.12 /usr/local/zabbix
 mkdir /var/log/zabbix
 chown -R zabbix.zabbix /var/log/zabbix
 cp /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.default
 cp misc/init.d/fedora/core/zabbix_agentd /etc/init.d/
 sed -i &quot;s#BASEDIR=/usr/local#BASEDIR=/usr/local/zabbix/#g&quot; /etc/init.d/zabbix_agentd
 chmod 755 /etc/init.d/zabbix_agentd
+
+
 2. 修改配置文件
 vi /etc/zabbix/zabbix_agentd.conf
+
 LogFile=/var/log/zabbix/zabbix_agentd.log
 EnableRemoteCommands=0
-Server=120.26.44.156
-StartAgents=8
-ServerActive=120.26.44.156:10051
-Hostname=zabbix.play800.cn
+#被动模式一定要记得设置Server ＝ ServerIP
+Server=10.100.10.12
+StartAgents=4
+#主动模式一定要记得设置ServerActive=ServerIP
+ServerActive=10.100.10.12:10051
+Hostname=kvm.lykonggu.com
 Timeout=30
 Include=/etc/zabbix/zabbix_agentd.conf.d/
 UnsafeUserParameters=1
+HostMetadataItem=system.uname
+
+
 3. 增加开机启动
 chkconfig --add zabbix_agentd
 chkconfig zabbix_agentd on
@@ -1022,9 +1393,13 @@ chkconfig zabbix_agentd on
 
 <p>自动化安装脚本</p>
 
-<pre><code>1. zabbix客户端安装脚本
+<pre><code class="language-text">1. zabbix客户端安装脚本
 cd /usr/local/src ;wget http://bjqw-dl.bjtuling.com:8180/zabbix/init_scripts/init_zabbix_agent_3.2.6.sh ; sh init_zabbix_agent_3.2.6.sh
 zabbix客户端相关脚本
+
+
+
+
 1. 监控nginx
 zabbix server 导入nginx模板
 zabbix agent 配置
@@ -1095,15 +1470,11 @@ cd /usr/local/src;wget http://bjqw-dl.bjtuling.com:8180/zabbix/init_scripts/init
 6. 监控io
 cd /usr/local/src;wget http://bjqw-dl.bjtuling.com:8180/zabbix/init_scripts/init_zabbix_iostat_status.sh;sh init_zabbix_iostat_status.sh
 
-
-
-
-
 </code></pre>
 
 <p>监控JVM相关</p>
 
-<pre><code>yum install -y java-devel zabbix-java-gateway
+<pre><code class="language-text">yum install -y java-devel zabbix-java-gateway
 systemctl start zabbix-java-gateway.service
 systemctl enable zabbix-java-gateway.service
 
@@ -1125,7 +1496,7 @@ StartJavaPollers=20
 <li>Too many processes on Zabbix server</li>
 </ol>
 
-<pre><code>配置-模板-Template_Linux
+<pre><code class="language-text">配置-模板-Template_Linux
 Configuration--&gt;Templates找到Template_Linux点该行的 Triggers选择：Too many processes on {HOSTNAME}，表达式修改为：
 {Template OS Linux:proc.num[].avg(5m)}&gt;500
 2. &quot;cannot send list of active checks to []: host [] not found&quot;
@@ -1141,7 +1512,7 @@ Configuration--&gt;Templates找到Template_Linux点该行的 Triggers选择：To
 <li>org.json.JSONException: No value for jmx_endpoint</li>
 </ol>
 
-<pre><code>清理zabbix其他YUM源（特别是高版本）
+<pre><code class="language-text">清理zabbix其他YUM源（特别是高版本）
 rpm -i http://repo.zabbix.com/zabbix/3.2/rhel/7/x86_64/zabbix-release-3.2-1.el7.noarch.rpm
 yum clean all
 yum install  zabbix-java-gateway
@@ -1153,7 +1524,7 @@ tail -fn200 /var/log/zabbix/zabbix_java_gateway.log
 <li>Error connecting to database: Connection refused</li>
 </ol>
 
-<pre><code>排查过程：
+<pre><code class="language-text">排查过程：
 1.检查zabbix_server.conf配置文件，发现数据库配置也是正确的，但就是报上面的错误
 2.最后通过网上搜索，发现
 ******/zabbix/conf/zabbix.conf.php
@@ -1164,7 +1535,7 @@ tail -fn200 /var/log/zabbix/zabbix_java_gateway.log
 <li>初始admin 密码</li>
 </ol>
 
-<pre><code>use zabbix; 
+<pre><code class="language-text">use zabbix; 
 select * from users;
 select userid,passwd from users;
 
@@ -1182,7 +1553,7 @@ flush privileges;
 <p>zabbix不会把ldap的用户同步过了，你要登录，得先在zabbix上创建和ldap内同名的用户才行<br/>
 <img src="media/15246196912882/15284255403350.jpg" alt=""/></p>
 
-<pre><code>LDAP host：访问DC的地址。格式：ldap://ip地址
+<pre><code class="language-text">LDAP host：访问DC的地址。格式：ldap://ip地址
 Port：默认389
 Base DN: dc=tencent,dc=com,也就是域名(tencent.com)
 Search attribute: uid，属性值，网上有填sAMAccountName。
@@ -1196,6 +1567,29 @@ User password：在DC中创建Admin用户的密码
 </code></pre>
 
 <p>参考：<a href="https://www.jianshu.com/p/2326f1ec2c2b">https://www.jianshu.com/p/2326f1ec2c2b</a></p>
+
+<p>自动注册-【动作】菜单里，输入：</p>
+
+<pre><code class="language-text">名称：Action_for_自动注册
+默认接收人：Auto registration: {HOST.HOST}
+默认信息：
+Host name: {HOST.HOST}
+Host IP: {HOST.IP}
+Agent port: {HOST.PORT}
+</code></pre>
+
+<p>在【条件】菜单里，输入：</p>
+
+<pre><code class="language-text">标签：A
+名称：主机元数据  似 Linux
+</code></pre>
+
+<p>在【操作】菜单里，输入：</p>
+
+<pre><code class="language-text">操作类型：添加主机
+添加到主机群组: Linux servers
+链接到模板: Template App Zabbix Agent, Template ICMP Ping, Template OS Linux
+</code></pre>
 
 ]]></content>
   </entry>
@@ -1274,14 +1668,14 @@ User password：在DC中创建Admin用户的密码
 
 <p>1、REPL</p>
 
-<pre><code>所谓REPL即read、eva、print、loop（读取、计算、打印、循环）
+<pre><code class="language-text">所谓REPL即read、eva、print、loop（读取、计算、打印、循环）
 </code></pre>
 
 <p><img src="media/15221590998154/15221602097992.jpg" alt=""/></p>
 
 <p>2、运行脚本</p>
 
-<pre><code>REPL方式的优点是简单明了，但是它在面对很多大型项目时存在很多的不足。我们可以通过运行脚本的方式来解决这一问题
+<pre><code class="language-text">REPL方式的优点是简单明了，但是它在面对很多大型项目时存在很多的不足。我们可以通过运行脚本的方式来解决这一问题
 </code></pre>
 
 <p><img src="media/15221590998154/15221603038347.jpg" alt=""/></p>
@@ -1290,14 +1684,14 @@ User password：在DC中创建Admin用户的密码
 
 <h4 id="toc_1">2、简述位、字节的关系</h4>
 
-<pre><code>位（bit）：“比特”，表示二进制位。位是计算机内部数据储存的最小单位
+<pre><code class="language-text">位（bit）：“比特”，表示二进制位。位是计算机内部数据储存的最小单位
 字节（byte） ：“拜特”，习惯上用大写的“B”表示。字节是计算机中数据处理的基本单位。
 1个字节等于8个比特：1Byte=8bit
 </code></pre>
 
 <h4 id="toc_2">3、简述 ascii、unicode、utf-8、gbk 的关系</h4>
 
-<pre><code>ascii 是最早美国用的标准信息交换码，把所有的字母的大小写，各种符号用 二进制来表示，共有256中，加入些拉丁文等字符，1bytes代表一个字符，
+<pre><code class="language-text">ascii 是最早美国用的标准信息交换码，把所有的字母的大小写，各种符号用 二进制来表示，共有256中，加入些拉丁文等字符，1bytes代表一个字符，
 
 Unicode是为了统一世界各国语言的不用，统一用2个bytes代表一个字符，可以表达2**16=65556个，称为万国语言，特点：速度快，但浪费空间，可以用在内存处理中，兼容了utf-8，gbk，ASCII，
 
@@ -1313,7 +1707,7 @@ gbk  是中文的字符编码，用2个字节代表一个字符，
 
 <h4 id="toc_4">5、Pyhton 单行注释和多行注释分别用什么?</h4>
 
-<pre><code>单行注释符号(#)
+<pre><code class="language-text">单行注释符号(#)
 井号(#)常被用作单行注释符号，在代码中使用#时，它右边的任何数据都会被忽略，当做是注释。
 
 批量、多行注释符号（&#39;&#39;&#39; &#39;&#39;&#39;, &quot;&quot;&quot; &quot;&quot;&quot;）
@@ -1322,7 +1716,7 @@ gbk  是中文的字符编码，用2个字节代表一个字符，
 
 <h4 id="toc_5">6、声明变量注意事项有那些?</h4>
 
-<pre><code>1、变量名可以包括字母、数字、下划线，但是数字不能做为开头。例如：name1是合法变量名，而1name就不可以。
+<pre><code class="language-text">1、变量名可以包括字母、数字、下划线，但是数字不能做为开头。例如：name1是合法变量名，而1name就不可以。
 2、关键字（保留字）不能做变量名使用，函数不允许做变量名。
 3、除了下划线之外，其它符号不能做为变量名使用
 4、Python的变量名是除分大小写的，例如：name和Name就是两个变量名，而非相同变量哦。
@@ -1378,8 +1772,8 @@ b. 利用下划线将列表的每一个元素拼接成字符串，li = <a href="
 
 <ul>
 <li>用户执行程序</li>
-<li>给用户显示需要输入的验证码 - 用户输入的值
-  用户输入的值和显示的值相同时现实正确信息;否则继续生成随机验证码继续等待用户输入
+<li>给用户显示需要输入的验证码 - 用户输入的值<br/>
+  用户输入的值和显示的值相同时现实正确信息;否则继续生成随机验证码继续等待用户输入<br/>
 生成随机验证码代码示例:</li>
 </ul>
 
@@ -1422,7 +1816,7 @@ b. 利用下划线将列表的每一个元素拼接成字符串，li = <a href="
 
 <h4 id="toc_0">1、使用while偱环输入 1,2,3,4,5,6, 8,9,10</h4>
 
-<pre><code>#!/bin/env python3
+<pre><code class="language-text">#!/bin/env python3
 
 num = 1
 while num &lt; 11:
@@ -1435,7 +1829,7 @@ while num &lt; 11:
 
 <h4 id="toc_1">2、求1-100的所有数的和</h4>
 
-<pre><code>#!/bin/env python3
+<pre><code class="language-text">#!/bin/env python3
 
 n1 = 1
 num = 0
@@ -1447,7 +1841,7 @@ print(num)
 
 <h4 id="toc_2">3、输出1-100内的所有奇数</h4>
 
-<pre><code>#!/bin/env python3
+<pre><code class="language-text">#!/bin/env python3
 
 n1 = 1
 while n1 &lt; 101:
@@ -1460,7 +1854,7 @@ while n1 &lt; 101:
 
 <h4 id="toc_3">4、输出1-100内的所有偶数</h4>
 
-<pre><code>#!/bin/env python3
+<pre><code class="language-text">#!/bin/env python3
 
 n1 = 1
 while n1 &lt; 101:
@@ -1473,7 +1867,7 @@ while n1 &lt; 101:
 
 <h4 id="toc_4">5、求1-2+3-4+5...-99的所有数的和</h4>
 
-<pre><code>#!/bin/env python3
+<pre><code class="language-text">#!/bin/env python3
 
 n1 = 1
 num = 0
@@ -1490,7 +1884,7 @@ print(num)
 
 <h4 id="toc_5">6、用户登陆（三次机 会重试）</h4>
 
-<pre><code>#!/bin/env python3
+<pre><code class="language-text">#!/bin/env python3
 
 user = &#39;root&#39;
 passwd = &#39;root&#39;
